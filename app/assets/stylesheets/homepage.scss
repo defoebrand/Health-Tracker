@@ -1,3 +1,35 @@
 // Place all the styles related to the Homepage controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+
+.App {
+  // border: 3px solid magenta;
+}
+
+.HeaderNav {
+  // border: 2px solid green;
+}
+
+.SignInForm {
+  max-width: 80vw;
+  margin: 0 auto;
+}
+
+.Carousel {
+  .firstSlide {
+    h3 {
+      color: black;
+    }
+
+    p {
+      color: black;
+    }
+  }
+}
+
+.Footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}

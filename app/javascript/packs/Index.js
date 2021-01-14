@@ -1,13 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-// import { Provider } from 'react-redux';
 import { HashRouter } from 'react-router-dom';
 
-import App from '../components/App';
-
-// import store from './redux/store';
-
-// import './styles/index.scss';
+import App from '../containers/App';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 document.addEventListener('DOMContentLoaded', () => {
   ReactDOM.render(
@@ -16,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <App />
       </HashRouter>
     </React.StrictMode>,
-    document.body.appendChild(document.createElement('div')),
+    document.getElementById('root'),
   )
 })
 

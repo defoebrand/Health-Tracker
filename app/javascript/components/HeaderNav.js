@@ -14,6 +14,23 @@ const HeaderNav = () => {
   useEffect(() => {
     history.push('/home');
   }, []);
+
+  useEffect(() => {
+    const url = 'http://localhost:3000/user';
+    const token = 'eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2MTEyNjY3NzgsImlzcyI6Imlzc3Vlcl9uYW1lIiwiYXVkIjoiY2xpZW50IiwidXNlcl9pZCI6Nn0.LwUbN3i2DvzhtcbPevBMb7z5RUldA4WgRFJvPIcJ2vM';
+    fetch(url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        }
+        throw new Error('Network response was not ok.');
+      }).then(data => console.log(data)).catch(err => console.log(err));
+  }, []);
+
   return (
     <div className="HeaderNav">
       <Navbar bg="light" expand="lg">

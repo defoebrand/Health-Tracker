@@ -9,10 +9,9 @@ document.addEventListener('DOMContentLoaded', () => {
   ReactDOM.render(
     <React.StrictMode>
       <HashRouter basename="/">
-          <App />
+        <App />
       </HashRouter>
     </React.StrictMode>,
     document.getElementById('root'),
-  )
-})
-
+  );
+});

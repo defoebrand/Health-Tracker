@@ -22,6 +22,7 @@ class ApplicationController < ActionController::Base
   def payload
     auth_header = request.headers['Authorization']
     token = auth_header.split(' ').last
+
     JsonWebToken.decode(token)
   rescue StandardError
     nil

@@ -10,4 +10,8 @@ Temperature
 
 Blood Sugar 
 
+first
     "auth_token": "eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2MTEyNDUyNDEsImlzcyI6Imlzc3Vlcl9uYW1lIiwiYXVkIjoiY2xpZW50IiwidXNlcl9pZCI6Nn0.8Cdv252sr9gWb7GcW2H5DT0g72UqrikVN0b8qU90vGo"
+    
+    second 
+    eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2MTEyNjY3NzgsImlzcyI6Imlzc3Vlcl9uYW1lIiwiYXVkIjoiY2xpZW50IiwidXNlcl9pZCI6Nn0.LwUbN3i2DvzhtcbPevBMb7z5RUldA4WgRFJvPIcJ2vM

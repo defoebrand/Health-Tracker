@@ -1,8 +1,14 @@
 class UserController < ApplicationController
-  protect_from_forgery with: :null_session
+  # protect_from_forgery with: :null_session
+  # before_action :authenticate_request!
   def index
-    users = User.all
-    render json: users
+    @user = User.find_by(email: user_params[:email])
+    if @user.authenticate(user_params[:password])
+      users = User.all
+      render json: users
+    else
+      render json: { error: 'Invalid username/password' }, status: :unauthorized
+    end
   end
 
   def create

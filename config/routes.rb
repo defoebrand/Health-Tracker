@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   root 'homepage#index'
 
-  post '/user', to: 'user#create'
+  # post '/user', to: 'user#create'
 
   resources :user do
     collection do

@@ -16,7 +16,9 @@ const HeaderNav = () => {
   }, []);
 
   useEffect(() => {
-    const url = 'http://localhost:3000/user';
+    // const url = 'http://localhost:3000/user';
+    const url = 'https://obscure-island-28750.herokuapp.com/user';
+    // const url = '/user';
     const token = 'eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2MTEyNjY3NzgsImlzcyI6Imlzc3Vlcl9uYW1lIiwiYXVkIjoiY2xpZW50IiwidXNlcl9pZCI6Nn0.LwUbN3i2DvzhtcbPevBMb7z5RUldA4WgRFJvPIcJ2vM';
     fetch(url, {
       headers: {

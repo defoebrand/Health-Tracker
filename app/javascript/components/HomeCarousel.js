@@ -1,8 +1,7 @@
 import React from 'react'
 import Carousel from 'react-bootstrap/Carousel'
 
-
-const HomePage = () => (
+const HomeCarousel = () => (
   <Carousel className='Carousel'>
     <Carousel.Item className='firstSlide'>
       <img className="d-block w-100" src="https://i.ytimg.com/vi/zPCZWn_iWb0/maxresdefault.jpg" alt="First slide" />
@@ -28,4 +27,4 @@ const HomePage = () => (
   </Carousel>
 )
 
-export default HomePage;
+export default HomeCarousel;

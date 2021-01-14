@@ -1,6 +1,6 @@
-import React from 'react'
-import Card from 'react-bootstrap/Card'
-import Button from 'react-bootstrap/Button'
+import React from 'react';
+import Card from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/Button';
 
 const Footer = () => (
   <Card className="text-center Footer">
@@ -12,6 +12,6 @@ const Footer = () => (
     </Card.Body>
     <Card.Footer className="text-muted">2 days ago</Card.Footer>
   </Card>
-)
+);
 
 export default Footer;

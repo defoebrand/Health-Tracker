@@ -1,8 +1,12 @@
+const postcss = require('postcss-import');
+const flexbugs = require('postcss-flexbugs-fixes');
+const preset = require('postcss-preset-env');
+
 module.exports = {
   plugins: [
-    require('postcss-import'),
-    require('postcss-flexbugs-fixes'),
-    require('postcss-preset-env')({
+    postcss,
+    flexbugs,
+    preset({
       autoprefixer: {
         flexbox: 'no-2009',
       },

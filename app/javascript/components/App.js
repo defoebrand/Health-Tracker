@@ -1,12 +1,9 @@
-// import { Route } from 'react-router-dom';
-
-// import '../styles/App.scss';
-
 import React from 'react'
+import HeaderNav from './HeaderNav'
 
 const App = () => (
   <div className="App">
-  <h1>Hello!</h1>
+    <HeaderNav/>
   </div>
 );
 

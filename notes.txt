@@ -1,0 +1,12 @@
+To track:
+
+Height
+Weight
+Age
+
+Blood Pressure
+Pulse
+Temperature
+
+Blood Sugar 
+

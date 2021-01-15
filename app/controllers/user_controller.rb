@@ -3,8 +3,10 @@ class UserController < ApplicationController
   before_action :authenticate_request!, only: [:index]
   def index
     if @current_user
-      users = User.all
-      render json: users
+      render json: @current_user
+
+      # users = User.all
+      # render json: users
     else
       render json: { error: 'Invalid username/password' }, status: :unauthorized
     end

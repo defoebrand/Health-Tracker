@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_14_153118) do
+ActiveRecord::Schema.define(version: 2021_01_15_124935) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(version: 2021_01_14_153118) do
     t.integer "age"
     t.integer "systolic"
     t.integer "diastolic"
-    t.integer "pulse"
+    t.string "pulse"
     t.integer "temperature"
     t.float "blood_sugar"
     t.datetime "created_at", precision: 6, null: false

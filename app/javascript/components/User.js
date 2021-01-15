@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import Button from 'react-bootstrap/Button';
+import { useHistory } from 'react-router-dom';
+
 import LineRechartComponent from '../charts/line.rechart';
 
 const User = () => {
+  const history = useHistory();
   const [user, setUser] = useState('');
   const [pulse, setPulse] = useState('');
   useEffect(() => {
@@ -20,6 +24,7 @@ const User = () => {
         }
         throw new Error('Network response was not ok.');
       }).then(data => {
+        console.log('refreshed user');
         setUser(data);
         setPulse(JSON.parse(data.pulse));
       }).catch(err => console.log(err));
@@ -33,7 +38,11 @@ const User = () => {
   });
   return (
     <>
-      <h1>{user.name}</h1>
+      <div sytle={{ display: 'flex', justifyContent: 'space-between' }}>
+        <h1 style={{ width: '85vw', textAlign: 'center' }}>{`Hello ${user.name}!`}</h1>
+        <Button variant="outline-danger" style={{ marginLeft: 10, whiteSpace: 'nowrap' }} onClick={() => history.push({ pathname: '/new-stats', state: { user } })}>New Stats</Button>
+
+      </div>
       <LineRechartComponent pulse={newData} />
     </>
   );

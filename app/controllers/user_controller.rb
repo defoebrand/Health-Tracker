@@ -33,6 +33,14 @@ class UserController < ApplicationController
     end
   end
 
+  def update
+    user = User.find(params[:id])
+
+    user.update(pulse: user_params[:pulse])
+
+    render json: { message: user }
+  end
+
   private
 
   def set_user
@@ -40,7 +48,6 @@ class UserController < ApplicationController
   end
 
   def user_params
-    puts params
-    params.require(:user).permit(:name, :email, :password, :age, :height, :weight)
+    params.require(:user).permit(:name, :email, :password, :age, :height, :weight, :temp, :pulse)
   end
 end

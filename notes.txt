@@ -15,3 +15,8 @@ first
     
     second 
     eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2MTEyNjY3NzgsImlzcyI6Imlzc3Vlcl9uYW1lIiwiYXVkIjoiY2xpZW50IiwidXNlcl9pZCI6Nn0.LwUbN3i2DvzhtcbPevBMb7z5RUldA4WgRFJvPIcJ2vM
+    
+    '{"jan3": 36, "jan4": 37, "jan5": 37, "jan6": 36}'
+
+'{"jan3": {"10a": 72, "12p": 74, "2p": 72}, "jan4":
+{"10a": 71, "12p": 73, "2p": 72}}'

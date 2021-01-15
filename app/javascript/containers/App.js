@@ -6,6 +6,7 @@ import Register from '../components/Register';
 import HomePage from './HomePage';
 import User from '../components/User';
 import Doctor from '../components/Doctor';
+import AddStats from '../components/AddStats';
 
 const App = () => (
   <div className="App">
@@ -15,6 +16,7 @@ const App = () => (
     <Route path="/register" component={Register} />
     <Route path="/users/:user" component={User} />
     <Route path="/doctors/:doctor" component={Doctor} />
+    <Route path="/new-stats" component={AddStats} />
   </div>
 );
 

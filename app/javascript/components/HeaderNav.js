@@ -44,9 +44,9 @@ const HeaderNav = ({ dispatch, user }) => {
 
   const signedIn = (user !== ''
     ? (
-      <div style={{ display: 'flex' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         <Nav.Link onClick={() => history.push(`/users/${user}`)}>{user}</Nav.Link>
-        <Nav.Link style={{ marginLeft: 5 }} onClick={() => { dispatch(runSearch('')); localStorage.token = ''; }}>Sign out</Nav.Link>
+        <Nav.Link style={{ paddingRight: 5 }} onClick={() => { dispatch(runSearch('')); localStorage.token = ''; }}>Sign out</Nav.Link>
       </div>
     )
     : (
@@ -71,10 +71,12 @@ const HeaderNav = ({ dispatch, user }) => {
             <Nav.Link onClick={() => history.replace('/sick-call')}>Sick Call</Nav.Link>
             <Nav.Link onClick={() => history.replace('/learning')}>Learning</Nav.Link>
             <NavDropdown title="Community" id="basic-nav-dropdown">
-              <NavDropdown.Item onClick={() => history.replace(`/doctors/${doctor}`)}>Doctors</NavDropdown.Item>
-              <NavDropdown.Item onClick={() => history.replace('/friends')}>Friends</NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item onClick={() => history.replace('/settings')}>My Account</NavDropdown.Item>
+              <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+
+                <NavDropdown.Item onClick={() => history.replace(`/doctors/${doctor}`)}>Doctors</NavDropdown.Item>
+                <NavDropdown.Item onClick={() => history.replace('/friends')}>Friends</NavDropdown.Item>
+                <NavDropdown.Item style={{ borderLeft: '1px solid gray', textAlign: 'center' }} onClick={() => history.replace('/settings')}>My Account</NavDropdown.Item>
+              </div>
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>

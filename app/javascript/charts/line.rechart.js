@@ -10,7 +10,7 @@ const LineRechartComponent = ({ pulse }) => {
   const dataPoints = data.filter((e, i) => data.indexOf(e) === i);
   return (
     <LineChart
-      width={730}
+      width={window.innerWidth - 50}
       height={250}
       data={pulse}
       margin={{
@@ -22,8 +22,7 @@ const LineRechartComponent = ({ pulse }) => {
       <YAxis />
       <Tooltip />
       <Legend />
-      <Line type="monotone" dataKey={dataPoints[0]} stroke="#0095FF" />
-      <Line type="monotone" dataKey={dataPoints[1]} stroke="#FF0000" />
+      {dataPoints.map((line, index) => (<Line type="monotone" key={line} dataKey={dataPoints[index]} stroke="#0095FF" />))}
     </LineChart>
   );
 };

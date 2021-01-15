@@ -46,7 +46,7 @@ const HeaderNav = ({ dispatch, user }) => {
     ? (
       <div style={{ display: 'flex' }}>
         <Nav.Link onClick={() => history.push(`/users/${user}`)}>{user}</Nav.Link>
-        <Nav.Link style={{ marginLeft: 5 }} onClick={() => history.push('/signout')}>Sign out</Nav.Link>
+        <Nav.Link style={{ marginLeft: 5 }} onClick={() => { dispatch(runSearch('')); localStorage.token = ''; }}>Sign out</Nav.Link>
       </div>
     )
     : (

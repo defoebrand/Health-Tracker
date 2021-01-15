@@ -2,8 +2,13 @@ import React, { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { useHistory } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
-const SignIn = () => {
+import { connect } from 'react-redux';
+
+import { runSearch } from '../redux/actions';
+
+const SignIn = ({ dispatch, user }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const history = useHistory();
@@ -39,8 +44,12 @@ const SignIn = () => {
         }
         throw new Error('Network response was not ok.');
       }).then(data => {
-        console.log(data.auth_token);
+        console.log('signindata', data);
         localStorage.token = data.auth_token;
+        // localStorage.user = data.user;
+        dispatch(runSearch(data.user.name));
+
+        history.push('/');
       }).catch(err => console.log(err));
   };
   return (
@@ -48,7 +57,7 @@ const SignIn = () => {
       <Form.Group controlId="formBasicEmail">
         <Form.Label>Email address</Form.Label>
         <Form.Control type="email" placeholder="Enter email" onChange={changeEmail} />
-        <Form.Text className="text-muted">We&aposll never share your email with anyone else.</Form.Text>
+        <Form.Text className="text-muted">We will never share your email with anyone else.</Form.Text>
       </Form.Group>
       <Form.Group controlId="formBasicPassword">
         <Form.Label>Password</Form.Label>
@@ -71,4 +80,17 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+SignIn.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  user: PropTypes.string,
+};
+
+SignIn.defaultProps = {
+  user: '',
+};
+
+export default connect(state => ({
+  user: state.searchReducer.user,
+}))(SignIn);
+
+// export default SignIn;

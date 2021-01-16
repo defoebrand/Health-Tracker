@@ -41,12 +41,9 @@ const User = () => {
         setDiastolic(JSON.parse(localDiastolic));
       }).catch(err => console.log(err));
   }, [history]);
-  console.log('user', user);
   const newPulseData = [];
   const newTempData = [];
   const newBloodSugarData = [];
-  const newSystolicData = [];
-  const newDiastolicData = [];
   const newBloodPressureData = [{ systolic: [] }, { diastolic: [] }];
   const tempData = Object.keys(temp);
   const pulseData = Object.keys(pulse);
@@ -70,29 +67,18 @@ const User = () => {
   });
   systolicData.forEach(key => {
     Object.entries(systolic[key]).forEach(item => {
-      // console.log('sysItem', sysItem);
-
       newBloodPressureData.push({ name: key, systolic: item[1] });
     });
   });
   newBloodPressureData.forEach((entry, index) => {
-    // console.log('entry', entry);
-    // console.log('index', index);
     diastolicData.forEach(key => {
       Object.entries(diastolic[key]).forEach(item => {
         if (key === newBloodPressureData[index].name) {
           newBloodPressureData[index] = { ...newBloodPressureData[index], diastolic: item[1] };
         }
-        // newBloodPressureData.push({ name: key, diastolic: item[1] });
       });
     });
   });
-
-  // diastolicData.forEach(key => {
-  //   Object.entries(diastolic[key]).forEach(item => {
-  //     newBloodPressureData.push({ name: key, diastolic: item[1] });
-  //   });
-  // });
 
   return (
     <>

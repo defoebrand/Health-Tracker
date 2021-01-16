@@ -39,6 +39,8 @@ const AddStats = () => {
     } else {
       time = `${date.getHours()}a`;
     }
+    console.log('time', time);
+    const bpDate = `${months[date.getMonth()]}${date.getDate()}-${time}`;
     // const url = 'http://localhost:3000/user';
     // const url = 'https://obscure-island-28750.herokuapp.com/user';
     const newPulse = history.location.state.user.pulse === null
@@ -78,26 +80,26 @@ const AddStats = () => {
       ? {}
       : JSON.parse(history.location.state.user.systolic);
     if (systolic !== '') {
-      if (newSystolic[formattedDate] !== undefined) {
-        newSystolic[formattedDate] = {
-          ...newSystolic[formattedDate],
+      if (newSystolic[bpDate] !== undefined) {
+        newSystolic[bpDate] = {
+          ...newSystolic[bpDate],
           [time]: Number(systolic),
         };
       } else {
-        newSystolic[formattedDate] = { [time]: Number(systolic) };
+        newSystolic[bpDate] = { [time]: Number(systolic) };
       }
     }
     const newDiastolic = history.location.state.user.diastolic === null
       ? {}
       : JSON.parse(history.location.state.user.diastolic);
     if (diastolic !== '') {
-      if (newDiastolic[formattedDate] !== undefined) {
-        newDiastolic[formattedDate] = {
-          ...newDiastolic[formattedDate],
+      if (newDiastolic[bpDate] !== undefined) {
+        newDiastolic[bpDate] = {
+          ...newDiastolic[bpDate],
           [time]: Number(diastolic),
         };
       } else {
-        newDiastolic[formattedDate] = { [time]: Number(diastolic) };
+        newDiastolic[bpDate] = { [time]: Number(diastolic) };
       }
     }
 

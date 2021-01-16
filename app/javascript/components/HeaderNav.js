@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-// import Image from 'react-bootstrap/Image';
 import Button from 'react-bootstrap/Button';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 
@@ -30,7 +29,6 @@ const HeaderNav = ({ dispatch, user }) => {
         }
         throw new Error('Network response was not ok.');
       }).then(data => {
-        console.log('header data', data);
         dispatch(runSearch(data.name));
       }).catch(err => console.log(err));
   }, []);

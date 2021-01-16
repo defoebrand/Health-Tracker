@@ -37,6 +37,7 @@ class UserController < ApplicationController
     user = User.find(params[:id])
 
     user.update(pulse: user_params[:pulse])
+    user.update(temperature: user_params[:temp])
 
     render json: { message: user }
   end

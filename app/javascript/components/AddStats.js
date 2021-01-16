@@ -34,29 +34,40 @@ const AddStats = () => {
     const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
     const formattedDate = `${months[date.getMonth()]}${date.getDate()}`;
     let time;
-    if (date.getHours() > 12) {
-      time = `${date.getHours() - 9}p`;
+    if (date.getHours() >= 12) {
+      time = `${date.getHours() - 12}p`;
     } else {
       time = `${date.getHours()}a`;
     }
     // const url = 'http://localhost:3000/user';
     // const url = 'https://obscure-island-28750.herokuapp.com/user';
-    const newPulse = JSON.parse(history.location.state.user.pulse);
-    console.log(newPulse[formattedDate]);
-    if (newPulse[formattedDate] !== undefined) {
-      newPulse[formattedDate] = { ...newPulse[formattedDate], [time]: Number(pulse) };
-    } else {
-      newPulse[formattedDate] = { [time]: Number(pulse) };
+    const newPulse = history.location.state.user.pulse === null
+      ? {}
+      : JSON.parse(history.location.state.user.pulse);
+    if (pulse !== '') {
+      if (newPulse[formattedDate] !== undefined) {
+        newPulse[formattedDate] = { ...newPulse[formattedDate], [time]: Number(pulse) };
+      } else {
+        newPulse[formattedDate] = { [time]: Number(pulse) };
+      }
+    }
+    const newTemp = history.location.state.user.temperature === null
+      ? {}
+      : JSON.parse(history.location.state.user.temperature);
+    if (temp !== '') {
+      if (newTemp[formattedDate] !== undefined) {
+        newTemp[formattedDate] = { ...newTemp[formattedDate], [time]: Number(temp) };
+      } else {
+        newTemp[formattedDate] = { [time]: Number(temp) };
+      }
     }
 
-    console.log(systolic);
-    console.log(diastolic);
-    const url = '/user/18';
+    const url = `/user/${history.location.state.user.id}`;
     fetch(url, {
       method: 'PATCH',
       body: JSON.stringify({
         user: {
-          temp,
+          temp: JSON.stringify(newTemp),
           pulse: JSON.stringify(newPulse),
         },
       }),

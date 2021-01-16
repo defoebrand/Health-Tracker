@@ -44,9 +44,7 @@ const SignIn = ({ dispatch }) => {
         }
         throw new Error('Network response was not ok.');
       }).then(data => {
-        console.log('signindata', data);
         localStorage.token = data.auth_token;
-        // localStorage.user = data.user;
         dispatch(runSearch(data.user.name));
 
         history.push('/');
@@ -87,5 +85,3 @@ SignIn.propTypes = {
 export default connect(state => ({
   user: state.searchReducer.user,
 }))(SignIn);
-
-// export default SignIn;

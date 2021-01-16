@@ -20,3 +20,5 @@ first
 
 '{"jan3": {"10a": 72, "12p": 74, "2p": 72}, "jan4":
 {"10a": 71, "12p": 73, "2p": 72}}'
+
+setPulse(typeof pulse === 'object' ? pulse : { noData: null });

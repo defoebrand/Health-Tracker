@@ -61,6 +61,45 @@ const AddStats = () => {
         newTemp[formattedDate] = { [time]: Number(temp) };
       }
     }
+    const newbloodSugar = history.location.state.user.blood_sugar === null
+      ? {}
+      : JSON.parse(history.location.state.user.blood_sugar);
+    if (bloodSugar !== '') {
+      if (newbloodSugar[formattedDate] !== undefined) {
+        newbloodSugar[formattedDate] = {
+          ...newbloodSugar[formattedDate],
+          [time]: Number(bloodSugar),
+        };
+      } else {
+        newbloodSugar[formattedDate] = { [time]: Number(bloodSugar) };
+      }
+    }
+    const newSystolic = history.location.state.user.systolic === null
+      ? {}
+      : JSON.parse(history.location.state.user.systolic);
+    if (systolic !== '') {
+      if (newSystolic[formattedDate] !== undefined) {
+        newSystolic[formattedDate] = {
+          ...newSystolic[formattedDate],
+          [time]: Number(systolic),
+        };
+      } else {
+        newSystolic[formattedDate] = { [time]: Number(systolic) };
+      }
+    }
+    const newDiastolic = history.location.state.user.diastolic === null
+      ? {}
+      : JSON.parse(history.location.state.user.diastolic);
+    if (diastolic !== '') {
+      if (newDiastolic[formattedDate] !== undefined) {
+        newDiastolic[formattedDate] = {
+          ...newDiastolic[formattedDate],
+          [time]: Number(diastolic),
+        };
+      } else {
+        newDiastolic[formattedDate] = { [time]: Number(diastolic) };
+      }
+    }
 
     const url = `/user/${history.location.state.user.id}`;
     fetch(url, {
@@ -69,6 +108,9 @@ const AddStats = () => {
         user: {
           temp: JSON.stringify(newTemp),
           pulse: JSON.stringify(newPulse),
+          blood_sugar: JSON.stringify(newbloodSugar),
+          systolic: JSON.stringify(newSystolic),
+          diastolic: JSON.stringify(newDiastolic),
         },
       }),
       headers: {

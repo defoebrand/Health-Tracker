@@ -36,8 +36,11 @@ class UserController < ApplicationController
   def update
     user = User.find(params[:id])
 
-    user.update(pulse: user_params[:pulse])
-    user.update(temperature: user_params[:temp])
+    user.update(pulse: user_params[:pulse]) if user_params[:pulse]
+    user.update(temperature: user_params[:temp]) if user_params[:temp]
+    user.update(blood_sugar: user_params[:blood_sugar]) if user_params[:blood_sugar]
+    user.update(systolic: user_params[:systolic]) if user_params[:systolic]
+    user.update(diastolic: user_params[:diastolic]) if user_params[:diastolic]
 
     render json: { message: user }
   end
@@ -49,6 +52,11 @@ class UserController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:name, :email, :password, :age, :height, :weight, :temp, :pulse)
+    params.require(:user).permit(
+      :name, :email, :password,
+      :age, :height, :weight,
+      :temp, :pulse, :blood_sugar,
+      :systolic, :diastolic
+    )
   end
 end

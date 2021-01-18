@@ -5,7 +5,6 @@ import { SUBMIT } from './actions';
 const initialState = { name: '' };
 
 const userReducer = (state = initialState, action) => {
-  console.log('action', action);
   switch (action.type) {
     case SUBMIT:
       return {

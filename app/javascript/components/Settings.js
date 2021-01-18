@@ -3,7 +3,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { useHistory } from 'react-router-dom';
 
-const Account = () => {
+const Settings = () => {
   const history = useHistory();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -115,4 +115,4 @@ const Account = () => {
   );
 };
 
-export default Account;
+export default Settings;

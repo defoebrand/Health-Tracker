@@ -7,7 +7,7 @@ import HomePage from './HomePage';
 import User from '../components/User';
 import Doctor from '../components/Doctor';
 import AddStats from '../components/AddStats';
-import Account from '../components/Account';
+import Settings from '../components/Settings';
 
 const App = () => (
   <div className="App">
@@ -21,7 +21,7 @@ const App = () => (
     <Route path="/sick-call" component={Doctor} />
     <Route path="/resources" component={Doctor} />
     <Route path="/friends" component={Doctor} />
-    <Route path="/settings" component={Account} />
+    <Route path="/settings" component={Settings} />
   </div>
 );
 

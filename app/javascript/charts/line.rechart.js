@@ -34,7 +34,7 @@ const LineRechartComponent = ({ chartData, bpChartData }) => {
       <XAxis dataKey="name" />
       <YAxis type="number" domain={[dataMin => ((dataMin / 3) < 0 ? 0 : Math.floor(dataMin / 3)), dataMax => (dataMax + Math.ceil(dataMax * 0.25))]} />
       <Tooltip />
-      <Legend />
+      <Legend margin={{ top: 15 }} />
       {bpChartData.length === 0
         ? dataPoints.map((line, index) => (
           <Line type="monotone" key={line} dataKey={dataPoints[index]} stroke="#0095FF" />

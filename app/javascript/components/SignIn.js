@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 
 import { updateUser } from '../redux/actions';
 
-const SignIn = ({ dispatch, user }) => {
+const SignIn = ({ dispatch }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const history = useHistory();
@@ -89,11 +89,6 @@ const SignIn = ({ dispatch, user }) => {
 
 SignIn.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  user: PropTypes.shape(),
-};
-
-SignIn.defaultProps = {
-  user: {},
 };
 
 export default connect(state => ({

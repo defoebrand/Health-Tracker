@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import { Redirect, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 const Register = () => {
   const history = useHistory();
@@ -67,7 +67,7 @@ const Register = () => {
       }).then(data => {
         localStorage.token = data.auth_token;
         console.log('submit already');
-          <Redirect to="/" />;
+        history.push('/');
       }).catch(err => console.log(err));
   };
   return (

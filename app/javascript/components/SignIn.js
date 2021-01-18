@@ -6,14 +6,14 @@ import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 
-import { runSearch } from '../redux/actions';
+import { updateUser } from '../redux/actions';
 
-const SignIn = ({ dispatch }) => {
+const SignIn = ({ dispatch, user }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const history = useHistory();
   const goToRegister = () => {
-    history.replace('/register');
+    history.push('/register');
   };
 
   const changeEmail = e => {
@@ -45,11 +45,12 @@ const SignIn = ({ dispatch }) => {
         throw new Error('Network response was not ok.');
       }).then(data => {
         localStorage.token = data.auth_token;
-        dispatch(runSearch(data.user.name));
+        dispatch(updateUser(data.user));
 
-        history.replace('/');
+        history.push('/');
       }).catch(err => console.log(err));
   };
+
   return (
     <Form className="SignInForm" style={{ marginTop: 25 }}>
       <Form.Group controlId="formBasicRadio">
@@ -88,8 +89,13 @@ const SignIn = ({ dispatch }) => {
 
 SignIn.propTypes = {
   dispatch: PropTypes.func.isRequired,
+  user: PropTypes.shape(),
+};
+
+SignIn.defaultProps = {
+  user: {},
 };
 
 export default connect(state => ({
-  user: state.searchReducer.user,
+  user: state.userReducer.user,
 }))(SignIn);

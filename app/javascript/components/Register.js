@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import { useHistory } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 
 const Register = () => {
   const history = useHistory();
@@ -12,7 +12,7 @@ const Register = () => {
   const [height, setHeight] = useState('');
   const [weight, setWeight] = useState('');
   const gotToSignIn = () => {
-    history.replace('/signin');
+    history.push('/signin');
   };
   const changeName = e => {
     setName(e.target.value);
@@ -66,7 +66,8 @@ const Register = () => {
         throw new Error('Network response was not ok.');
       }).then(data => {
         localStorage.token = data.auth_token;
-        history.replace('/');
+        console.log('submit already');
+          <Redirect to="/" />;
       }).catch(err => console.log(err));
   };
   return (

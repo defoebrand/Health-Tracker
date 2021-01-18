@@ -2,9 +2,10 @@ import { combineReducers, createStore } from 'redux';
 
 import { SUBMIT } from './actions';
 
-const initialState = '';
+const initialState = { name: '' };
 
-const searchReducer = (state = initialState, action) => {
+const userReducer = (state = initialState, action) => {
+  console.log('action', action);
   switch (action.type) {
     case SUBMIT:
       return {
@@ -17,7 +18,7 @@ const searchReducer = (state = initialState, action) => {
 };
 
 export const combinedReducers = combineReducers({
-  searchReducer,
+  userReducer,
 });
 
 export default createStore(combinedReducers);

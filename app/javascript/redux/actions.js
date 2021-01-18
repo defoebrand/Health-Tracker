@@ -1,6 +1,6 @@
 export const SUBMIT = 'SUBMIT';
 
-export const runSearch = input => ({
+export const updateUser = input => ({
   type: SUBMIT,
   input,
 });

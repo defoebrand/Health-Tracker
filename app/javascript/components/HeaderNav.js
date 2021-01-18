@@ -8,43 +8,43 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 
 import { useHistory } from 'react-router-dom';
 
-import { runSearch } from '../redux/actions';
+import { updateUser } from '../redux/actions';
 
 const HeaderNav = ({ dispatch, user }) => {
   const doctor = 'Dr. Defoe';
   const history = useHistory();
+  // useEffect(() => {
+  //   // const url = 'http://localhost:3000/user';
+  //   // const url = 'https://obscure-island-28750.herokuapp.com/user';
+  //   const url = '/user';
+  //   const { token } = localStorage;
+  //   fetch(url, {
+  //     headers: {
+  //       Authorization: `Bearer ${token}`,
+  //     },
+  //   })
+  //     .then(response => {
+  //       if (response.ok) {
+  //         return response.json();
+  //       }
+  //       throw new Error('Network response was not ok.');
+  //     }).then(data => {
+  //       dispatch(updateUser(data));
+  //     }).catch(err => console.log(err));
+  // }, []);
   useEffect(() => {
-    // const url = 'http://localhost:3000/user';
-    // const url = 'https://obscure-island-28750.herokuapp.com/user';
-    const url = '/user';
-    const { token } = localStorage;
-    fetch(url, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then(response => {
-        if (response.ok) {
-          return response.json();
-        }
-        throw new Error('Network response was not ok.');
-      }).then(data => {
-        dispatch(runSearch(data.name));
-      }).catch(err => console.log(err));
-  }, []);
-  useEffect(() => {
-    if (user === '') {
+    if (user.name === '') {
       history.push('/home');
     } else {
-      history.push(`/users/${user}`);
+      history.push(`/users/${user.name}`);
     }
   }, [user]);
 
-  const signedIn = (user !== ''
+  const signedIn = (user.name !== ''
     ? (
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <Nav.Link onClick={() => history.push(`/users/${user}`)}>{user}</Nav.Link>
-        <Nav.Link className="signOutBtn" onClick={() => { dispatch(runSearch('')); localStorage.token = ''; }}>Sign out</Nav.Link>
+        <Nav.Link onClick={() => history.push(`/users/${user}`)}>{user.name}</Nav.Link>
+        <Nav.Link className="signOutBtn" onClick={() => { dispatch(updateUser({ name: '' })); localStorage.token = ''; }}>Sign out</Nav.Link>
       </div>
     )
     : (
@@ -57,33 +57,33 @@ const HeaderNav = ({ dispatch, user }) => {
       </div>
     )
   );
-
+  console.log('user in nav', user);
   return (
     <div className="HeaderNav">
       <Navbar bg="light" expand="lg">
-        <Navbar.Brand onClick={() => history.replace('/home')} style={{ cursor: 'pointer' }}>
+        <Navbar.Brand onClick={() => history.push('/home')} style={{ cursor: 'pointer' }}>
           <h2>Health Tracker</h2>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
             {signedIn}
-            <Nav.Link onClick={() => history.replace('/sick-call')}>Sick Call</Nav.Link>
-            <Nav.Link onClick={() => history.replace('/learning')}>Learning</Nav.Link>
+            <Nav.Link onClick={() => history.push('/sick-call')}>Sick Call</Nav.Link>
+            <Nav.Link onClick={() => history.push('/learning')}>Resources</Nav.Link>
             <NavDropdown title="Community" id="basic-nav-dropdown">
               <div style={{
                 display: 'flex', justifyContent: 'space-around', minWidth: 300, maxWidth: '85vw', margin: '0 auto',
               }}
               >
 
-                <NavDropdown.Item style={{ textAlign: 'center', padding: '5px 0' }} onClick={() => history.replace(`/doctors/${doctor}`)}>Doctors</NavDropdown.Item>
-                <NavDropdown.Item style={{ textAlign: 'center', padding: '5px 0' }} onClick={() => history.replace('/friends')}>Friends</NavDropdown.Item>
-                <NavDropdown.Item style={{ borderLeft: '1px solid gray', textAlign: 'center' }} onClick={() => history.replace('/settings')}>My Account</NavDropdown.Item>
+                <NavDropdown.Item style={{ textAlign: 'center', padding: '5px 0' }} onClick={() => history.push(`/doctors/${doctor}`)}>Doctors</NavDropdown.Item>
+                <NavDropdown.Item style={{ textAlign: 'center', padding: '5px 0' }} onClick={() => history.push('/friends')}>Friends</NavDropdown.Item>
+                <NavDropdown.Item style={{ borderLeft: '1px solid gray', textAlign: 'center' }} onClick={() => history.push('/settings')}>My Account</NavDropdown.Item>
               </div>
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>
-        <Nav.Link className="bigScreenSignOutBtn" onClick={() => { dispatch(runSearch('')); localStorage.token = ''; }}>Sign out</Nav.Link>
+        <Nav.Link className="bigScreenSignOutBtn" onClick={() => { dispatch(updateUser({ name: '' })); localStorage.token = ''; }}>Sign out</Nav.Link>
       </Navbar>
     </div>
   );
@@ -91,13 +91,17 @@ const HeaderNav = ({ dispatch, user }) => {
 
 HeaderNav.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  user: PropTypes.string,
+  user: PropTypes.shape({
+    name: PropTypes.string,
+  }),
 };
 
 HeaderNav.defaultProps = {
-  user: '',
+  user: {
+    name: '',
+  },
 };
 
 export default connect(state => ({
-  user: state.searchReducer.user,
+  user: state.userReducer.user,
 }))(HeaderNav);

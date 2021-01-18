@@ -10,8 +10,8 @@ const HomeCarousel = () => (
       <div className="imageContainer">
         <img className="d-block w-100" src={Steth} alt="First slide" />
         <Carousel.Caption>
-          <h3>First slide label</h3>
-          <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+          <h2>Bringing Medicine to You</h2>
+          <p>Update and view your vital statistics over time.</p>
         </Carousel.Caption>
       </div>
     </Carousel.Item>
@@ -19,8 +19,8 @@ const HomeCarousel = () => (
       <div className="imageContainer">
         <img className="d-block w-100" src={TeleDoc} alt="Second slide" />
         <Carousel.Caption>
-          <h3>Second slide label</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+          <h2>In-Home Consultation</h2>
+          <p>You can discuss your health in the comfort of your own home.</p>
         </Carousel.Caption>
       </div>
     </Carousel.Item>
@@ -28,8 +28,8 @@ const HomeCarousel = () => (
       <div className="imageContainer">
         <img className="d-block w-100" src={GroupHands} alt="Third slide" />
         <Carousel.Caption>
-          <h3>Third slide label</h3>
-          <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+          <h2>Join Your Community</h2>
+          <p>Connect with other members to share experiences and offer support.</p>
         </Carousel.Caption>
       </div>
     </Carousel.Item>

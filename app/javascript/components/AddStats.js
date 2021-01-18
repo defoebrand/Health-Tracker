@@ -39,7 +39,7 @@ const AddStats = () => {
     } else {
       time = `${date.getHours()}a`;
     }
-    console.log('time', time);
+    // console.log('time', time);
     const bpDate = `${months[date.getMonth()]}${date.getDate()}-${time}`;
     // const url = 'http://localhost:3000/user';
     // const url = 'https://obscure-island-28750.herokuapp.com/user';

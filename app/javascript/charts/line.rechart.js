@@ -12,18 +12,15 @@ const LineRechartComponent = ({ chartData, bpChartData }) => {
   let bpDiaDataPoints;
   chartData.forEach(entry => data.push(Object.keys(entry)[1]));
   const dataPoints = data.filter((e, i) => data.indexOf(e) === i);
+
   if (bpChartData.length !== 0) {
     bpChartData.forEach(entry => {
-      if (Object.keys(entry)[1] === 'systolic') {
-        bpSysData.push(Object.keys(entry)[1]);
-      } else {
-        bpDiaData.push(Object.keys(entry)[1]);
-      }
+      bpSysData.push(Object.keys(entry)[1]);
+      bpDiaData.push(Object.keys(entry)[2]);
     });
     bpSysDataPoints = bpSysData.filter((e, i) => bpSysData.indexOf(e) === i);
     bpDiaDataPoints = bpDiaData.filter((e, i) => bpDiaData.indexOf(e) === i);
   }
-
   return (
     <LineChart
       width={window.innerWidth - 50}
@@ -43,11 +40,11 @@ const LineRechartComponent = ({ chartData, bpChartData }) => {
           <Line type="monotone" key={line} dataKey={dataPoints[index]} stroke="#0095FF" />
         )) : null }
 
-      { bpChartData.length !== 0
+      { bpSysData[0] !== undefined
         ? bpSysDataPoints.map(line => (
           <Line type="monotone" key={`${line}systolic`} dataKey="systolic" stroke="#0095FF" />))
         : null }
-      { bpChartData.length !== 0
+      { bpDiaData[0] !== undefined
         ? bpDiaDataPoints.map(line => (
           <Line type="monotone" key={`${line}diastolic`} dataKey="diastolic" stroke="#ff0000" />))
         : null }

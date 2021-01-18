@@ -44,7 +44,7 @@ const User = () => {
   const newPulseData = [];
   const newTempData = [];
   const newBloodSugarData = [];
-  const newBloodPressureData = [{ systolic: [] }, { diastolic: [] }];
+  const newBloodPressureData = [];
   const tempData = Object.keys(temp);
   const pulseData = Object.keys(pulse);
   const bloodSugarData = Object.keys(bloodSugar);
@@ -65,20 +65,23 @@ const User = () => {
       newBloodSugarData.push({ name: item[0], [key]: item[1] });
     });
   });
-  systolicData.forEach(key => {
-    Object.entries(systolic[key]).forEach(item => {
-      newBloodPressureData.push({ name: key, systolic: item[1] });
-    });
-  });
-  newBloodPressureData.forEach((entry, index) => {
-    diastolicData.forEach(key => {
-      Object.entries(diastolic[key]).forEach(item => {
-        if (key === newBloodPressureData[index].name) {
-          newBloodPressureData[index] = { ...newBloodPressureData[index], diastolic: item[1] };
-        }
+  if (systolicData.length !== 0) {
+    systolicData.forEach(key => {
+      Object.entries(systolic[key]).forEach(item => {
+        newBloodPressureData.push({ name: key, systolic: item[1] });
       });
     });
-  });
+    newBloodPressureData.forEach((entry, index) => {
+      diastolicData.forEach(key => {
+        Object.entries(diastolic[key]).forEach(item => {
+          if (key === newBloodPressureData[index].name) {
+            newBloodPressureData[index] = { ...newBloodPressureData[index], diastolic: item[1] };
+          }
+        });
+      });
+    });
+  }
+  console.log('newBloodPressureData', newBloodPressureData);
 
   return (
     <>

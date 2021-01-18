@@ -66,6 +66,7 @@ const Register = () => {
         throw new Error('Network response was not ok.');
       }).then(data => {
         localStorage.token = data.auth_token;
+        history.replace('/');
       }).catch(err => console.log(err));
   };
   return (

@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { useHistory } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
-const AddStats = () => {
+const AddStats = ({ user }) => {
   const history = useHistory();
   const [temp, setTemp] = useState('');
   const [pulse, setPulse] = useState('');
@@ -41,70 +43,70 @@ const AddStats = () => {
       time = `${date.getHours()}a`;
     }
     // console.log('time', time);
-    const bpDate = `${months[date.getMonth()]}${date.getDate()}-${time}`;
+    const dateTime = `${months[date.getMonth()]}${date.getDate()}-${time}`;
     // const url = 'http://localhost:3000/user';
     // const url = 'https://obscure-island-28750.herokuapp.com/user';
-    const newPulse = history.location.state.user.pulse === null
+    const newPulse = user.pulse === null
       ? {}
-      : JSON.parse(history.location.state.user.pulse);
+      : JSON.parse(user.pulse);
     if (pulse !== '') {
-      if (newPulse[bpDate] !== undefined) {
-        newPulse[bpDate] = { ...newPulse[bpDate], [time]: Number(pulse) };
+      if (newPulse[dateTime] !== undefined) {
+        newPulse[dateTime] = { ...newPulse[dateTime], [time]: Number(pulse) };
       } else {
-        newPulse[bpDate] = { [time]: Number(pulse) };
+        newPulse[dateTime] = { [time]: Number(pulse) };
       }
     }
-    const newTemp = history.location.state.user.temperature === null
+    const newTemp = user.temperature === null
       ? {}
-      : JSON.parse(history.location.state.user.temperature);
+      : JSON.parse(user.temperature);
     if (temp !== '') {
-      if (newTemp[bpDate] !== undefined) {
-        newTemp[bpDate] = { ...newTemp[bpDate], [time]: Number(temp) };
+      if (newTemp[dateTime] !== undefined) {
+        newTemp[dateTime] = { ...newTemp[dateTime], [time]: Number(temp) };
       } else {
-        newTemp[bpDate] = { [time]: Number(temp) };
+        newTemp[dateTime] = { [time]: Number(temp) };
       }
     }
-    const newbloodSugar = history.location.state.user.blood_sugar === null
+    const newbloodSugar = user.blood_sugar === null
       ? {}
-      : JSON.parse(history.location.state.user.blood_sugar);
+      : JSON.parse(user.blood_sugar);
     if (bloodSugar !== '') {
-      if (newbloodSugar[bpDate] !== undefined) {
-        newbloodSugar[bpDate] = {
-          ...newbloodSugar[bpDate],
+      if (newbloodSugar[dateTime] !== undefined) {
+        newbloodSugar[dateTime] = {
+          ...newbloodSugar[dateTime],
           [time]: Number(bloodSugar),
         };
       } else {
-        newbloodSugar[bpDate] = { [time]: Number(bloodSugar) };
+        newbloodSugar[dateTime] = { [time]: Number(bloodSugar) };
       }
     }
-    const newSystolic = history.location.state.user.systolic === null
+    const newSystolic = user.systolic === null
       ? {}
-      : JSON.parse(history.location.state.user.systolic);
+      : JSON.parse(user.systolic);
     if (systolic !== '') {
-      if (newSystolic[bpDate] !== undefined) {
-        newSystolic[bpDate] = {
-          ...newSystolic[bpDate],
+      if (newSystolic[dateTime] !== undefined) {
+        newSystolic[dateTime] = {
+          ...newSystolic[dateTime],
           [time]: Number(systolic),
         };
       } else {
-        newSystolic[bpDate] = { [time]: Number(systolic) };
+        newSystolic[dateTime] = { [time]: Number(systolic) };
       }
     }
-    const newDiastolic = history.location.state.user.diastolic === null
+    const newDiastolic = user.diastolic === null
       ? {}
-      : JSON.parse(history.location.state.user.diastolic);
+      : JSON.parse(user.diastolic);
     if (diastolic !== '') {
-      if (newDiastolic[bpDate] !== undefined) {
-        newDiastolic[bpDate] = {
-          ...newDiastolic[bpDate],
+      if (newDiastolic[dateTime] !== undefined) {
+        newDiastolic[dateTime] = {
+          ...newDiastolic[dateTime],
           [time]: Number(diastolic),
         };
       } else {
-        newDiastolic[bpDate] = { [time]: Number(diastolic) };
+        newDiastolic[dateTime] = { [time]: Number(diastolic) };
       }
     }
 
-    const url = `/user/${history.location.state.user.id}`;
+    const url = `/user/${user.id}`;
     fetch(url, {
       method: 'PATCH',
       body: JSON.stringify({
@@ -159,4 +161,30 @@ const AddStats = () => {
   );
 };
 
-export default AddStats;
+AddStats.propTypes = {
+  user: PropTypes.shape({
+    name: PropTypes.string,
+    id: PropTypes.number,
+    pulse: PropTypes.string,
+    temperature: PropTypes.string,
+    blood_sugar: PropTypes.string,
+    systolic: PropTypes.string,
+    diastolic: PropTypes.string,
+  }),
+};
+
+AddStats.defaultProps = {
+  user: {
+    name: '',
+    id: 0,
+    pulse: '',
+    temperature: '',
+    blood_sugar: '',
+    systolic: '',
+    diastolic: '',
+  },
+};
+
+export default connect(state => ({
+  user: state.userReducer.user,
+}))(AddStats);

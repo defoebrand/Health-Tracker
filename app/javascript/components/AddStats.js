@@ -131,7 +131,7 @@ const AddStats = () => {
       }).catch(err => console.log(err));
   };
   return (
-    <Form className="SignInForm">
+    <Form className="SignInForm" style={{ marginTop: 25 }}>
       <Form.Group controlId="formBasicBloodPressure">
         <Form.Label>Blood Pressure</Form.Label>
         <div style={{ display: 'flex' }}>

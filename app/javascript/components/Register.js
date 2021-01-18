@@ -70,7 +70,7 @@ const Register = () => {
       }).catch(err => console.log(err));
   };
   return (
-    <Form className="SignInForm">
+    <Form className="SignInForm" style={{ margin: '25px 0' }}>
       <Form.Group controlId="formBasicPassword">
         <Form.Label>UserName</Form.Label>
         <Form.Control type="username" placeholder="UserName" onChange={changeName} />
@@ -85,7 +85,7 @@ const Register = () => {
         <Form.Control type="password" placeholder="Password" onChange={changePassword} />
       </Form.Group>
       <Form.Group controlId="formBasicPassword">
-        <Form.Label>D.O.B.</Form.Label>
+        <Form.Label style={{ marginRight: 5 }}>D.O.B.</Form.Label>
         <input type="date" onChange={changeDate} />
         <br />
         <Form.Label>Age</Form.Label>
@@ -99,13 +99,15 @@ const Register = () => {
         <Form.Label>Weight</Form.Label>
         <Form.Control type="weight" placeholder="Weight" onChange={changeWeight} />
       </Form.Group>
-      <Form.Group controlId="formBasicCheckbox">
-        <Form.Check type="checkbox" label="Remember Me" />
-      </Form.Group>
       <Button variant="primary" type="submit" onClick={submitRegister}>
         Submit
       </Button>
-      <Button variant="primary" type="signin" onClick={gotToSignIn}>
+      <Button
+        variant="primary"
+        type="signin"
+        onClick={gotToSignIn}
+        style={{ marginLeft: 15 }}
+      >
         Sign In
       </Button>
     </Form>

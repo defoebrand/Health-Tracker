@@ -17,6 +17,10 @@ const App = () => (
     <Route path="/users/:user" component={User} />
     <Route path="/doctors/:doctor" component={Doctor} />
     <Route path="/new-stats" component={AddStats} />
+    <Route path="/sick-call" component={Doctor} />
+    <Route path="/resources" component={Doctor} />
+    <Route path="/friends" component={Doctor} />
+    <Route path="/settings" component={Doctor} />
   </div>
 );
 

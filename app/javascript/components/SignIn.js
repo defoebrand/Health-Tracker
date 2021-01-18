@@ -47,7 +47,7 @@ const SignIn = ({ dispatch }) => {
         localStorage.token = data.auth_token;
         dispatch(runSearch(data.user.name));
 
-        history.push('/');
+        history.replace('/');
       }).catch(err => console.log(err));
   };
   return (

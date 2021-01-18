@@ -93,7 +93,7 @@ const User = () => {
       }}
       >
         <h1>{`Hello ${user.name}!`}</h1>
-        <Button variant="outline-danger" style={{ marginLeft: 10, whiteSpace: 'nowrap' }} onClick={() => history.push({ pathname: '/new-stats', state: { user } })}>New Stats</Button>
+        <Button variant="success" style={{ marginLeft: 10, whiteSpace: 'nowrap' }} onClick={() => history.push({ pathname: '/new-stats', state: { user } })}>Add Stats</Button>
       </div>
 
       <Accordion>

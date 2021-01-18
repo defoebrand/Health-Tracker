@@ -44,7 +44,7 @@ const HeaderNav = ({ dispatch, user }) => {
     ? (
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         <Nav.Link onClick={() => history.push(`/users/${user}`)}>{user}</Nav.Link>
-        <Nav.Link style={{ paddingRight: 5 }} onClick={() => { dispatch(runSearch('')); localStorage.token = ''; }}>Sign out</Nav.Link>
+        <Nav.Link className="signOutBtn" onClick={() => { dispatch(runSearch('')); localStorage.token = ''; }}>Sign out</Nav.Link>
       </div>
     )
     : (
@@ -83,6 +83,7 @@ const HeaderNav = ({ dispatch, user }) => {
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>
+        <Nav.Link className="bigScreenSignOutBtn" onClick={() => { dispatch(runSearch('')); localStorage.token = ''; }}>Sign out</Nav.Link>
       </Navbar>
     </div>
   );

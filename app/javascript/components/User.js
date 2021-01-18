@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
+import Accordion from 'react-bootstrap/Accordion';
 import { useHistory } from 'react-router-dom';
 
 import LineRechartComponent from '../charts/line.rechart';
@@ -50,19 +52,20 @@ const User = () => {
   const bloodSugarData = Object.keys(bloodSugar);
   const systolicData = Object.keys(systolic);
   const diastolicData = Object.keys(diastolic);
+  // console.log('user', user);
   pulseData.forEach(key => {
     Object.entries(pulse[key]).forEach(item => {
-      newPulseData.push({ name: item[0], [key]: item[1] });
+      newPulseData.push({ name: key, [`${user.name} Pulse`]: item[1] });
     });
   });
   tempData.forEach(key => {
     Object.entries(temp[key]).forEach(item => {
-      newTempData.push({ name: item[0], [key]: item[1] });
+      newTempData.push({ name: key, [`${user.name} Temp`]: item[1] });
     });
   });
   bloodSugarData.forEach(key => {
     Object.entries(bloodSugar[key]).forEach(item => {
-      newBloodSugarData.push({ name: item[0], [key]: item[1] });
+      newBloodSugarData.push({ name: key, [`${user.name} Blood Sugar`]: item[1] });
     });
   });
   if (systolicData.length !== 0) {
@@ -81,24 +84,69 @@ const User = () => {
       });
     });
   }
-  console.log('newBloodPressureData', newBloodPressureData);
+  // console.log('newBloodPressureData', newBloodPressureData);
 
   return (
     <>
-      <div sytle={{ display: 'flex', justifyContent: 'space-between' }}>
-        <h1 style={{ width: '85vw', textAlign: 'center' }}>{`Hello ${user.name}!`}</h1>
+      <div style={{
+        display: 'flex', justifyContent: 'space-between', width: '85vw', margin: '0 auto',
+      }}
+      >
+        <h1>{`Hello ${user.name}!`}</h1>
         <Button variant="outline-danger" style={{ marginLeft: 10, whiteSpace: 'nowrap' }} onClick={() => history.push({ pathname: '/new-stats', state: { user } })}>New Stats</Button>
-
       </div>
 
-      <h3>Blood Pressure</h3>
-      <LineRechartComponent bpChartData={newBloodPressureData} />
-      <h3>Temperature</h3>
-      <LineRechartComponent chartData={newTempData} />
-      <h3>Pulse</h3>
-      <LineRechartComponent chartData={newPulseData} />
-      <h3>Blood Sugar</h3>
-      <LineRechartComponent chartData={newBloodSugarData} />
+      <Accordion>
+        <Card>
+          <Accordion.Toggle as={Card.Header} eventKey="0">
+            <h3>{`BMI - ${Math.round(user.weight / ((user.height / 100) * (user.height / 100))).toString()}`}</h3>
+          </Accordion.Toggle>
+          <Accordion.Collapse eventKey="0">
+            <Card.Body>Charting To Be Added</Card.Body>
+          </Accordion.Collapse>
+        </Card>
+      </Accordion>
+      <Accordion>
+        <Card>
+          <Accordion.Toggle as={Card.Header} eventKey="0">
+            <h3>Blood Pressure</h3>
+          </Accordion.Toggle>
+          <Accordion.Collapse eventKey="0">
+            <Card.Body><LineRechartComponent bpChartData={newBloodPressureData} /></Card.Body>
+          </Accordion.Collapse>
+        </Card>
+      </Accordion>
+      <Accordion>
+        <Card>
+          <Accordion.Toggle as={Card.Header} eventKey="0">
+            <h3>Temperature</h3>
+          </Accordion.Toggle>
+          <Accordion.Collapse eventKey="0">
+            <Card.Body><LineRechartComponent chartData={newTempData} /></Card.Body>
+          </Accordion.Collapse>
+        </Card>
+      </Accordion>
+      <Accordion>
+        <Card>
+          <Accordion.Toggle as={Card.Header} eventKey="0">
+            <h3>Pulse</h3>
+          </Accordion.Toggle>
+          <Accordion.Collapse eventKey="0">
+            <Card.Body><LineRechartComponent chartData={newPulseData} /></Card.Body>
+          </Accordion.Collapse>
+        </Card>
+      </Accordion>
+      <Accordion>
+        <Card>
+          <Accordion.Toggle as={Card.Header} eventKey="0">
+            <h3>Blood Sugar</h3>
+          </Accordion.Toggle>
+          <Accordion.Collapse eventKey="0">
+            <Card.Body><LineRechartComponent chartData={newBloodSugarData} /></Card.Body>
+          </Accordion.Collapse>
+        </Card>
+      </Accordion>
+
     </>
   );
 };

@@ -32,7 +32,7 @@ const LineRechartComponent = ({ chartData, bpChartData }) => {
     >
       <CartesianGrid strokeDasharray="3 3" />
       <XAxis dataKey="name" />
-      <YAxis />
+      <YAxis type="number" domain={[dataMin => ((dataMin / 3) < 0 ? 0 : Math.floor(dataMin / 3)), dataMax => (dataMax + Math.ceil(dataMax * 0.25))]} />
       <Tooltip />
       <Legend />
       {bpChartData.length === 0

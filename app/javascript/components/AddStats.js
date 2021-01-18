@@ -32,9 +32,9 @@ const AddStats = () => {
     const { token } = localStorage;
     const date = new Date();
     const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-    const formattedDate = `${months[date.getMonth()]}${date.getDate()}`;
+    // const formattedDate = `${months[date.getMonth()]}${date.getDate()}`;
     let time;
-    if (date.getHours() >= 12) {
+    if (date.getHours() > 12) {
       time = `${date.getHours() - 12}p`;
     } else {
       time = `${date.getHours()}a`;
@@ -47,33 +47,33 @@ const AddStats = () => {
       ? {}
       : JSON.parse(history.location.state.user.pulse);
     if (pulse !== '') {
-      if (newPulse[formattedDate] !== undefined) {
-        newPulse[formattedDate] = { ...newPulse[formattedDate], [time]: Number(pulse) };
+      if (newPulse[bpDate] !== undefined) {
+        newPulse[bpDate] = { ...newPulse[bpDate], [time]: Number(pulse) };
       } else {
-        newPulse[formattedDate] = { [time]: Number(pulse) };
+        newPulse[bpDate] = { [time]: Number(pulse) };
       }
     }
     const newTemp = history.location.state.user.temperature === null
       ? {}
       : JSON.parse(history.location.state.user.temperature);
     if (temp !== '') {
-      if (newTemp[formattedDate] !== undefined) {
-        newTemp[formattedDate] = { ...newTemp[formattedDate], [time]: Number(temp) };
+      if (newTemp[bpDate] !== undefined) {
+        newTemp[bpDate] = { ...newTemp[bpDate], [time]: Number(temp) };
       } else {
-        newTemp[formattedDate] = { [time]: Number(temp) };
+        newTemp[bpDate] = { [time]: Number(temp) };
       }
     }
     const newbloodSugar = history.location.state.user.blood_sugar === null
       ? {}
       : JSON.parse(history.location.state.user.blood_sugar);
     if (bloodSugar !== '') {
-      if (newbloodSugar[formattedDate] !== undefined) {
-        newbloodSugar[formattedDate] = {
-          ...newbloodSugar[formattedDate],
+      if (newbloodSugar[bpDate] !== undefined) {
+        newbloodSugar[bpDate] = {
+          ...newbloodSugar[bpDate],
           [time]: Number(bloodSugar),
         };
       } else {
-        newbloodSugar[formattedDate] = { [time]: Number(bloodSugar) };
+        newbloodSugar[bpDate] = { [time]: Number(bloodSugar) };
       }
     }
     const newSystolic = history.location.state.user.systolic === null

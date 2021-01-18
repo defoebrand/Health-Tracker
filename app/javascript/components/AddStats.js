@@ -46,6 +46,7 @@ const AddStats = () => {
     const newPulse = history.location.state.user.pulse === null
       ? {}
       : JSON.parse(history.location.state.user.pulse);
+    console.log(history);
     if (pulse !== '') {
       if (newPulse[bpDate] !== undefined) {
         newPulse[bpDate] = { ...newPulse[bpDate], [time]: Number(pulse) };

@@ -48,10 +48,12 @@ const HeaderNav = ({ dispatch, user }) => {
       </div>
     )
     : (
-      <div style={{ display: 'flex' }}>
+      <div className="signInBtn">
         <Button variant="outline-success" style={{ width: 75, whiteSpace: 'nowrap' }} onClick={() => history.push('/signin')}>Sign In</Button>
-        <p style={{ margin: '0 5px', alignSelf: 'center' }}>Not a member?</p>
-        <Nav.Link onClick={() => history.push('/register')}>Register Now!</Nav.Link>
+        <div style={{ display: 'flex' }}>
+          <p style={{ margin: 0, alignSelf: 'center' }}>Not a member?</p>
+          <Nav.Link style={{ marginLeft: 10 }} onClick={() => history.push('/register')}>Register Now!</Nav.Link>
+        </div>
       </div>
     )
   );
@@ -69,10 +71,13 @@ const HeaderNav = ({ dispatch, user }) => {
             <Nav.Link onClick={() => history.replace('/sick-call')}>Sick Call</Nav.Link>
             <Nav.Link onClick={() => history.replace('/learning')}>Learning</Nav.Link>
             <NavDropdown title="Community" id="basic-nav-dropdown">
-              <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+              <div style={{
+                display: 'flex', justifyContent: 'space-around', minWidth: 300, maxWidth: '85vw', margin: '0 auto',
+              }}
+              >
 
-                <NavDropdown.Item onClick={() => history.replace(`/doctors/${doctor}`)}>Doctors</NavDropdown.Item>
-                <NavDropdown.Item onClick={() => history.replace('/friends')}>Friends</NavDropdown.Item>
+                <NavDropdown.Item style={{ textAlign: 'center', padding: '5px 0' }} onClick={() => history.replace(`/doctors/${doctor}`)}>Doctors</NavDropdown.Item>
+                <NavDropdown.Item style={{ textAlign: 'center', padding: '5px 0' }} onClick={() => history.replace('/friends')}>Friends</NavDropdown.Item>
                 <NavDropdown.Item style={{ borderLeft: '1px solid gray', textAlign: 'center' }} onClick={() => history.replace('/settings')}>My Account</NavDropdown.Item>
               </div>
             </NavDropdown>

@@ -11,13 +11,16 @@ const DoctorCard = ({
       variant="top"
       src={img}
       style={{
-        width: '34%', minWidth: 250, height: 'auto', objectFit: 'contain', margin: '10px auto',
+        width: '34%', minWidth: 250, height: 'auto', maxHeight: '275px', objectFit: 'contain', margin: '10px auto',
       }}
     />
-    <Card.Body style={{ width: '64%' }}>
+    <Card.Body style={{
+      width: '64%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center',
+    }}
+    >
       <Card.Title>{`${name} - ${speciality}`}</Card.Title>
       <Card.Text>{text}</Card.Text>
-      <Button variant="primary">Schedule a Constulation</Button>
+      <Button style={{ width: 'max-content' }} variant="primary">Schedule a Constulation</Button>
     </Card.Body>
   </Card>
 );

@@ -29,6 +29,7 @@ const AddStats = () => {
 
   const submitRegister = e => {
     e.preventDefault();
+    console.log(history);
     const { token } = localStorage;
     const date = new Date();
     const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -46,7 +47,6 @@ const AddStats = () => {
     const newPulse = history.location.state.user.pulse === null
       ? {}
       : JSON.parse(history.location.state.user.pulse);
-    console.log(history);
     if (pulse !== '') {
       if (newPulse[bpDate] !== undefined) {
         newPulse[bpDate] = { ...newPulse[bpDate], [time]: Number(pulse) };

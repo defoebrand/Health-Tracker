@@ -1,3 +1,23 @@
 // Place all the styles related to the User controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+
+.welcomeBanner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 15px auto;
+  max-width: 75vw;
+}
+
+@media only screen and (max-width: 968px) {
+  .welcomeBanner {
+    max-width: 85vw;
+  }
+}
+
+@media only screen and (max-width: 576px) {
+  .welcomeBanner {
+    flex-direction: column;
+  }
+}

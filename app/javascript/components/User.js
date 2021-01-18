@@ -88,12 +88,19 @@ const User = () => {
 
   return (
     <>
-      <div style={{
-        display: 'flex', justifyContent: 'space-between', width: '85vw', margin: '0 auto',
-      }}
-      >
-        <h1>{`Hello ${user.name}!`}</h1>
-        <Button variant="success" style={{ marginLeft: 10, whiteSpace: 'nowrap' }} onClick={() => history.push({ pathname: '/new-stats', state: { user } })}>Add Stats</Button>
+      <div className="welcomeBanner">
+        <h1 style={{ whiteSpace: 'nowrap' }}>{`Hello ${user.name}!`}</h1>
+        <img src="http://www.messagescollection.com/wp-content/uploads/2015/04/cute-cat-profile-for-facebook.jpg" alt={`${user.name} profile pic`} style={{ borderRadius: '50%', width: '10vw', minWidth: 100 }} />
+
+        <Button
+          variant="success"
+          style={{
+            whiteSpace: 'nowrap', height: 'auto', width: '20%', minWidth: 'max-content', padding: '10px',
+          }}
+          onClick={() => history.push({ pathname: '/new-stats', state: { user } })}
+        >
+          Add Stats
+        </Button>
       </div>
 
       <Accordion>

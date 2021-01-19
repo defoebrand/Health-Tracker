@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
-  before_action :authorized
+  before_action :authorized, only: %i[encode_token
+                                      auth_header decoded_token logged_in_user logged_in?]
 
   def encode_token(payload)
     JWT.encode(payload, 'yourSecret')

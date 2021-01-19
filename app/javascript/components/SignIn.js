@@ -44,7 +44,8 @@ const SignIn = ({ dispatch }) => {
         }
         throw new Error('Network response was not ok.');
       }).then(data => {
-        localStorage.token = data.auth_token;
+        console.log('sign in data', data);
+        localStorage.token = data.token;
         dispatch(updateUser(data.user));
 
         history.push('/');

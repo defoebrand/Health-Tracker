@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
 
   # Validates the token and user and sets the @current_user scope
   def authenticate_request!
-    puts 'payload' + '-' + JsonWebToken.valid_payload(payload.first).to_s
+    puts 'payload' + '-' + payload
     return invalid_authentication if !payload || !JsonWebToken.valid_payload(payload.first)
 
     load_current_user!

@@ -1,11 +1,12 @@
 class UserController < ApplicationController
   protect_from_forgery with: :null_session
-  before_action :authenticate_request!, only: [:index]
+  before_action :authorized, only: [:index]
+  # before_action :authenticate_request!, only: [:index]
   before_action :set_user, only: [:login]
   def index
     # render json: { message: 'hello' }
-    if @current_user
-      render json: @current_user
+    if @user
+      render json: @user
 
       # users = User.all
       # render json: users
@@ -15,23 +16,23 @@ class UserController < ApplicationController
   end
 
   def create
-    @user = User.new(user_params)
-
-    if @user.save && @user.authenticate(user_params[:password])
-      auth_token = JsonWebToken.encode(user_id: @user.id)
-      render json: { auth_token: auth_token, user: user }, status: :ok
+    @user = User.create(user_params)
+    if @user.valid?
+      token = encode_token({ user_id: @user.id })
+      render json: { user: @user, token: token }
     else
-      render json: @user.errors, status: :unprocessable_entity
+      render json: { error: 'Invalid username or password' }
     end
   end
 
   def login
-    # user = User.find_by(email: user_params[:email])
+    @user = User.find_by(email: user_params[:email])
+
     if @user&.authenticate(user_params[:password])
-      auth_token = JsonWebToken.encode(user_id: @user.id)
-      render json: { auth_token: auth_token, user: @user }, status: :ok
+      token = encode_token({ user_id: @user.id })
+      render json: { user: @user, token: token }
     else
-      render json: { error: 'Invalid username/password' }, status: :unauthorized
+      render json: { error: 'Invalid username or password' }
     end
   end
 

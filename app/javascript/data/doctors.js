@@ -8,7 +8,7 @@ import Who from '../../assets/images/dr-who.jpg';
 import Allcome from '../../assets/images/dr-allcome.png';
 import House from '../../assets/images/dr-gregory-house.png';
 
-export const doctors = [
+const doctors = [
   {
     img: Kim,
     name: 'Dr. Kim',

@@ -9,6 +9,8 @@ import Doctor from '../components/Doctor';
 import AddStats from '../components/AddStats';
 import Settings from '../components/Settings';
 import Resources from '../components/Resources';
+import SickCall from '../components/SickCall';
+import Friends from '../components/Friends';
 
 const App = () => (
   <div className="App">
@@ -19,9 +21,9 @@ const App = () => (
     <Route path="/users/:user" component={User} />
     <Route path="/doctors/:doctor" component={Doctor} />
     <Route path="/new-stats" component={AddStats} />
-    <Route path="/sick-call" component={Doctor} />
+    <Route path="/sick-call" component={SickCall} />
     <Route path="/resources" component={Resources} />
-    <Route path="/friends" component={Doctor} />
+    <Route path="/friends" component={Friends} />
     <Route path="/settings" component={Settings} />
   </div>
 );

@@ -1,5 +1,5 @@
 import React from 'react';
-// import Button from 'react-bootstrap/Button';
+import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Accordion from 'react-bootstrap/Accordion';
 import CardDeck from 'react-bootstrap/CardDeck';
@@ -19,42 +19,38 @@ const Resources = () => {
                 <Card>
                   <Card.Img variant="top" src="holder.js/100px160" />
                   <Card.Body>
-                    <Card.Title>Card title</Card.Title>
+                    <Card.Title>Eats Shoots Leaves</Card.Title>
                     <Card.Text>
-                      This is a wider card with supporting text below as a natural lead-in to
-                      additional content. This content is a little bit longer.
+                      A wonderfully robust recipe catalog focused around vegan recipes.
                     </Card.Text>
                   </Card.Body>
                   <Card.Footer>
-                    <small className="text-muted">Last updated 3 mins ago</small>
+                    <Button href="https://www.google.com" style={{ width: 'max-content' }} variant="primary">Visit Now</Button>
                   </Card.Footer>
                 </Card>
                 <Card>
                   <Card.Img variant="top" src="holder.js/100px160" />
                   <Card.Body>
-                    <Card.Title>Card title</Card.Title>
+                    <Card.Title>Nutrition Information</Card.Title>
                     <Card.Text>
-                      This card has supporting text below as a natural lead-in to additional
-                      content.
-                      {' '}
+                      Search for nearly any food and get complete nutritional information
                     </Card.Text>
                   </Card.Body>
                   <Card.Footer>
-                    <small className="text-muted">Last updated 3 mins ago</small>
+                    <Button href="www.google.com" style={{ width: 'max-content' }} variant="primary">Visit Now</Button>
                   </Card.Footer>
                 </Card>
                 <Card>
                   <Card.Img variant="top" src="holder.js/100px160" />
                   <Card.Body>
-                    <Card.Title>Card title</Card.Title>
+                    <Card.Title>Food Allergies</Card.Title>
                     <Card.Text>
-                      This is a wider card with supporting text below as a natural lead-in to
-                      additional content. This card has even longer content than the first to
-                      show that equal height action.
+                      Check this database for whether or not a food product
+                      is likely to have any allergenic components or not.
                     </Card.Text>
                   </Card.Body>
                   <Card.Footer>
-                    <small className="text-muted">Last updated 3 mins ago</small>
+                    <Button href="www.google.com" style={{ width: 'max-content' }} variant="primary">Visit Now</Button>
                   </Card.Footer>
                 </Card>
               </CardDeck>
@@ -68,7 +64,47 @@ const Resources = () => {
             <h3>Prescription</h3>
           </Accordion.Toggle>
           <Accordion.Collapse eventKey="0">
-            <Card.Body>Need something here</Card.Body>
+            <Card.Body>
+              <CardDeck>
+                <Card>
+                  <Card.Img variant="top" src="holder.js/100px160" />
+                  <Card.Body>
+                    <Card.Title>Eats Shoots Leaves</Card.Title>
+                    <Card.Text>
+                      A wonderfully robust recipe catalog focused around vegan recipes.
+                    </Card.Text>
+                  </Card.Body>
+                  <Card.Footer>
+                    <Button href="https://www.google.com" style={{ width: 'max-content' }} variant="primary">Visit Now</Button>
+                  </Card.Footer>
+                </Card>
+                <Card>
+                  <Card.Img variant="top" src="holder.js/100px160" />
+                  <Card.Body>
+                    <Card.Title>Nutrition Information</Card.Title>
+                    <Card.Text>
+                      Search for nearly any food and get complete nutritional information
+                    </Card.Text>
+                  </Card.Body>
+                  <Card.Footer>
+                    <Button href="www.google.com" style={{ width: 'max-content' }} variant="primary">Visit Now</Button>
+                  </Card.Footer>
+                </Card>
+                <Card>
+                  <Card.Img variant="top" src="holder.js/100px160" />
+                  <Card.Body>
+                    <Card.Title>Food Allergies</Card.Title>
+                    <Card.Text>
+                      Check this database for whether or not a food product
+                      is likely to have any allergenic components or not.
+                    </Card.Text>
+                  </Card.Body>
+                  <Card.Footer>
+                    <Button href="www.google.com" style={{ width: 'max-content' }} variant="primary">Visit Now</Button>
+                  </Card.Footer>
+                </Card>
+              </CardDeck>
+            </Card.Body>
           </Accordion.Collapse>
         </Card>
       </Accordion>
@@ -78,7 +114,47 @@ const Resources = () => {
             <h3>Procedures</h3>
           </Accordion.Toggle>
           <Accordion.Collapse eventKey="0">
-            <Card.Body>Need something here</Card.Body>
+            <Card.Body>
+              <CardDeck>
+                <Card>
+                  <Card.Img variant="top" src="holder.js/100px160" />
+                  <Card.Body>
+                    <Card.Title>Eats Shoots Leaves</Card.Title>
+                    <Card.Text>
+                      A wonderfully robust recipe catalog focused around vegan recipes.
+                    </Card.Text>
+                  </Card.Body>
+                  <Card.Footer>
+                    <Button href="https://www.google.com" style={{ width: 'max-content' }} variant="primary">Visit Now</Button>
+                  </Card.Footer>
+                </Card>
+                <Card>
+                  <Card.Img variant="top" src="holder.js/100px160" />
+                  <Card.Body>
+                    <Card.Title>Nutrition Information</Card.Title>
+                    <Card.Text>
+                      Search for nearly any food and get complete nutritional information
+                    </Card.Text>
+                  </Card.Body>
+                  <Card.Footer>
+                    <Button href="www.google.com" style={{ width: 'max-content' }} variant="primary">Visit Now</Button>
+                  </Card.Footer>
+                </Card>
+                <Card>
+                  <Card.Img variant="top" src="holder.js/100px160" />
+                  <Card.Body>
+                    <Card.Title>Food Allergies</Card.Title>
+                    <Card.Text>
+                      Check this database for whether or not a food product
+                      is likely to have any allergenic components or not.
+                    </Card.Text>
+                  </Card.Body>
+                  <Card.Footer>
+                    <Button href="www.google.com" style={{ width: 'max-content' }} variant="primary">Visit Now</Button>
+                  </Card.Footer>
+                </Card>
+              </CardDeck>
+            </Card.Body>
           </Accordion.Collapse>
         </Card>
       </Accordion>
@@ -88,7 +164,47 @@ const Resources = () => {
             <h3>Common Diagnoses</h3>
           </Accordion.Toggle>
           <Accordion.Collapse eventKey="0">
-            <Card.Body>Need something here</Card.Body>
+            <Card.Body>
+              <CardDeck>
+                <Card>
+                  <Card.Img variant="top" src="holder.js/100px160" />
+                  <Card.Body>
+                    <Card.Title>Eats Shoots Leaves</Card.Title>
+                    <Card.Text>
+                      A wonderfully robust recipe catalog focused around vegan recipes.
+                    </Card.Text>
+                  </Card.Body>
+                  <Card.Footer>
+                    <Button href="https://www.google.com" style={{ width: 'max-content' }} variant="primary">Visit Now</Button>
+                  </Card.Footer>
+                </Card>
+                <Card>
+                  <Card.Img variant="top" src="holder.js/100px160" />
+                  <Card.Body>
+                    <Card.Title>Nutrition Information</Card.Title>
+                    <Card.Text>
+                      Search for nearly any food and get complete nutritional information
+                    </Card.Text>
+                  </Card.Body>
+                  <Card.Footer>
+                    <Button href="www.google.com" style={{ width: 'max-content' }} variant="primary">Visit Now</Button>
+                  </Card.Footer>
+                </Card>
+                <Card>
+                  <Card.Img variant="top" src="holder.js/100px160" />
+                  <Card.Body>
+                    <Card.Title>Food Allergies</Card.Title>
+                    <Card.Text>
+                      Check this database for whether or not a food product
+                      is likely to have any allergenic components or not.
+                    </Card.Text>
+                  </Card.Body>
+                  <Card.Footer>
+                    <Button href="www.google.com" style={{ width: 'max-content' }} variant="primary">Visit Now</Button>
+                  </Card.Footer>
+                </Card>
+              </CardDeck>
+            </Card.Body>
           </Accordion.Collapse>
         </Card>
       </Accordion>
@@ -98,7 +214,47 @@ const Resources = () => {
             <h3>First-Aid</h3>
           </Accordion.Toggle>
           <Accordion.Collapse eventKey="0">
-            <Card.Body>Need something here</Card.Body>
+            <Card.Body>
+              <CardDeck>
+                <Card>
+                  <Card.Img variant="top" src="holder.js/100px160" />
+                  <Card.Body>
+                    <Card.Title>Eats Shoots Leaves</Card.Title>
+                    <Card.Text>
+                      A wonderfully robust recipe catalog focused around vegan recipes.
+                    </Card.Text>
+                  </Card.Body>
+                  <Card.Footer>
+                    <Button href="https://www.google.com" style={{ width: 'max-content' }} variant="primary">Visit Now</Button>
+                  </Card.Footer>
+                </Card>
+                <Card>
+                  <Card.Img variant="top" src="holder.js/100px160" />
+                  <Card.Body>
+                    <Card.Title>Nutrition Information</Card.Title>
+                    <Card.Text>
+                      Search for nearly any food and get complete nutritional information
+                    </Card.Text>
+                  </Card.Body>
+                  <Card.Footer>
+                    <Button href="www.google.com" style={{ width: 'max-content' }} variant="primary">Visit Now</Button>
+                  </Card.Footer>
+                </Card>
+                <Card>
+                  <Card.Img variant="top" src="holder.js/100px160" />
+                  <Card.Body>
+                    <Card.Title>Food Allergies</Card.Title>
+                    <Card.Text>
+                      Check this database for whether or not a food product
+                      is likely to have any allergenic components or not.
+                    </Card.Text>
+                  </Card.Body>
+                  <Card.Footer>
+                    <Button href="www.google.com" style={{ width: 'max-content' }} variant="primary">Visit Now</Button>
+                  </Card.Footer>
+                </Card>
+              </CardDeck>
+            </Card.Body>
           </Accordion.Collapse>
         </Card>
       </Accordion>

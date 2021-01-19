@@ -8,6 +8,7 @@ import User from '../components/User';
 import Doctor from '../components/Doctor';
 import AddStats from '../components/AddStats';
 import Settings from '../components/Settings';
+import Resources from '../components/Resources';
 
 const App = () => (
   <div className="App">
@@ -19,7 +20,7 @@ const App = () => (
     <Route path="/doctors/:doctor" component={Doctor} />
     <Route path="/new-stats" component={AddStats} />
     <Route path="/sick-call" component={Doctor} />
-    <Route path="/resources" component={Doctor} />
+    <Route path="/resources" component={Resources} />
     <Route path="/friends" component={Doctor} />
     <Route path="/settings" component={Settings} />
   </div>

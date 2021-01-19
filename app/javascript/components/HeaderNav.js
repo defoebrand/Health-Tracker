@@ -70,7 +70,7 @@ const HeaderNav = ({ dispatch, user }) => {
           <Nav className="mr-auto">
             {signedIn}
             <Nav.Link onClick={() => history.push('/sick-call')}>Sick Call</Nav.Link>
-            <Nav.Link onClick={() => history.push('/learning')}>Resources</Nav.Link>
+            <Nav.Link onClick={() => history.push('/resources')}>Resources</Nav.Link>
             <NavDropdown title="Community" id="basic-nav-dropdown">
               <div style={{
                 display: 'flex', justifyContent: 'space-around', minWidth: 300, maxWidth: '85vw', margin: '0 auto',

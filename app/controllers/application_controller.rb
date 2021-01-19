@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
 
   # Validates the token and user and sets the @current_user scope
   def authenticate_request!
-    puts 'payload' + '-' + payload
+    # puts 'payload' + '-' + payload
     return invalid_authentication if !payload || !JsonWebToken.valid_payload(payload.first)
 
     load_current_user!
@@ -24,7 +24,9 @@ class ApplicationController < ActionController::Base
     auth_header = request.headers['Authorization']
     puts 'auth_header' + '-' + auth_header.to_s
     token = auth_header.split(' ').last
-    puts 'JsonWebToken.decode(token)' + '-' + JsonWebToken.decode(token)
+    puts token
+    puts 'jello'
+    # puts 'JsonWebToken.decode(token)' + '-' + JsonWebToken.decode(token)
     JsonWebToken.decode(token)
   rescue StandardError
     nil

@@ -1,11 +1,14 @@
 import React from 'react';
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
+import CommunityLink from './CommunityLink';
 // import DoctorCard from './DoctorCard';
 
+import communities from '../data/communities';
+
 // const friends = [];
-// const communities = ['Diabetes', 'Pregnancy', 'Cancer', 'Anemia', 'Leukemia'];
-// const myCommunities = ['Diabetes', 'Pregnancy', 'Cancer'];
+
+const myCommunities = ['Diabetes', 'Pregnancy', 'Migraine'];
 
 const Friends = () => (
   <>
@@ -24,6 +27,11 @@ const Friends = () => (
         )) */}
       </Tab>
       <Tab eventKey="myCommunities" title="My Communities">
+        {communities.filter(community => (
+          myCommunities.includes(community)
+        )).map(community => (
+          <CommunityLink key={community} community={community} />
+        ))}
         {/* communities.map((doctor, ind) => (
           <DoctorCard
             key={doctor.name + doctor.specialty + ind.toString()}
@@ -35,6 +43,9 @@ const Friends = () => (
         )) */}
       </Tab>
       <Tab eventKey="communities" title="All Communities">
+        {communities.map(community => (
+          <CommunityLink key={community} community={community} />
+        ))}
         {/* communities.map((doctor, ind) => (
           <DoctorCard
             key={doctor.name + doctor.specialty + ind.toString()}

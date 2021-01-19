@@ -11,7 +11,7 @@ import { useHistory } from 'react-router-dom';
 import { updateUser } from '../redux/actions';
 
 const HeaderNav = ({ dispatch, user }) => {
-  const doctor = 'Dr. Defoe';
+  const doctor = 'doctors';
   const history = useHistory();
   useEffect(() => {
     // const url = 'http://localhost:3000/user';

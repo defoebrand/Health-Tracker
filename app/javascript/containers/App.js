@@ -11,6 +11,7 @@ import Settings from '../components/Settings';
 import Resources from '../components/Resources';
 import SickCall from '../components/SickCall';
 import Friends from '../components/Friends';
+import Community from '../components/Community';
 
 const App = () => (
   <div className="App">
@@ -25,6 +26,7 @@ const App = () => (
     <Route path="/resources" component={Resources} />
     <Route path="/friends" component={Friends} />
     <Route path="/settings" component={Settings} />
+    <Route path="/communities/:community" component={Community} />
   </div>
 );
 

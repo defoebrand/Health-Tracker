@@ -1,10 +1,11 @@
 import { combineReducers, createStore } from 'redux';
 
-import { SUBMIT } from './actions';
+import { SUBMIT, COMMUNITY } from './actions';
 
-const initialState = { name: '' };
+const initialUser = { name: '' };
+const initialCommunity = '';
 
-const userReducer = (state = initialState, action) => {
+const userReducer = (state = initialUser, action) => {
   switch (action.type) {
     case SUBMIT:
       return {
@@ -16,8 +17,21 @@ const userReducer = (state = initialState, action) => {
   }
 };
 
+const communityReducer = (state = initialCommunity, action) => {
+  switch (action.type) {
+    case COMMUNITY:
+      return {
+        community: action.input,
+      };
+
+    default:
+      return state;
+  }
+};
+
 export const combinedReducers = combineReducers({
   userReducer,
+  communityReducer,
 });
 
 export default createStore(combinedReducers);

@@ -4,7 +4,7 @@ import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 
 const DoctorCard = ({
-  img, name, text, speciality,
+  img, name, text, specialty,
 }) => (
   <Card style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
     <Card.Img
@@ -18,7 +18,7 @@ const DoctorCard = ({
       width: '64%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center',
     }}
     >
-      <Card.Title>{`${name} - ${speciality}`}</Card.Title>
+      <Card.Title>{`${name} - ${specialty}`}</Card.Title>
       <Card.Text>{text}</Card.Text>
       <Button style={{ width: 'max-content' }} variant="primary">Schedule a Constulation</Button>
     </Card.Body>
@@ -28,12 +28,12 @@ DoctorCard.propTypes = {
   img: PropTypes.string,
   name: PropTypes.string,
   text: PropTypes.string,
-  speciality: PropTypes.string,
+  specialty: PropTypes.string,
 };
 DoctorCard.defaultProps = {
   img: '',
   name: '',
   text: '',
-  speciality: '',
+  specialty: '',
 };
 export default DoctorCard;

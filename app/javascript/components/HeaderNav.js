@@ -30,6 +30,7 @@ const HeaderNav = ({ dispatch, user }) => {
         throw new Error('Network response was not ok.');
       }).then(data => {
         dispatch(updateUser(data));
+        console.log('data', data);
       }).catch(err => console.log(err));
   }, []);
   useEffect(() => {

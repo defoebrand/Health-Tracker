@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
 
   # Returns 401 response. To handle malformed / invalid requests.
   def invalid_authentication
-    render json: { error: 'Invalid Request' }, status: :unauthorized
+    render json: { error: 'Invalid Request lalala' }, status: :unauthorized
   end
 
   private

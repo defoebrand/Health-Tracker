@@ -16,8 +16,8 @@ const User = () => {
   const [diastolic, setDiastolic] = useState('');
   useEffect(() => {
     // const url = 'http://localhost:3000/user';
-    // const url = 'https://obscure-island-28750.herokuapp.com/user';
-    const url = '/user';
+    // const url = '/user';
+    const url = 'https://defoebrand-health-tracker.herokuapp.com/user';
     const { token } = localStorage;
     fetch(url, {
       headers: {

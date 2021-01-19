@@ -24,7 +24,7 @@ class ApplicationController < ActionController::Base
     auth_header = request.headers['Authorization']
     puts 'auth_header' + '-' + auth_header.to_s
     token = auth_header.split(' ').last
-
+    puts 'JsonWebToken.decode(token)' + '-' + JsonWebToken.decode(token)
     JsonWebToken.decode(token)
   rescue StandardError
     nil

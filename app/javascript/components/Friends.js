@@ -44,7 +44,7 @@ const Friends = ({ tab }) => {
         <Tab eventKey="myCommunities" title="My Communities">
           <CardGroup style={{ flexDirection: 'column' }}>
             {communities.filter(community => (
-              myCommunities.includes(community)
+              myCommunities.includes(community.name)
             )).map(community => (
               <CommunityLink key={community} community={community} />
             ))}

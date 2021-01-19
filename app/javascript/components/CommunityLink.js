@@ -8,36 +8,41 @@ import { viewCommunity } from '../redux/actions';
 const CommunityLink = ({ dispatch, community }) => {
   const history = useHistory();
   const handleClick = () => {
-    dispatch(viewCommunity(community));
-    history.push(`/communities/${community}`);
+    dispatch(viewCommunity(community.name));
+    history.push(`/communities/${community.name}`);
   };
 
   return (
     <>
       <Card>
         <Card.Header>
-          <small className="text-muted">{`Active Members: ${Math.random() * 100}`}</small>
+          <small className="text-muted">{`Active Members: ${Math.round(Math.random() * 100)}`}</small>
         </Card.Header>
-        <Card.Body style={{ display: 'flex', flexWrap: 'wrap' }}>
-          <Card.Img variant="top" src="holder.js/100px160" style={{ width: '25vmin' }} />
-          <div style={{
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
-            textAlign: 'center',
-            padding: 15,
-          }}
-          >
-            <Card.Title>
-              <button type="button" onClick={handleClick} style={{ border: 'none', backgroundColor: 'inherit' }}>{community}</button>
-            </Card.Title>
-            <Card.Text>
-              This is a wider card with supporting text below as a natural lead-in to
-              additional content. This content is a little bit longer.
-            </Card.Text>
-          </div>
-        </Card.Body>
+        <button type="button" onClick={handleClick} style={{ border: 'none', backgroundColor: 'inherit' }}>
+          <Card.Body style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
+            <Card.Img
+              variant="top"
+              src={community.image}
+              style={{
+                width: 250, height: 'auto', maxHeight: '275px', objectFit: 'contain', margin: '10px auto',
+              }}
+            />
+            <div style={{
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'center',
+              textAlign: 'center',
+              padding: 5,
+              width: '64%',
+              margin: '0 auto',
+            }}
+            >
+              <Card.Title>{community.name}</Card.Title>
+              <Card.Text>{community.description}</Card.Text>
+            </div>
+          </Card.Body>
+        </button>
       </Card>
 
     </>
@@ -46,11 +51,19 @@ const CommunityLink = ({ dispatch, community }) => {
 
 CommunityLink.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  community: PropTypes.string,
+  community: PropTypes.shape({
+    name: PropTypes.string,
+    image: PropTypes.string,
+    description: PropTypes.string,
+  }),
 };
 
 CommunityLink.defaultProps = {
-  community: '',
+  community: {
+    name: '',
+    image: '',
+    description: '',
+  },
 };
 
 export default connect(null)(CommunityLink);

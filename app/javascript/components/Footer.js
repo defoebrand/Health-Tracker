@@ -4,12 +4,16 @@ import DoctorCard from './DoctorCard';
 
 import doctors from '../data/doctors';
 
+const featured = ['Dr. Kim', 'Dr. Smith'];
+
 const Footer = () => (
   <footer className="Footer">
     <Card className="text-center">
       <Card.Header>Featured Doctors</Card.Header>
 
-      {doctors.map((doctor, ind) => (
+      {doctors.filter(doctor => (
+        featured.includes(doctor.name)
+      )).map((doctor, ind) => (
         <DoctorCard
           key={doctor.name + doctor.specialty + ind.toString()}
           img={doctor.img}

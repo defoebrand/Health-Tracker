@@ -1,7 +1,12 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
+
+import CardGroup from 'react-bootstrap/CardGroup';
 import CommunityLink from './CommunityLink';
+
 // import DoctorCard from './DoctorCard';
 
 import communities from '../data/communities';
@@ -10,11 +15,21 @@ import communities from '../data/communities';
 
 const myCommunities = ['Diabetes', 'Pregnancy', 'Migraine'];
 
-const Friends = () => (
-  <>
-    <Tabs defaultActiveKey="myCommunities" transition={false} id="noanim-tab-example" style={{ display: 'flex', justifyContent: 'center', marginTop: 15 }}>
-      <Tab eventKey="friends" title="My Friends">
-        {/* communities.filter(doctor => (
+const Friends = ({ tab }) => {
+  console.log('friends tab', tab);
+
+  return (
+    <>
+      <Tabs
+        defaultActiveKey={tab}
+        transition={false}
+        id="noanim-tab-example"
+        style={{
+          display: 'flex', justifyContent: 'center', marginTop: 15, flexWrap: 'nowrap',
+        }}
+      >
+        <Tab eventKey="friends" title="My Friends">
+          {/* communities.filter(doctor => (
           myCommunities.includes(doctor.name)
         )).map((doctor, ind) => (
           <DoctorCard
@@ -25,14 +40,16 @@ const Friends = () => (
             text={doctor.text}
           />
         )) */}
-      </Tab>
-      <Tab eventKey="myCommunities" title="My Communities">
-        {communities.filter(community => (
-          myCommunities.includes(community)
-        )).map(community => (
-          <CommunityLink key={community} community={community} />
-        ))}
-        {/* communities.map((doctor, ind) => (
+        </Tab>
+        <Tab eventKey="myCommunities" title="My Communities">
+          <CardGroup style={{ flexDirection: 'column' }}>
+            {communities.filter(community => (
+              myCommunities.includes(community)
+            )).map(community => (
+              <CommunityLink key={community} community={community} />
+            ))}
+          </CardGroup>
+          {/* communities.map((doctor, ind) => (
           <DoctorCard
             key={doctor.name + doctor.specialty + ind.toString()}
             img={doctor.img}
@@ -41,12 +58,12 @@ const Friends = () => (
             text={doctor.text}
           />
         )) */}
-      </Tab>
-      <Tab eventKey="communities" title="All Communities">
-        {communities.map(community => (
-          <CommunityLink key={community} community={community} />
-        ))}
-        {/* communities.map((doctor, ind) => (
+        </Tab>
+        <Tab eventKey="communities" title="All Communities">
+          {communities.map(community => (
+            <CommunityLink key={community} community={community} />
+          ))}
+          {/* communities.map((doctor, ind) => (
           <DoctorCard
             key={doctor.name + doctor.specialty + ind.toString()}
             img={doctor.img}
@@ -55,10 +72,21 @@ const Friends = () => (
             text={doctor.text}
           />
         )) */}
-      </Tab>
-    </Tabs>
+        </Tab>
+      </Tabs>
 
-  </>
-);
+    </>
+  );
+};
 
-export default Friends;
+Friends.propTypes = {
+  tab: PropTypes.string,
+};
+
+Friends.defaultProps = {
+  tab: 'myCommunities',
+};
+
+export default connect(state => ({
+  tab: state.tabReducer.tab,
+}))(Friends);

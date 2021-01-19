@@ -5,6 +5,7 @@ const communities = [
   'Anemia',
   "Chron's / Colitis",
   'Autoimmune',
-  'Migraine'];
+  'Migraine',
+];
 
 export default communities;

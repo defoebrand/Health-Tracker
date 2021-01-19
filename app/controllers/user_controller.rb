@@ -1,7 +1,9 @@
 class UserController < ApplicationController
   protect_from_forgery with: :null_session
   before_action :authenticate_request!, only: [:index]
+  before_action :set_user, only: [:login]
   def index
+    # render json: { message: 'hello' }
     if @current_user
       render json: @current_user
 
@@ -17,17 +19,17 @@ class UserController < ApplicationController
 
     if @user.save && @user.authenticate(user_params[:password])
       auth_token = JsonWebToken.encode(user_id: @user.id)
-      render json: { auth_token: auth_token }, status: :ok
+      render json: { auth_token: auth_token, user: user }, status: :ok
     else
       render json: @user.errors, status: :unprocessable_entity
     end
   end
 
   def login
-    user = User.find_by(email: user_params[:email].to_s.downcase)
-    if user&.authenticate(user_params[:password])
-      auth_token = JsonWebToken.encode(user_id: user.id)
-      render json: { auth_token: auth_token, user: user }, status: :ok
+    # user = User.find_by(email: user_params[:email])
+    if @user&.authenticate(user_params[:password])
+      auth_token = JsonWebToken.encode(user_id: @user.id)
+      render json: { auth_token: auth_token, user: @user }, status: :ok
     else
       render json: { error: 'Invalid username/password' }, status: :unauthorized
     end
@@ -48,7 +50,7 @@ class UserController < ApplicationController
   private
 
   def set_user
-    @user = User.find(params[:email])
+    @user = User.find_by(email: user_params[:email])
   end
 
   def user_params

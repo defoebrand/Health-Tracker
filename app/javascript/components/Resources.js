@@ -17,7 +17,7 @@ const Resources = () => (
               <Card>
                 <Card.Img
                   variant="top"
-                  src="https://raw.githubusercontent.com/Joseph-Burke/Eats-Shoots-Leaves/feature/project_setup/screenshots/screenshot-recipe.png"
+                  src="https://eats-shoots-leaves.herokuapp.com/logo.png"
                   style={{
                     height: 300, objectFit: 'contain', padding: 10,
                   }}

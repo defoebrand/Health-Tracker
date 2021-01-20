@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+
 // import { useHistory } from 'react-router-dom';
 
-const Settings = () => {
+const Settings = ({ user }) => {
   // const history = useHistory();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -60,16 +63,16 @@ const Settings = () => {
     <Form className="SignInForm" style={{ width: '85vw', maxWidth: 500, margin: '25px auto' }}>
       <Form.Group controlId="formBasicPassword">
         <Form.Label>UserName</Form.Label>
-        <Form.Control type="username" placeholder="UserName" onChange={changeName} />
+        <Form.Control type="username" placeholder="UserName" onChange={changeName} value={user.name} />
       </Form.Group>
       <Form.Group controlId="formBasicEmail">
         <Form.Label>Email address</Form.Label>
-        <Form.Control type="email" placeholder="Enter email" onChange={changeEmail} />
+        <Form.Control type="email" placeholder="Enter email" onChange={changeEmail} value={user.email} />
         <Form.Text className="text-muted">We will never share your email with anyone else.</Form.Text>
       </Form.Group>
       <Form.Group controlId="formBasicPassword">
         <Form.Label>Password</Form.Label>
-        <Form.Control type="password" placeholder="Password" onChange={changePassword} />
+        <Form.Control type="password" placeholder="Password" onChange={changePassword} value="" />
       </Form.Group>
       <Form.Group controlId="formBasicConfirmPassword">
         <Form.Label>Confirm Password</Form.Label>
@@ -82,4 +85,20 @@ const Settings = () => {
   );
 };
 
-export default Settings;
+Settings.propTypes = {
+  user: PropTypes.shape({
+    name: PropTypes.string,
+    email: PropTypes.string,
+  }),
+};
+
+Settings.defaultProps = {
+  user: {
+    name: '',
+    email: '',
+  },
+};
+
+export default connect(state => ({
+  user: state.userReducer.user,
+}))(Settings);

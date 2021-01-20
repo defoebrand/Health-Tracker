@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   resources :user do
     collection do
       post 'login'
+      post 'add-community', to: 'add_community'
+      get 'communities'
     end
   end
 

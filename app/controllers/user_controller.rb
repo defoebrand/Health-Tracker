@@ -43,6 +43,16 @@ class UserController < ApplicationController
     render json: { message: user }
   end
 
+  def communities
+    render json: User.second.communities
+  end
+
+  def add_community
+    @user = User.find(user_params[:id])
+    @community = Community.find_by(name: params[:community])
+    render json: { message: @user.communities }
+  end
+
   private
 
   def set_user
@@ -51,7 +61,7 @@ class UserController < ApplicationController
 
   def user_params
     params.require(:user).permit(
-      :name, :email, :password,
+      :id, :name, :email, :password,
       :age, :height, :weight,
       :temp, :pulse, :blood_sugar,
       :systolic, :diastolic

@@ -8,11 +8,36 @@ import Button from 'react-bootstrap/Button';
 import { useHistory } from 'react-router-dom';
 import { viewTab } from '../redux/actions';
 
-const Community = ({ dispatch, community }) => {
+const Community = ({ dispatch, community, user }) => {
   const history = useHistory();
   const handleClick = event => {
     dispatch(viewTab(event.target.dataset.rbEventKey));
     history.push('/friends');
+  };
+  const addCommunity = () => {
+    // const url = 'http://localhost:3000/user';
+    // const url = 'https://obscure-island-28750.herokuapp.com/user';
+    const url = '/user/add-community';
+    fetch(url, {
+      method: 'POST',
+      body: JSON.stringify({
+        user: {
+          id: user.id,
+        },
+        community,
+      }),
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+      },
+    })
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        }
+        throw new Error('Network response was not ok.');
+      }).then(data => {
+        console.log(data);
+      }).catch(err => console.log(err));
   };
   const members = ['Me', 'You', 'That other guy'];
   return (
@@ -39,7 +64,7 @@ const Community = ({ dispatch, community }) => {
         }}
         >
           <h1>{community}</h1>
-          <Button variant="info">Join Community</Button>
+          <Button variant="info" onClick={addCommunity}>Join Community</Button>
         </span>
         <div style={{ border: '1px solid black', padding: 25 }}>
           <h2>Members:</h2>
@@ -56,12 +81,19 @@ const Community = ({ dispatch, community }) => {
 Community.propTypes = {
   dispatch: PropTypes.func.isRequired,
   community: PropTypes.string,
+  user: PropTypes.shape({
+    id: PropTypes.number,
+  }),
 };
 
 Community.defaultProps = {
   community: '',
+  user: {
+    id: 0,
+  },
 };
 
 export default connect(state => ({
   community: state.communityReducer.community,
+  user: state.userReducer.user,
 }))(Community);

@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
+import Button from 'react-bootstrap/Button';
+
 import { useHistory } from 'react-router-dom';
 import { viewTab } from '../redux/actions';
 
@@ -32,7 +34,13 @@ const Community = ({ dispatch, community }) => {
         margin: '25px auto', width: '85vw', display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center',
       }}
       >
-        <h1>{community}</h1>
+        <span style={{
+          display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginBottom: 15,
+        }}
+        >
+          <h1>{community}</h1>
+          <Button variant="info">Join Community</Button>
+        </span>
         <div style={{ border: '1px solid black', padding: 25 }}>
           <h2>Members:</h2>
           <hr />

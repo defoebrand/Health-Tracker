@@ -30,7 +30,6 @@ const HeaderNav = ({ dispatch, user }) => {
         throw new Error('Network response was not ok.');
       }).then(data => {
         dispatch(updateUser(data));
-        console.log('data', data);
       }).catch(err => console.log(err));
   }, []);
   useEffect(() => {
@@ -58,7 +57,6 @@ const HeaderNav = ({ dispatch, user }) => {
       </div>
     )
   );
-  console.log('user in nav', user);
   return (
     <div className="HeaderNav">
       <Navbar bg="light" expand="lg">
@@ -84,7 +82,9 @@ const HeaderNav = ({ dispatch, user }) => {
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>
-        <Nav.Link className="bigScreenSignOutBtn" onClick={() => { dispatch(updateUser({ name: '' })); localStorage.token = ''; }}>Sign out</Nav.Link>
+        {user.name !== ''
+          ? <Nav.Link className="bigScreenSignOutBtn" onClick={() => { dispatch(updateUser({ name: '' })); localStorage.token = ''; }}>Sign out</Nav.Link>
+          : null}
       </Navbar>
     </div>
   );

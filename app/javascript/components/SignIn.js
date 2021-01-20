@@ -11,9 +11,19 @@ import { updateUser } from '../redux/actions';
 const SignIn = ({ dispatch }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [memory, setMemory] = useState(true);
+  const [status, setStatus] = useState(false);
   const history = useHistory();
   const goToRegister = () => {
     history.push('/register');
+  };
+
+  const changeMemory = () => {
+    setMemory(!memory);
+  };
+
+  const changeStatus = () => {
+    setStatus(!status);
   };
 
   const changeEmail = e => {
@@ -44,8 +54,11 @@ const SignIn = ({ dispatch }) => {
         }
         throw new Error('Network response was not ok.');
       }).then(data => {
-        console.log('sign in data', data);
-        localStorage.token = data.token;
+        if (memory === true) {
+          localStorage.token = data.token;
+        } else {
+          sessionStorage.token = data.token;
+        }
         dispatch(updateUser(data.user));
 
         history.push('/');
@@ -53,14 +66,14 @@ const SignIn = ({ dispatch }) => {
   };
 
   return (
-    <Form className="SignInForm" style={{ marginTop: 25 }}>
-      <Form.Group controlId="formBasicRadio">
-        <div style={{ display: 'flex', justifyContent: 'space-between', width: 250 }}>
-          <Form.Label>Are you a Doctor?</Form.Label>
-          <Form.Check type="radio" label="Yes" />
-          <Form.Check type="radio" label="No" defaultChecked />
-        </div>
-      </Form.Group>
+    <Form className="SignInForm" style={{ width: '85vw', maxWidth: 500, margin: '25px auto' }}>
+      <Form.Check
+        type="switch"
+        id="custom-switch"
+        label="I am a Doctor"
+        onChange={changeStatus}
+      />
+      <br />
       <Form.Group controlId="formBasicEmail">
         <Form.Label>Email address</Form.Label>
         <Form.Control type="email" placeholder="Enter email" onChange={changeEmail} />
@@ -71,7 +84,7 @@ const SignIn = ({ dispatch }) => {
         <Form.Control type="password" placeholder="Password" onChange={changePassword} />
       </Form.Group>
       <Form.Group controlId="formBasicCheckbox">
-        <Form.Check type="checkbox" label="Remember Me" />
+        <Form.Check type="checkbox" label="Remember Me" defaultChecked onChange={changeMemory} />
       </Form.Group>
       <Button variant="primary" type="submit" onClick={submitSignIn}>
         Submit

@@ -9,7 +9,6 @@ import { viewTab } from '../redux/actions';
 const Community = ({ dispatch, community }) => {
   const history = useHistory();
   const handleClick = event => {
-    console.log('community tab', event.target.dataset.rbEventKey);
     dispatch(viewTab(event.target.dataset.rbEventKey));
     history.push('/friends');
   };

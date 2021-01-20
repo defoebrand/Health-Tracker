@@ -13,6 +13,13 @@ import { updateUser } from '../redux/actions';
 const HeaderNav = ({ dispatch, user }) => {
   const doctor = 'list';
   const history = useHistory();
+  const clickAccount = () => {
+    if (user.name !== '') {
+      history.push('/settings');
+    } else {
+      history.push('/register');
+    }
+  };
   useEffect(() => {
     // const url = 'http://localhost:3000/user';
     // const url = 'https://obscure-island-28750.herokuapp.com/user';
@@ -77,7 +84,7 @@ const HeaderNav = ({ dispatch, user }) => {
 
                 <NavDropdown.Item style={{ textAlign: 'center', padding: '5px 0' }} onClick={() => history.push(`/doctors/${doctor}`)}>Doctors</NavDropdown.Item>
                 <NavDropdown.Item style={{ textAlign: 'center', padding: '5px 0' }} onClick={() => history.push('/friends')}>Friends</NavDropdown.Item>
-                <NavDropdown.Item style={{ borderLeft: '1px solid gray', textAlign: 'center' }} onClick={() => history.push('/settings')}>My Account</NavDropdown.Item>
+                <NavDropdown.Item style={{ borderLeft: '1px solid gray', textAlign: 'center' }} onClick={clickAccount}>My Account</NavDropdown.Item>
               </div>
             </NavDropdown>
           </Nav>

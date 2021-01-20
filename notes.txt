@@ -15,3 +15,20 @@ first
     
     second 
     eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2MTEyNjY3NzgsImlzcyI6Imlzc3Vlcl9uYW1lIiwiYXVkIjoiY2xpZW50IiwidXNlcl9pZCI6Nn0.LwUbN3i2DvzhtcbPevBMb7z5RUldA4WgRFJvPIcJ2vM
+    
+    '{"jan3": 36, "jan4": 37, "jan5": 37, "jan6": 36}'
+
+'{"jan3": {"10a": 72, "12p": 74, "2p": 72}, "jan4":
+{"10a": 71, "12p": 73, "2p": 72}}'
+
+setPulse(typeof pulse === 'object' ? pulse : { noData: null });
+
+
+
+video conf: Photo by Edward Jenner from Pexels
+hands: Photo by fauxels from Pexels
+steth: Photo by Negative Space
+
+male doc: Image by <a href="https://pixabay.com/users/tatyanabuzmakova_krasnova-12151052/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=5871743">Татьяна Краснова</a> from <a href="https://pixabay.com/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=5871743">Pixabay</a>
+
+female doc: Image by <a href="https://pixabay.com/users/anhngoc1397-14450218/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=4677401">Anh Nguyễn Duy</a> from <a href="https://pixabay.com/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=4677401">Pixabay</a>

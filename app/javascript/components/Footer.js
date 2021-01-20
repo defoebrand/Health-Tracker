@@ -1,17 +1,34 @@
 import React from 'react';
 import Card from 'react-bootstrap/Card';
-import Button from 'react-bootstrap/Button';
+import DoctorCard from './DoctorCard';
+
+import doctors from '../data/doctors';
+
+const featured = ['Dr. Kim', 'Dr. Smith'];
 
 const Footer = () => (
-  <Card className="text-center Footer">
-    <Card.Header>Featured</Card.Header>
-    <Card.Body>
-      <Card.Title>Special title treatment</Card.Title>
-      <Card.Text>With supporting text below as a natural lead-in to additional content.</Card.Text>
-      <Button variant="primary">Go somewhere</Button>
-    </Card.Body>
-    <Card.Footer className="text-muted">2 days ago</Card.Footer>
-  </Card>
+  <footer className="Footer">
+    <Card className="text-center">
+      <Card.Header>Featured Doctors</Card.Header>
+
+      {doctors.filter(doctor => (
+        featured.includes(doctor.name)
+      )).map((doctor, ind) => (
+        <DoctorCard
+          key={doctor.name + doctor.specialty + ind.toString()}
+          img={doctor.img}
+          name={doctor.name}
+          specialty={doctor.specialty}
+          text={doctor.text}
+        />
+      ))}
+
+      <Card.Footer className="text-muted">
+        Health Tracker©
+        <a href="https://www.defoebrand.com"> DefoeBrand</a>
+      </Card.Footer>
+    </Card>
+  </footer>
 );
 
 export default Footer;

@@ -1,0 +1,12 @@
+.Carousel {
+  .imageContainer {
+    max-height: 75vmin;
+    text-shadow: 3px 3px 15px #000, -3px -3px 15px #000, -3px 3px 15px #000, 3px -3px 15px #000;
+    font-weight: 700;
+
+    img {
+      width: 100%;
+      object-fit: cover;
+    }
+  }
+}

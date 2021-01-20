@@ -1,0 +1,28 @@
+.signInBtn {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+
+  div {
+    margin-left: 10px;
+  }
+}
+
+.signOutBtn {
+  padding-right: 5px;
+  color: #007bff !important;
+}
+
+.bigScreenSignOutBtn {
+  display: none !important;
+}
+
+@media only screen and (min-width: 992px) {
+  .signOutBtn {
+    display: none !important;
+  }
+
+  .bigScreenSignOutBtn {
+    display: block !important;
+  }
+}

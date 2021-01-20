@@ -1,5 +1,8 @@
 class HomepageController < ApplicationController
-  def index; end
+  def index
+    # user = User.find_by(email: user_params[:email].to_s.downcase)
+    # render json: user if user
+  end
 
   # def login
   #   user = User.find_by(email: user_params[:email].to_s.downcase)

@@ -22,14 +22,16 @@ class HomepageController < ApplicationController
     params.each do |param|
       next if %w[action controller].include?(param[0])
 
-      User.where("#{param[0]} = ?", param[1]).find_each do |user|
-        @users << user
-      end
+      @users = User.where("#{param[0]} = ?", param[1])
+      # User.where("#{param[0]} = ?", param[1]).find_each do |user|
+      #   @users << user
+      # end
     end
     @return_user = sanitize_user(@users)
     if !@return_user.count.zero?
       @unique_users = only_unique(@return_user)
       render json: @unique_users
+      # render json: @return_user
 
     else
       render json: { message: 'No matching result' }

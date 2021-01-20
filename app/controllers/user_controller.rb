@@ -1,15 +1,10 @@
 class UserController < ApplicationController
   protect_from_forgery with: :null_session
   before_action :authorized, only: [:index]
-  # before_action :authenticate_request!, only: [:index]
   before_action :set_user, only: [:login]
   def index
-    # render json: { message: 'hello' }
     if @user
       render json: @user
-
-      # users = User.all
-      # render json: users
     else
       render json: { error: 'Invalid username/password' }, status: :unauthorized
     end

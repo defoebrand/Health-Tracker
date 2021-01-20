@@ -1,17 +1,36 @@
 class HomepageController < ApplicationController
-  def index
-    # user = User.find_by(email: user_params[:email].to_s.downcase)
-    # render json: user if user
+  def index; end
+
+  def allusers
+    @users = []
+    params.each do |param|
+      @user = User.find_by(param[0] => param[1]) unless %w[action controller].include?(param[0])
+    end
+    # @users = User.all
+    render json: {
+      id: @user.id,
+      age: @user.age,
+      height: @user.height,
+      weight: @user.weight,
+      systolic: JSON.parse(@user.systolic),
+      diastolic: JSON.parse(@user.systolic),
+      pulse: JSON.parse(@user.systolic),
+      temperature: JSON.parse(@user.systolic),
+      blood_sugar: JSON.parse(@user.systolic)
+    }
   end
 
-  # def login
-  #   user = User.find_by(email: user_params[:email].to_s.downcase)
-  #
-  #   if user&.authenticate(user_params[:password])
-  #     auth_token = JsonWebToken.encode(user_id: user.id)
-  #     render json: { auth_token: auth_token }, status: :ok
-  #   else
-  #     render json: { error: 'Invalid username/password' }, status: :unauthorized
-  #   end
-  # end
+  def user
+    @user = User.find(params[:id])
+    render json: @user
+  end
+
+  def search_by_age
+    @user = User.find_by(age: params[:age])
+    if @user
+      render json: @user
+    else
+      render json: { message: 'No matching result' }
+    end
+  end
 end

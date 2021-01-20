@@ -5,7 +5,7 @@ import DoctorCard from './DoctorCard';
 
 import doctors from '../data/doctors';
 
-const myDocs = ['Dr. Gregory House', 'Dr. Kim', 'Dr. Hannibal Lecter'];
+const myDocs = ['Dr. Gregory House', 'Dr. Who', 'Dr. Hannibal Lecter'];
 
 const Doctor = () => (
   <>

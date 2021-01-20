@@ -1,11 +1,11 @@
-import Diabetes from '../../assets/images/diabetes-ribbon.jpeg';
-import Pregnancy from '../../assets/images/pregnancy-ribbon.jpeg';
-import Cancer from '../../assets/images/cancer-ribbons.jpg';
-import Anemia from '../../assets/images/anemia-ribbon.jpeg';
-import ChronsColitis from '../../assets/images/chrons-colitis-ribbon.png';
-import Autoimmune from '../../assets/images/autoimmune-ribbon.jpeg';
-import Migraine from '../../assets/images/migraine-ribbon.png';
-import Autism from '../../assets/images/autism-ribbon.jpeg';
+// import Diabetes from '../../assets/images/diabetes-ribbon.jpeg';
+// import Pregnancy from '../../assets/images/pregnancy-ribbon.jpeg';
+// import Cancer from '../../assets/images/cancer-ribbons.jpg';
+// import Anemia from '../../assets/images/anemia-ribbon.jpeg';
+// import ChronsColitis from '../../assets/images/chrons-colitis-ribbon.png';
+// import Autoimmune from '../../assets/images/autoimmune-ribbon.jpeg';
+// import Migraine from '../../assets/images/migraine-ribbon.png';
+// import Autism from '../../assets/images/autism-ribbon.jpeg';
 
 const communities = [
   {

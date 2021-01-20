@@ -1,22 +1,15 @@
 To track:
-
 Height
 Weight
-Age
+Age / DOB
 
-Blood Pressure
-Pulse
-Temperature
+add image blob from active records for profile pics 
 
-Blood Sugar 
-
-add community relationship
-add doctor relationship
 add friend relationship
+add doctor relationship
 
 add api endpoint for external access
- - only allow data
- - no username/email info
+ - add query scopes
  
  
     '{"jan3": 36, "jan4": 37, "jan5": 37, "jan6": 36}'

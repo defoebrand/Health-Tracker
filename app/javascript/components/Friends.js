@@ -42,6 +42,7 @@ const Friends = ({ tab, communities, user }) => {
         }}
       >
         <Tab eventKey="friends" title="My Friends">
+          <h2 style={{ margin: '15px auto', whiteSpace: 'wrap', textAlign: 'center' }}>Chat with Friends! - coming soon - </h2>
           {/* communities.filter(doctor => (
           myCommunities.includes(doctor.name)
         )).map((doctor, ind) => (

@@ -8,9 +8,16 @@ const Register = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirm, setConfirm] = useState(false);
   const [age, setAge] = useState('');
+  const [dob, setDOB] = useState('');
   const [height, setHeight] = useState('');
   const [weight, setWeight] = useState('');
+  const [memory, setMemory] = useState(true);
+
+  const changeMemory = () => {
+    setMemory(!memory);
+  };
   const gotToSignIn = () => {
     history.push('/signin');
   };
@@ -22,6 +29,11 @@ const Register = () => {
   };
   const changePassword = e => {
     setPassword(e.target.value);
+  };
+  const confirmPassword = e => {
+    if (password === e.target.value) {
+      setConfirm(true);
+    }
   };
   const changeAge = e => {
     setAge(e.target.value);
@@ -36,43 +48,52 @@ const Register = () => {
     const birthdate = new Date(e.target.value);
     const cur = new Date();
     const years = Math.floor((cur - birthdate) / 31557600000);
+    setDOB(birthdate);
     setAge(years);
   };
   const submitRegister = e => {
-    e.preventDefault();
-    // const url = 'http://localhost:3000/user';
-    // const url = 'https://obscure-island-28750.herokuapp.com/user';
-    const url = '/user';
-    fetch(url, {
-      method: 'POST',
-      body: JSON.stringify({
-        user: {
-          name,
-          email,
-          password,
-          age,
-          height,
-          weight,
+    if (confirm !== true) {
+      alert("passwords don't match");
+    } else {
+      e.preventDefault();
+      // const url = 'http://localhost:3000/user';
+      // const url = 'https://obscure-island-28750.herokuapp.com/user';
+      const url = '/user';
+      fetch(url, {
+        method: 'POST',
+        body: JSON.stringify({
+          user: {
+            name,
+            email,
+            password,
+            dob,
+            age,
+            height,
+            weight,
+          },
+        }),
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
         },
-      }),
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8',
-      },
-    })
-      .then(response => {
-        if (response.ok) {
-          return response.json();
-        }
-        throw new Error('Network response was not ok.');
-      }).then(data => {
-        localStorage.token = data.auth_token;
-        console.log('submit already');
-        history.push('/');
-      }).catch(err => console.log(err));
+      })
+        .then(response => {
+          if (response.ok) {
+            return response.json();
+          }
+          throw new Error('Network response was not ok.');
+        }).then(data => {
+          if (memory === true) {
+            localStorage.token = data.token;
+          } else {
+            sessionStorage.token = data.token;
+          }
+          history.replace('/');
+        }).catch(err => console.log(err));
+    }
   };
   return (
-    <Form className="SignInForm" style={{ margin: '25px 0' }}>
-      <Form.Group controlId="formBasicPassword">
+    <Form className="SignInForm" style={{ width: '85vw', maxWidth: 500, margin: '25px auto' }}>
+      <Form.Group controlId="formBasicUsername">
         <Form.Label>UserName</Form.Label>
         <Form.Control type="username" placeholder="UserName" onChange={changeName} />
       </Form.Group>
@@ -85,20 +106,28 @@ const Register = () => {
         <Form.Label>Password</Form.Label>
         <Form.Control type="password" placeholder="Password" onChange={changePassword} />
       </Form.Group>
-      <Form.Group controlId="formBasicPassword">
-        <Form.Label style={{ marginRight: 5 }}>D.O.B.</Form.Label>
-        <input type="date" onChange={changeDate} />
-        <br />
+      <Form.Group controlId="formBasicConfirmPassword">
+        <Form.Label>Confirm Password</Form.Label>
+        <Form.Control type="password" placeholder="Confirm Password" onChange={confirmPassword} />
+      </Form.Group>
+      <Form.Group controlId="formBasicDOB">
+        <Form.Label>DOB</Form.Label>
+        <Form.Control type="date" placeholder="dob" onChange={changeDate} />
+      </Form.Group>
+      <Form.Group controlId="formBasicAge">
         <Form.Label>Age</Form.Label>
         <Form.Control type="age" placeholder="Age" onChange={changeAge} value={age} />
       </Form.Group>
-      <Form.Group controlId="formBasicPassword">
+      <Form.Group controlId="formBasicHeight">
         <Form.Label>Height</Form.Label>
         <Form.Control type="height" placeholder="Height" onChange={changeHeight} />
       </Form.Group>
-      <Form.Group controlId="formBasicPassword">
+      <Form.Group controlId="formBasicWeight">
         <Form.Label>Weight</Form.Label>
         <Form.Control type="weight" placeholder="Weight" onChange={changeWeight} />
+      </Form.Group>
+      <Form.Group controlId="formBasicCheckbox">
+        <Form.Check type="checkbox" label="Remember Me" defaultChecked onChange={changeMemory} />
       </Form.Group>
       <Button variant="primary" type="submit" onClick={submitRegister}>
         Submit

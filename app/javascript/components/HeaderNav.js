@@ -11,7 +11,7 @@ import { useHistory } from 'react-router-dom';
 import { updateUser } from '../redux/actions';
 
 const HeaderNav = ({ dispatch, user }) => {
-  const doctor = 'doctors';
+  const doctor = 'list';
   const history = useHistory();
   useEffect(() => {
     // const url = 'http://localhost:3000/user';
@@ -43,7 +43,7 @@ const HeaderNav = ({ dispatch, user }) => {
   const signedIn = (user.name !== ''
     ? (
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <Nav.Link onClick={() => history.push(`/users/${user}`)}>{user.name}</Nav.Link>
+        <Nav.Link onClick={() => history.push(`/users/${user.name}`)}>{user.name}</Nav.Link>
         <Nav.Link className="signOutBtn" onClick={() => { dispatch(updateUser({ name: '' })); localStorage.token = ''; }}>Sign out</Nav.Link>
       </div>
     )

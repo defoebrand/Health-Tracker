@@ -1,9 +1,11 @@
 import { combineReducers, createStore } from 'redux';
 
-import { SUBMIT, COMMUNITY, TAB } from './actions';
+import {
+  SUBMIT, COMMUNITY, COMMUNITIES, TAB,
+} from './actions';
 
 const initialUser = { name: '' };
-const initialCommunity = '';
+const initialCommunity = [];
 const initialTab = 'myCommunities';
 
 const userReducer = (state = initialUser, action) => {
@@ -30,6 +32,18 @@ const communityReducer = (state = initialCommunity, action) => {
   }
 };
 
+const allCommunitiesReducer = (state = initialCommunity, action) => {
+  switch (action.type) {
+    case COMMUNITIES:
+      return {
+        communities: action.input,
+      };
+
+    default:
+      return state;
+  }
+};
+
 const tabReducer = (state = initialTab, action) => {
   switch (action.type) {
     case TAB:
@@ -45,6 +59,7 @@ const tabReducer = (state = initialTab, action) => {
 export const combinedReducers = combineReducers({
   userReducer,
   communityReducer,
+  allCommunitiesReducer,
   tabReducer,
 });
 

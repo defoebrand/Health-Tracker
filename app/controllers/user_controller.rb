@@ -44,13 +44,31 @@ class UserController < ApplicationController
   end
 
   def communities
-    render json: User.second.communities
+    render json: Community.all
+  end
+
+  def community_users
+    @community = Community.find_by(name: comm_params[:name])
+    render json: @community.users
+  end
+
+  def user_communities
+    @user = User.find(user_params[:id])
+    render json: @user.communities
   end
 
   def add_community
     @user = User.find(user_params[:id])
-    @community = Community.find_by(name: params[:community])
-    render json: { message: @user.communities }
+    @community = Community.find_by(name: comm_params[:name])
+    @user.communities << @community
+    render json: @community.users
+  end
+
+  def remove_community
+    @user = User.find(user_params[:id])
+    @community = Community.find_by(name: comm_params[:name])
+    @user.communities.delete(@community)
+    render json: @community.users
   end
 
   private
@@ -66,5 +84,9 @@ class UserController < ApplicationController
       :temp, :pulse, :blood_sugar,
       :systolic, :diastolic
     )
+  end
+
+  def comm_params
+    params.require(:community).permit(:name)
   end
 end

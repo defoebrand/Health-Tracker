@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Tabs from 'react-bootstrap/Tabs';
@@ -10,21 +10,15 @@ import { viewTab } from '../redux/actions';
 
 const Community = ({ dispatch, community, user }) => {
   const history = useHistory();
-  const handleClick = event => {
-    dispatch(viewTab(event.target.dataset.rbEventKey));
-    history.push('/friends');
-  };
-  const addCommunity = () => {
+  const [members, setMembers] = useState([]);
+  useEffect(() => {
     // const url = 'http://localhost:3000/user';
     // const url = 'https://obscure-island-28750.herokuapp.com/user';
-    const url = '/user/add-community';
+    const url = '/user/community-users';
     fetch(url, {
       method: 'POST',
       body: JSON.stringify({
-        user: {
-          id: user.id,
-        },
-        community,
+        community: { name: community },
       }),
       headers: {
         'Content-type': 'application/json; charset=UTF-8',
@@ -36,10 +30,60 @@ const Community = ({ dispatch, community, user }) => {
         }
         throw new Error('Network response was not ok.');
       }).then(data => {
-        console.log(data);
+        setMembers(data);
+      }).catch(err => console.log(err));
+  }, []);
+  const handleClick = event => {
+    dispatch(viewTab(event.target.dataset.rbEventKey));
+    history.push('/friends');
+  };
+  const addCommunity = () => {
+    // const url = 'http://localhost:3000/user';
+    // const url = 'https://obscure-island-28750.herokuapp.com/user';
+    const url = '/user/add-community';
+    fetch(url, {
+      method: 'POST',
+      body: JSON.stringify({
+        user: { id: user.id },
+        community: { name: community },
+      }),
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+      },
+    })
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        }
+        throw new Error('Network response was not ok.');
+      }).then(data => {
+        setMembers(data);
       }).catch(err => console.log(err));
   };
-  const members = ['Me', 'You', 'That other guy'];
+  const removeCommunity = () => {
+    // const url = 'http://localhost:3000/user';
+    // const url = 'https://obscure-island-28750.herokuapp.com/user';
+    const url = '/user/remove-community';
+    fetch(url, {
+      method: 'POST',
+      body: JSON.stringify({
+        user: { id: user.id },
+        community: { name: community },
+      }),
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+      },
+    })
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        }
+        throw new Error('Network response was not ok.');
+      }).then(data => {
+        setMembers(data);
+      }).catch(err => console.log(err));
+  };
+  // const members = ['Me', 'You', 'That other guy'];
   return (
     <>
       <Tabs
@@ -64,13 +108,16 @@ const Community = ({ dispatch, community, user }) => {
         }}
         >
           <h1>{community}</h1>
-          <Button variant="info" onClick={addCommunity}>Join Community</Button>
+          <span>
+            <Button variant="info" onClick={addCommunity} style={{ marginRight: 10 }}>Join Community</Button>
+            {members.some(member => member.name === user.name) ? <Button variant="info" onClick={removeCommunity}>Leave Community</Button> : null}
+          </span>
         </span>
         <div style={{ border: '1px solid black', padding: 25 }}>
           <h2>Members:</h2>
           <hr />
           {members.map(member => (
-            <p key={member}>{member}</p>
+            <p key={member.id}>{member.name}</p>
           ))}
         </div>
       </div>
@@ -83,6 +130,7 @@ Community.propTypes = {
   community: PropTypes.string,
   user: PropTypes.shape({
     id: PropTypes.number,
+    name: PropTypes.string,
   }),
 };
 
@@ -90,6 +138,7 @@ Community.defaultProps = {
   community: '',
   user: {
     id: 0,
+    name: '',
   },
 };
 

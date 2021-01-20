@@ -22,7 +22,7 @@ const CommunityLink = ({ dispatch, community }) => {
           <Card.Body style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
             <Card.Img
               variant="top"
-              src={community.image}
+              src={' '}
               style={{
                 width: 250, height: 'auto', maxHeight: '275px', objectFit: 'contain', margin: '10px auto',
               }}

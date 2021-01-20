@@ -8,7 +8,7 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 
 import { useHistory } from 'react-router-dom';
 
-import { updateUser } from '../redux/actions';
+import { updateUser, allCommunities } from '../redux/actions';
 
 const HeaderNav = ({ dispatch, user }) => {
   const doctor = 'list';
@@ -37,6 +37,24 @@ const HeaderNav = ({ dispatch, user }) => {
         throw new Error('Network response was not ok.');
       }).then(data => {
         dispatch(updateUser(data));
+      }).catch(err => console.log(err));
+  }, []);
+  useEffect(() => {
+    // const url = 'http://localhost:3000/user';
+    // const url = 'https://obscure-island-28750.herokuapp.com/user';
+    const url = '/user/communities';
+    fetch(url, {
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+      },
+    })
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        }
+        throw new Error('Network response was not ok.');
+      }).then(data => {
+        dispatch(allCommunities(data));
       }).catch(err => console.log(err));
   }, []);
   useEffect(() => {

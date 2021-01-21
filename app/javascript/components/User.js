@@ -14,6 +14,8 @@ const User = () => {
   const [bloodSugar, setBloodSugar] = useState('');
   const [systolic, setSystolic] = useState('');
   const [diastolic, setDiastolic] = useState('');
+  const [weight, setWeight] = useState({ measurements: '' });
+  const [height, setHeight] = useState('');
   useEffect(() => {
     // const url = 'http://localhost:3000/user';
     const url = '/user';
@@ -41,9 +43,10 @@ const User = () => {
         setSystolic(JSON.parse(localSystolic));
         const localDiastolic = data.diastolic === null ? '{}' : data.diastolic;
         setDiastolic(JSON.parse(localDiastolic));
+        setWeight(JSON.parse(data.weight));
+        setHeight(JSON.parse(data.height));
       }).catch(err => console.log(err));
   }, [history]);
-  console.log(user);
   const basePulse = user => {
     if (user.age > 65) {
       return 80;
@@ -123,12 +126,27 @@ const User = () => {
   const newTempData = [];
   const newBloodSugarData = [];
   const newBloodPressureData = [];
+  const newBMIData = [];
+  const weightData = Object.keys(weight.measurements);
   const tempData = Object.keys(temp);
   const pulseData = Object.keys(pulse);
   const bloodSugarData = Object.keys(bloodSugar);
   const systolicData = Object.keys(systolic);
   const diastolicData = Object.keys(diastolic);
-  // console.log('user', user);
+  let currentBMI;
+
+  // console.log('weight key', Object.entries(weightData));
+  const heightForBMI = (Number(height.height) / 100) * (Number(height.height) / 100);
+  weightData.forEach((key, index) => {
+    newBMIData.push({
+      name: key,
+      [`${user.name}'s BMI`]: Math.round(Number(weight.measurements[key]) / (heightForBMI)).toString(),
+      baseBMI: 23,
+    });
+    if (index === weightData.length - 1) {
+      currentBMI = Math.round(Number(weight.measurements[key]) / (heightForBMI)).toString();
+    }
+  });
   pulseData.forEach(key => {
     Object.entries(pulse[key]).forEach(item => {
       newPulseData.push({ name: key, [`${user.name} Pulse`]: item[1], basePulse: basePulse(user) });
@@ -164,8 +182,7 @@ const User = () => {
       });
     });
   }
-  // console.log('newBloodPressureData', newBloodPressureData);
-  console.log('newTempData', newTempData);
+  // console.log('newBMIData', Object.keys(newBMIData[newBMIData.length - 1]));
   return (
     <>
       <div className="welcomeBanner">
@@ -182,15 +199,14 @@ const User = () => {
           Add Stats
         </Button>
       </div>
-
       <Accordion>
         <Card>
           <Accordion.Toggle as={Card.Header} eventKey="0">
-            <h3>{`BMI - ${Math.round(user.weight / ((user.height / 100) * (user.height / 100))).toString()}`}</h3>
+            <h3>{`BMI - ${currentBMI}`}</h3>
           </Accordion.Toggle>
           <Accordion.Collapse eventKey="0">
             <Card.Body>
-              <LineRechartComponent chartData={[{ name: 'Jan21-10a', [`${user.name} BMI`]: `${Math.round(user.weight / ((user.height / 100) * (user.height / 100))).toString()}`, baseBMI: 23 }]} />
+              <LineRechartComponent chartData={newBMIData} />
             </Card.Body>
           </Accordion.Collapse>
         </Card>

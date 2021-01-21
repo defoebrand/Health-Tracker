@@ -74,6 +74,15 @@ const Register = () => {
       setEthnicity([...ethnicity, e.target.id]);
     }
   };
+  const date = new Date();
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  let time;
+  if (date.getHours() > 12) {
+    time = `${date.getHours() - 12}p`;
+  } else {
+    time = `${date.getHours()}a`;
+  }
+  const dateTime = `${months[date.getMonth()]}${date.getDate()}-${time}`;
   const submitRegister = e => {
     if (password !== confirm) {
       alert("passwords don't match");
@@ -94,7 +103,7 @@ const Register = () => {
             ethnicity: ethnicity.toString(),
             sex,
             height: JSON.stringify({ height, scale }),
-            weight: JSON.stringify({ weight, scale }),
+            weight: JSON.stringify({ measurements: { [dateTime]: Number(weight) }, scale }),
           },
         }),
         headers: {

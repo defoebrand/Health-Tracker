@@ -40,14 +40,12 @@ const AddStats = ({ user }) => {
     const { token } = localStorage;
     const date = new Date();
     const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-    // const formattedDate = `${months[date.getMonth()]}${date.getDate()}`;
     let time;
     if (date.getHours() > 12) {
       time = `${date.getHours() - 12}p`;
     } else {
       time = `${date.getHours()}a`;
     }
-    // console.log('time', time);
     const dateTime = `${months[date.getMonth()]}${date.getDate()}-${time}`;
     // const url = 'http://localhost:3000/user';
     // const url = 'https://obscure-island-28750.herokuapp.com/user';
@@ -64,11 +62,14 @@ const AddStats = ({ user }) => {
     const newWeight = user.weight === null
       ? {}
       : JSON.parse(user.weight);
-    if (pulse !== '') {
-      if (newWeight[dateTime] !== undefined) {
-        newWeight[dateTime] = { ...newWeight[dateTime], [time]: Number(weight) };
+    if (weight !== '') {
+      if (newWeight.measurements !== undefined) {
+        newWeight.measurements = {
+          ...newWeight.measurements,
+          [dateTime]: Number(weight),
+        };
       } else {
-        newWeight[dateTime] = { [time]: Number(weight) };
+        newWeight.measurements = { [dateTime]: Number(weight) };
       }
     }
     const newTemp = user.temperature === null

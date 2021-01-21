@@ -59,7 +59,6 @@ const Register = () => {
       setScale('Metric');
     }
   };
-  console.log(scale);
   const changeDate = e => {
     const birthdate = new Date(e.target.value);
     const cur = new Date();

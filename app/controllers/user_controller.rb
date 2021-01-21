@@ -33,9 +33,6 @@ class UserController < ApplicationController
 
   def update
     user = User.find(params[:id])
-    puts params
-    puts user_params
-
     user.update(pulse: user_params[:pulse]) if user_params[:pulse] != '{}'
     user.update(weight: user_params[:weight]) if user_params[:weight] != '{}'
     user.update(temperature: user_params[:temp]) if user_params[:temp] != '{}'

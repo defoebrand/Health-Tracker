@@ -1,4 +1,5 @@
 add image blob from active records for profile pics 
+ - or preselected images to be used as profile pic
 
 add friend relationship
 add doctor relationship
@@ -6,6 +7,10 @@ add doctor relationship
 add api endpoint for external access
  - add query scopes
  
+ coming features
+  friend's chat 
+  schedule consultation
+  doctor login
  
     '{"jan3": 36, "jan4": 37, "jan5": 37, "jan6": 36}'
 

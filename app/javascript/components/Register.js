@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import { useHistory } from 'react-router-dom';
 
-const Register = () => {
+import { updateUser } from '../redux/actions';
+
+const Register = ({ dispatch }) => {
   const history = useHistory();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -120,6 +124,7 @@ const Register = () => {
           } else {
             sessionStorage.token = data.token;
           }
+          dispatch(updateUser(data.user));
           history.replace('/');
         }).catch(err => console.log(err));
     }
@@ -196,4 +201,8 @@ const Register = () => {
   );
 };
 
-export default Register;
+Register.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+};
+
+export default connect(null)(Register);

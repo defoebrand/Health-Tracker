@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :user do
     collection do
       post 'login'
+      patch 'settings'
       post 'add-community', to: 'add_community'
       post 'remove-community', to: 'remove_community'
       post 'community-users', to: 'community_users'

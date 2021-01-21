@@ -4,12 +4,13 @@ import PropTypes from 'prop-types';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
-// import { useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
+import { updateUser } from '../redux/actions';
 
-const Settings = ({ user }) => {
-  // const history = useHistory();
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
+const Settings = ({ user, dispatch }) => {
+  const history = useHistory();
+  const [name, setName] = useState(user.name);
+  const [email, setEmail] = useState(user.email);
   const [password, setPassword] = useState('');
   const [confirm, setConfirm] = useState('');
 
@@ -33,11 +34,12 @@ const Settings = ({ user }) => {
       e.preventDefault();
       // const url = 'http://localhost:3000/user';
       // const url = 'https://obscure-island-28750.herokuapp.com/user';
-      const url = '/user';
+      const url = '/user/settings/';
       fetch(url, {
-        method: 'POST',
+        method: 'PATCH',
         body: JSON.stringify({
           user: {
+            id: user.id,
             name,
             email,
             password,
@@ -53,17 +55,16 @@ const Settings = ({ user }) => {
           }
           throw new Error('Network response was not ok.');
         }).then(data => {
-          console.log(data);
-          // localStorage.token = data.auth_token;
-          // history.push('/');
+          dispatch(updateUser(data.user));
+          history.push('/');
         }).catch(err => console.log(err));
     }
   };
   return (
     <Form className="SignInForm" style={{ width: '85vw', maxWidth: 500, margin: '25px auto' }}>
-      <Form.Group controlId="formBasicPassword">
+      <Form.Group controlId="formBasicName">
         <Form.Label>UserName</Form.Label>
-        <Form.Control type="username" placeholder="UserName" onChange={changeName} value={user.name} />
+        <Form.Control type="username" placeholder="UserName" onChange={changeName} value={name} />
       </Form.Group>
       <Form.Group controlId="formBasicEmail">
         <Form.Label>Email address</Form.Label>
@@ -86,7 +87,9 @@ const Settings = ({ user }) => {
 };
 
 Settings.propTypes = {
+  dispatch: PropTypes.func.isRequired,
   user: PropTypes.shape({
+    id: PropTypes.number,
     name: PropTypes.string,
     email: PropTypes.string,
   }),
@@ -94,6 +97,7 @@ Settings.propTypes = {
 
 Settings.defaultProps = {
   user: {
+    id: '',
     name: '',
     email: '',
   },

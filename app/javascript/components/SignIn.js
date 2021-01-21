@@ -60,8 +60,7 @@ const SignIn = ({ dispatch }) => {
           sessionStorage.token = data.token;
         }
         dispatch(updateUser(data.user));
-
-        history.push('/');
+        history.replace('/');
       }).catch(err => console.log(err));
   };
 

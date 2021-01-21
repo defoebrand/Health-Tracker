@@ -1,13 +1,14 @@
 add image blob from active records for profile pics 
  - or preselected images to be used as profile pic
 
-add friend relationship
 add doctor relationship
+add friend relationship
 
 add api endpoint for external access
  - add query scopes
  
  coming features
+  sick call 
   friend's chat 
   schedule consultation
   doctor login

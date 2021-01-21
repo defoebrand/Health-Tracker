@@ -22,8 +22,8 @@ const LineRechartComponent = ({ chartData, bpChartData }) => {
     });
     bpDataPoints = bpData.filter((e, i) => bpData.indexOf(e) === i);
   }
-  // const lineColors = ['#0095FF', '#ff0000'];
-  const lineColors = ['#ff3ee0', '#1b7400'];
+  const lineColors = ['#0095FF', '#ff0000'];
+  // const lineColors = ['#ff3ee0', '#1b7400'];
   return (
     <LineChart
       width={window.innerWidth - 50}

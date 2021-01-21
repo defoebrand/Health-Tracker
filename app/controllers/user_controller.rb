@@ -37,6 +37,7 @@ class UserController < ApplicationController
     puts user_params
 
     user.update(pulse: user_params[:pulse]) if user_params[:pulse] != '{}'
+    user.update(weight: user_params[:weight]) if user_params[:weight] != '{}'
     user.update(temperature: user_params[:temp]) if user_params[:temp] != '{}'
     user.update(blood_sugar: user_params[:blood_sugar]) if user_params[:blood_sugar] != '{}'
     user.update(systolic: user_params[:systolic]) if user_params[:systolic] != '{}'
@@ -83,6 +84,7 @@ class UserController < ApplicationController
     params.require(:user).permit(
       :id, :name, :email, :password,
       :age, :height, :weight,
+      :dob, :sex, :ethnicity,
       :temp, :pulse, :blood_sugar,
       :systolic, :diastolic
     )

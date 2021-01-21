@@ -109,8 +109,9 @@ const Community = ({ dispatch, community, user }) => {
         >
           <h1>{community}</h1>
           <span>
-            <Button variant="info" onClick={addCommunity} style={{ marginRight: 10 }}>Join Community</Button>
-            {members.some(member => member.name === user.name) ? <Button variant="info" onClick={removeCommunity}>Leave Community</Button> : null}
+            {members.some(member => member.name === user.name)
+              ? <Button variant="info" onClick={removeCommunity}>Leave Community</Button>
+              : <Button variant="info" onClick={addCommunity} style={{ marginRight: 10 }}>Join Community</Button>}
           </span>
         </span>
         <div style={{ border: '1px solid black', padding: 25 }}>

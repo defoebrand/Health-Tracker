@@ -32,6 +32,7 @@ const AddStats = ({ user }) => {
   const submitRegister = e => {
     e.preventDefault();
     console.log(history);
+    console.log('user', user);
     const { token } = localStorage;
     const date = new Date();
     const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];

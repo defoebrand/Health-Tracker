@@ -30,3 +30,12 @@ steth: Photo by Negative Space
 male doc: Image by <a href="https://pixabay.com/users/tatyanabuzmakova_krasnova-12151052/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=5871743">Татьяна Краснова</a> from <a href="https://pixabay.com/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=5871743">Pixabay</a>
 
 female doc: Image by <a href="https://pixabay.com/users/anhngoc1397-14450218/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=4677401">Anh Nguyễn Duy</a> from <a href="https://pixabay.com/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=4677401">Pixabay</a>
+
+
+
+Temperature
+Type of reading	 0–2 years  	             3–10 years                  	11–65 years	                 Over 65 years
+Oral	        95.9–99.5°F (35.5–37.5°C)	95.9–99.5°F (35.5–37.5°C)	97.6–99.6°F (36.4–37.6°C)	96.4–98.5°F (35.8–36.9°C)
+Rectal      	97.9–100.4°F (36.6–38°C)	97.9–100.4°F (36.6–38°C)	98.6–100.6°F (37.0–38.1°C)	97.1–99.2°F (36.2–37.3°C)
+Armpit      	94.5–99.1°F (34.7–37.3°C)	96.6–98.0°F (35.9–36.7°C)	95.3–98.4°F (35.2–36.9°C)	96.0–97.4°F (35.6–36.3°C)
+Ear	            97.5–100.4°F (36.4–38°C)	97.0–100.0°F (36.1–37.8°C)	96.6–99.7°F (35.9–37.6°C)	96.4–99.5°F (35.8–37.5°C)

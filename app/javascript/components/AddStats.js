@@ -107,6 +107,19 @@ const AddStats = ({ user }) => {
       }
     }
 
+    [newTemp, newPulse, newbloodSugar, newSystolic, newDiastolic].map(stat => (
+      console.log('stat', stat)
+    ));
+
+    const userStats = {
+      temp: JSON.stringify(newTemp),
+      pulse: JSON.stringify(newPulse),
+      blood_sugar: JSON.stringify(newbloodSugar),
+      systolic: JSON.stringify(newSystolic),
+      diastolic: JSON.stringify(newDiastolic),
+    };
+    console.log(userStats);
+
     const url = `/user/${user.id}`;
     fetch(url, {
       method: 'PATCH',

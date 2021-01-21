@@ -43,6 +43,7 @@ const User = () => {
         setDiastolic(JSON.parse(localDiastolic));
       }).catch(err => console.log(err));
   }, [history]);
+  console.log(user);
   const basePulse = user => {
     if (user.age > 65) {
       return 80;
@@ -164,7 +165,7 @@ const User = () => {
     });
   }
   // console.log('newBloodPressureData', newBloodPressureData);
-
+  console.log('newTempData', newTempData);
   return (
     <>
       <div className="welcomeBanner">
@@ -188,7 +189,9 @@ const User = () => {
             <h3>{`BMI - ${Math.round(user.weight / ((user.height / 100) * (user.height / 100))).toString()}`}</h3>
           </Accordion.Toggle>
           <Accordion.Collapse eventKey="0">
-            <Card.Body>Charting To Be Added</Card.Body>
+            <Card.Body>
+              <LineRechartComponent chartData={[{ name: 'Jan21-10a', [`${user.name} BMI`]: `${Math.round(user.weight / ((user.height / 100) * (user.height / 100))).toString()}`, baseBMI: 23 }]} />
+            </Card.Body>
           </Accordion.Collapse>
         </Card>
       </Accordion>

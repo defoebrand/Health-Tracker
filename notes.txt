@@ -2,6 +2,9 @@ To track:
 Height
 Weight
 
+
+add gender & race
+
 Age / DOB - swap age for dob and calculate where necessary
  - add baseline stats
 

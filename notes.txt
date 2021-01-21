@@ -1,7 +1,9 @@
 To track:
 Height
 Weight
-Age / DOB
+
+Age / DOB - swap age for dob and calculate where necessary
+ - add baseline stats
 
 add image blob from active records for profile pics 
 

@@ -9,7 +9,7 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import { useHistory } from 'react-router-dom';
 
 import {
-  updateUser, allCommunities, allDoctors, myDoctors,
+  updateUser, allCommunities, allDoctors,
 } from '../redux/actions';
 
 const HeaderNav = ({ dispatch, user }) => {

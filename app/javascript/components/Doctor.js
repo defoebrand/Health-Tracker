@@ -5,13 +5,11 @@ import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
 import DoctorCard from './DoctorCard';
 
-// const myDocs = ['Dr. Gregory House', 'Dr. Who', 'Dr. Hannibal Lecter'];
-
 const Doctor = ({ doctors, myDocs }) => (
   <>
     <Tabs defaultActiveKey="personal" transition={false} id="noanim-tab-example" style={{ display: 'flex', justifyContent: 'center', marginTop: 15 }}>
+      {console.log('myDocs', myDocs)}
       <Tab eventKey="personal" title="My Doctors">
-        {console.log(myDocs)}
         {doctors.filter(doctor => (
           myDocs.includes(doctor.name)
         )).map((doctor, ind) => (

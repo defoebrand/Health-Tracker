@@ -31,6 +31,7 @@ class UserController < ApplicationController
     end
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def update
     user = User.find(params[:id])
     user.update(pulse: user_params[:pulse]) if user_params[:pulse] != '{}'
@@ -42,6 +43,7 @@ class UserController < ApplicationController
 
     render json: { message: user }
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   def settings
     user = User.find(user_params[:id])

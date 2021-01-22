@@ -12,6 +12,7 @@ import Resources from '../components/Resources';
 import SickCall from '../components/SickCall';
 import Friends from '../components/Friends';
 import Community from '../components/Community';
+import Scheduler from '../components/Scheduler';
 
 const App = () => (
   <div className="App">
@@ -27,6 +28,7 @@ const App = () => (
     <Route path="/friends" component={Friends} />
     <Route path="/settings" component={Settings} />
     <Route path="/communities/:community" component={Community} />
+    <Route path="/:doctor/schedule-an-appointment" component={Scheduler} />
   </div>
 );
 

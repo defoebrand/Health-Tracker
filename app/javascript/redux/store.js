@@ -1,11 +1,11 @@
 import { combineReducers, createStore } from 'redux';
 
 import {
-  SUBMIT, COMMUNITY, COMMUNITIES, TAB,
+  SUBMIT, COMMUNITY, COMMUNITIES, TAB, DOCTORS, DOCTOR, MYDOCTORS,
 } from './actions';
 
 const initialUser = { name: '' };
-const initialCommunity = [];
+const initialArray = [];
 const initialTab = 'myCommunities';
 
 const userReducer = (state = initialUser, action) => {
@@ -20,7 +20,7 @@ const userReducer = (state = initialUser, action) => {
   }
 };
 
-const communityReducer = (state = initialCommunity, action) => {
+const communityReducer = (state = initialArray, action) => {
   switch (action.type) {
     case COMMUNITY:
       return {
@@ -32,7 +32,7 @@ const communityReducer = (state = initialCommunity, action) => {
   }
 };
 
-const allCommunitiesReducer = (state = initialCommunity, action) => {
+const allCommunitiesReducer = (state = initialArray, action) => {
   switch (action.type) {
     case COMMUNITIES:
       return {
@@ -56,11 +56,49 @@ const tabReducer = (state = initialTab, action) => {
   }
 };
 
+const allDoctorsReducer = (state = initialArray, action) => {
+  switch (action.type) {
+    case DOCTORS:
+      return {
+        doctors: action.input,
+      };
+
+    default:
+      return state;
+  }
+};
+
+const myDoctorsReducer = (state = initialArray, action) => {
+  switch (action.type) {
+    case MYDOCTORS:
+      return {
+        myDocs: action.input,
+      };
+
+    default:
+      return state;
+  }
+};
+
+const appointmentReducer = (state = '', action) => {
+  switch (action.type) {
+    case DOCTOR:
+      return {
+        doctor: action.input,
+      };
+
+    default:
+      return state;
+  }
+};
 export const combinedReducers = combineReducers({
   userReducer,
   communityReducer,
   allCommunitiesReducer,
   tabReducer,
+  allDoctorsReducer,
+  appointmentReducer,
+  myDoctorsReducer,
 });
 
 export default createStore(combinedReducers);

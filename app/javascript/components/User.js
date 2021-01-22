@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Accordion from 'react-bootstrap/Accordion';
 import { useHistory } from 'react-router-dom';
 
+import { myDoctors } from '../redux/actions';
+
 import LineRechartComponent from '../charts/line.rechart';
 
-const User = () => {
+const User = ({ dispatch }) => {
   const history = useHistory();
   const [user, setUser] = useState('');
   const [pulse, setPulse] = useState('');
@@ -47,6 +51,35 @@ const User = () => {
         setHeight(JSON.parse(data.height));
       }).catch(err => console.log(err));
   }, [history]);
+  useEffect(() => {
+    // const url = 'http://localhost:3000/user';
+    // const url = 'https://obscure-island-28750.herokuapp.com/user';
+    const url = '/user/my-doctors';
+    fetch(url, {
+      method: 'POST',
+      body: JSON.stringify({
+        user: {
+          id: user.id,
+        },
+      }),
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+      },
+    })
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        }
+        throw new Error('Network response was not ok.');
+      }).then(data => {
+        console.log(data);
+        const myDocs = [];
+        data.myDocs.forEach(doc => {
+          myDocs.push(doc.name);
+        });
+        dispatch(myDoctors(myDocs));
+      }).catch(err => console.log(err));
+  }, [user]);
   const basePulse = user => {
     if (user.age > 65) {
       return 80;
@@ -259,4 +292,8 @@ const User = () => {
   );
 };
 
-export default User;
+User.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+};
+
+export default connect(null)(User);

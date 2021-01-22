@@ -9,6 +9,9 @@ Rails.application.routes.draw do
       post 'remove-community', to: 'remove_community'
       post 'community-users', to: 'community_users'
       post 'user-communities', to: 'user_communities'
+      post 'appointment'
+      post 'my-doctors', to: 'my_doctors'
+      get 'doctors'
       get 'communities'
     end
   end

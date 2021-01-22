@@ -3,7 +3,7 @@ class CreateDoctors < ActiveRecord::Migration[6.1]
     create_table :doctors do |t|
       t.string :name
       t.string :email
-      t.digestimage :password
+      t.string :password_digest
       t.string :specialty
       t.string :quote
 

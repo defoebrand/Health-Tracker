@@ -80,6 +80,22 @@ class UserController < ApplicationController
     render json: @community.users
   end
 
+  def doctors
+    render json: { doctors: Doctor.all }
+  end
+
+  def my_doctors
+    user = User.find(user_params[:id])
+    render json: { myDocs: user.doctors.uniq }
+  end
+
+  def appointment
+    @user = User.find(appt_params[:user_id])
+    @doc = Doctor.find_by(name: appt_params[:doc_name])
+    @appt = Appointment.create(doctor: @doc, user: @user, date: appt_params[:date], time: appt_params[:time])
+    render json: { myDocs: user.doctors.uniq }
+  end
+
   private
 
   def set_user
@@ -98,5 +114,9 @@ class UserController < ApplicationController
 
   def comm_params
     params.require(:community).permit(:name)
+  end
+
+  def appt_params
+    params.require(:appt).permit(:user_id, :doc_name, :date, :time)
   end
 end

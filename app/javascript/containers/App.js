@@ -6,6 +6,7 @@ import HeaderNav from '../components/HeaderNav';
 import HomePage from './HomePage';
 import Resources from './Resources';
 import Doctor from './Doctor';
+import Friends from './Friends';
 
 import SignIn from '../components/SignIn';
 import Register from '../components/Register';
@@ -14,7 +15,6 @@ import Settings from '../components/Settings';
 import Scheduler from '../components/Scheduler';
 
 import User from '../components/User';
-import Friends from '../components/Friends';
 import Community from '../components/Community';
 
 import SickCall from '../components/SickCall';

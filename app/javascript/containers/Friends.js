@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
-
 import CardGroup from 'react-bootstrap/CardGroup';
-import CommunityLink from './CommunityLink';
+
+import CommunityLink from '../components/CommunityLink';
 
 const Friends = ({ tab, communities, user }) => {
   const [myCommunities, setCommunities] = useState([]);
+
   useEffect(() => {
     const url = '/user/user-communities';
     fetch(url, {
@@ -29,6 +31,7 @@ const Friends = ({ tab, communities, user }) => {
         setCommunities(data);
       }).catch(err => console.log(err));
   }, []);
+
   return (
     <>
       <Tabs

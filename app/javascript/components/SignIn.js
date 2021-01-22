@@ -33,8 +33,6 @@ const SignIn = ({ dispatch }) => {
     setPassword(e.target.value);
   };
   const submitSignIn = () => {
-    // const url = 'http://localhost:3000/user';
-    // const url = 'https://obscure-island-28750.herokuapp.com/user';
     const url = '/user/login';
     fetch(url, {
       method: 'POST',

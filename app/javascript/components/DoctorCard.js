@@ -31,7 +31,7 @@ const DoctorCard = ({
       >
         <Card.Title>{`${name} - ${specialty}`}</Card.Title>
         <Card.Text>{text}</Card.Text>
-        <Button style={{ width: 'max-content' }} variant="primary" onClick={handleClick}>Schedule a Constulation</Button>
+        <Button style={{ width: 'max-content' }} variant="primary" onClick={handleClick}>Schedule a Consultation</Button>
       </Card.Body>
     </Card>
   );

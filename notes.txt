@@ -1,7 +1,9 @@
 add image blob from active records for profile pics 
  - or preselected images to be used as profile pic
-
-add doctor relationship
+ - upload care 
+ 
+ if inches, two inputs for feet / inches
+ 
 add friend relationship
 
 add api endpoint for external access
@@ -10,15 +12,51 @@ add api endpoint for external access
  coming features
   sick call 
   friend's chat 
-  schedule consultation
   doctor login
+  
+  Add bootstrap variables
+  
+  CHARTS 
+  - isolate lines with selector
+  - add color selector
+  
+  ADD VALIDATIONS to all forms
+  
+  ADD SCHEDULING TEXT INPUT FOR NOTES
+  
+  
+  What sex were you born as?
+  Sex at birth 
+  Preferred gender
  
-    '{"jan3": 36, "jan4": 37, "jan5": 37, "jan6": 36}'
+ 
+ 
+  COMPONENTS
+  - headernav
+  - communitylink?
+  - doctorcard?
+  - footer
+  - homecarousel
 
-'{"jan3": {"10a": 72, "12p": 74, "2p": 72}, "jan4":
-{"10a": 71, "12p": 73, "2p": 72}}'
+ PAGES
+  = Forms = 
+  - signin
+  - register
+  - Addstats
+  - scheduler
+  - settings
 
-setPulse(typeof pulse === 'object' ? pulse : { noData: null });
+  - Homepage
+  - User
+  - resources
+  - sickcall
+  - Doctor?
+  - friends?
+  - community?
+ 
+ 
+ 
+ 
 
 
 

@@ -1,18 +1,23 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
+
 import HeaderNav from '../components/HeaderNav';
+
+import HomePage from './HomePage';
+import Resources from './Resources';
+
 import SignIn from '../components/SignIn';
 import Register from '../components/Register';
-import HomePage from './HomePage';
-import User from '../components/User';
-import Doctor from '../components/Doctor';
 import AddStats from '../components/AddStats';
 import Settings from '../components/Settings';
-import Resources from '../components/Resources';
-import SickCall from '../components/SickCall';
+import Scheduler from '../components/Scheduler';
+
+import User from '../components/User';
+import Doctor from '../components/Doctor';
 import Friends from '../components/Friends';
 import Community from '../components/Community';
-import Scheduler from '../components/Scheduler';
+
+import SickCall from '../components/SickCall';
 
 const App = () => (
   <div className="App">

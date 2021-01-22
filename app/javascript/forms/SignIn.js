@@ -13,7 +13,9 @@ const SignIn = ({ dispatch }) => {
   const [password, setPassword] = useState('');
   const [memory, setMemory] = useState(true);
   const [status, setStatus] = useState(false);
+
   const history = useHistory();
+
   const goToRegister = () => {
     history.push('/register');
   };
@@ -29,11 +31,13 @@ const SignIn = ({ dispatch }) => {
   const changeEmail = e => {
     setEmail(e.target.value);
   };
+
   const changePassword = e => {
     setPassword(e.target.value);
   };
+
   const submitSignIn = () => {
-    const url = '/user/login';
+    const url = status === false ? '/user/login' : '/user/doctor';
     fetch(url, {
       method: 'POST',
       body: JSON.stringify({
@@ -52,12 +56,13 @@ const SignIn = ({ dispatch }) => {
         }
         throw new Error('Network response was not ok.');
       }).then(data => {
+        const { token, user } = data;
         if (memory === true) {
-          localStorage.token = data.token;
+          localStorage.token = token;
         } else {
-          sessionStorage.token = data.token;
+          sessionStorage.token = token;
         }
-        dispatch(updateUser(data.user));
+        dispatch(updateUser(user));
         history.replace('/');
       }).catch(err => console.log(err));
   };

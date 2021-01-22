@@ -5,9 +5,15 @@ export const TAB = 'TAB';
 export const DOCTORS = 'DOCTORS';
 export const DOCTOR = 'DOCTOR';
 export const MYDOCTORS = 'MYDOCTORS';
+export const SIGNOUT = 'SIGNOUT';
 
 export const updateUser = input => ({
   type: SUBMIT,
+  input,
+});
+
+export const signOutUser = input => ({
+  type: SIGNOUT,
   input,
 });
 

@@ -36,7 +36,7 @@ const Scheduler = ({ doctor, user, dispatch }) => {
         throw new Error('Network response was not ok.');
       }).then(data => {
         dispatch(myDoctors(data.myDocs));
-        history.replace('/');
+        history.replace('/doctors/list');
       }).catch(err => console.log(err));
   };
   const changeDate = e => {

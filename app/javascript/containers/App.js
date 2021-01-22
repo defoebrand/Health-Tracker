@@ -7,6 +7,7 @@ import HomePage from './HomePage';
 import Resources from './Resources';
 import Doctor from './Doctor';
 import Friends from './Friends';
+import User from './User';
 
 import SignIn from '../components/SignIn';
 import Register from '../components/Register';
@@ -14,7 +15,6 @@ import AddStats from '../components/AddStats';
 import Settings from '../components/Settings';
 import Scheduler from '../components/Scheduler';
 
-import User from '../components/User';
 import Community from '../components/Community';
 
 import SickCall from '../components/SickCall';

@@ -18,7 +18,7 @@ const LineRechartComponent = ({ chartData }) => {
   const dataPoints = data.filter((e, i) => data.indexOf(e) === i);
 
   const lineColors = ['#0095FF', '#ff0000'];
-  // const lineColors = ['#ff3ee0', '#1b7400'];
+
   return (
     <LineChart
       width={window.innerWidth - 50}

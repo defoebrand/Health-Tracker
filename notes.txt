@@ -32,8 +32,7 @@ add image blob from active records for profile pics
 
 
   - = FORMS = - 
-ADD SCHEDULING TEXT INPUT FOR NOTES
-
+  add appointments tab
   if inches, two inputs for feet / inches
 
   What sex were you born as?

@@ -6,15 +6,14 @@ import { useHistory } from 'react-router-dom';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
-import { myDoctors } from '../redux/actions';
-
-const Scheduler = ({ doctor, user, dispatch }) => {
+const Scheduler = ({ doctor, user }) => {
+  const list = 'list';
   const history = useHistory();
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
+  const [notes, setNotes] = useState('');
+
   const requestAppointment = () => {
-    // const url = 'http://localhost:3000/user';
-    // const url = 'https://obscure-island-28750.herokuapp.com/user';
     const url = '/user/appointment';
     fetch(url, {
       method: 'POST',
@@ -24,6 +23,7 @@ const Scheduler = ({ doctor, user, dispatch }) => {
           doc_name: doctor,
           date,
           time,
+          notes,
         },
       }),
       headers: {
@@ -35,30 +35,37 @@ const Scheduler = ({ doctor, user, dispatch }) => {
           return response.json();
         }
         throw new Error('Network response was not ok.');
-      }).then(data => {
-        dispatch(myDoctors(data.myDocs));
-        history.replace('/doctors/list');
-      }).catch(err => console.log(err));
+      }).then(history.replace(`/doctors/${list}`)).catch(err => console.log(err));
   };
+
   const changeDate = e => {
     setDate(e.target.value);
   };
+
   const changeTime = e => {
     setTime(e.target.value);
+  };
+
+  const addToNote = e => {
+    setNotes(e.target.value);
   };
 
   return (
     <>
       <Form className="SignInForm" style={{ width: '85vw', maxWidth: 500, margin: '25px auto' }}>
         <h1 style={{ textAlign: 'center' }}>{`Schedule an appointment with ${doctor}`}</h1>
-        <Form.Group controlId="formBasicEmail">
+        <Form.Group controlId="formBasicDate">
           <Form.Label>Date requested</Form.Label>
           <Form.Control type="date" onChange={changeDate} />
           <Form.Text className="text-muted">We will never share your email with anyone else.</Form.Text>
         </Form.Group>
-        <Form.Group controlId="formBasicPassword">
+        <Form.Group controlId="formBasicTime">
           <Form.Label>Time requested</Form.Label>
           <Form.Control type="time" onChange={changeTime} />
+        </Form.Group>
+        <Form.Group controlId="formBasicText">
+          <Form.Label>Questions and Concerns</Form.Label>
+          <Form.Control as="textarea" onChange={addToNote} />
         </Form.Group>
         <Button variant="primary" type="submit" onClick={requestAppointment}>
           Request Appointment
@@ -70,7 +77,6 @@ const Scheduler = ({ doctor, user, dispatch }) => {
 };
 
 Scheduler.propTypes = {
-  dispatch: PropTypes.func.isRequired,
   doctor: PropTypes.string,
   user: PropTypes.shape({
     id: PropTypes.number,

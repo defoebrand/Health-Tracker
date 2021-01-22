@@ -94,8 +94,14 @@ class UserController < ApplicationController
   def appointment
     @user = User.find(appt_params[:user_id])
     @doc = Doctor.find_by(name: appt_params[:doc_name])
-    @appt = Appointment.create(doctor: @doc, user: @user, date: appt_params[:date], time: appt_params[:time])
-    render json: { myDocs: user.doctors.uniq }
+    @appt = Appointment.create(
+      doctor: @doc,
+      user: @user,
+      date: appt_params[:date],
+      time: appt_params[:time],
+      notes: appt_params[:notes]
+    )
+    render json: @user.doctors.uniq
   end
 
   private
@@ -119,6 +125,6 @@ class UserController < ApplicationController
   end
 
   def appt_params
-    params.require(:appt).permit(:user_id, :doc_name, :date, :time)
+    params.require(:appt).permit(:user_id, :doc_name, :date, :time, :notes)
   end
 end

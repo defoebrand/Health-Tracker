@@ -6,7 +6,7 @@ import Card from 'react-bootstrap/Card';
 
 import LineRechartComponent from '../charts/line.rechart';
 
-const StatChart = ({ title, data }) => (
+const StatsCard = ({ title, data }) => (
   <Accordion>
     <Card>
       <Accordion.Toggle as={Card.Header} eventKey="0">
@@ -20,14 +20,14 @@ const StatChart = ({ title, data }) => (
     </Card>
   </Accordion>
 );
-StatChart.propTypes = {
+StatsCard.propTypes = {
   title: PropTypes.string,
   data: PropTypes.arrayOf(PropTypes.shape()),
 };
 
-StatChart.defaultProps = {
+StatsCard.defaultProps = {
   title: '',
   data: [{}],
 };
 
-export default StatChart;
+export default StatsCard;

@@ -2,7 +2,7 @@ import {
   basePulse, baseTemp, baseSys, baseDia, baseBloodSugar,
 } from './baseData';
 
-export const loadUserData = user => {
+const loadUserData = user => {
   const {
     temperature, pulse, bloodSugar, systolic, diastolic, weight, height,
   } = user;

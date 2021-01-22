@@ -6,7 +6,7 @@ import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
 import CardGroup from 'react-bootstrap/CardGroup';
 
-import CommunityLink from '../components/CommunityLink';
+import CommunityCard from '../components/CommunityCard';
 
 const Friends = ({ tab, communities, user }) => {
   const [myCommunities, setCommunities] = useState([]);
@@ -50,13 +50,13 @@ const Friends = ({ tab, communities, user }) => {
             {communities.filter(community => (
               myCommunities.some(comm => (
                 community.name === comm.name)))).map(community => (
-                  <CommunityLink key={community.name} community={community} />
+                  <CommunityCard key={community.name} community={community} />
             ))}
           </CardGroup>
         </Tab>
         <Tab eventKey="communities" title="All Communities">
           {communities.map(community => (
-            <CommunityLink key={community.name} community={community} />
+            <CommunityCard key={community.name} community={community} />
           ))}
         </Tab>
       </Tabs>

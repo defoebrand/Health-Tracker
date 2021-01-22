@@ -2,6 +2,9 @@ add image blob from active records for profile pics
  - or preselected images to be used as profile pic
  - upload care 
  
+ SET MY COMMS AND MY DOCS TO PULL DATA THE SAME WAY
+ UTILIZE THUNK TO PULL FETCH REQUESTS OUT TO SEPARATE FILES
+ 
  if inches, two inputs for feet / inches
  
 add friend relationship

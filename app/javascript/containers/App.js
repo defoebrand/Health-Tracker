@@ -3,21 +3,19 @@ import { Route } from 'react-router-dom';
 
 import HeaderNav from '../components/HeaderNav';
 
-import HomePage from './HomePage';
-import Resources from './Resources';
+import Community from './Community';
 import Doctor from './Doctor';
 import Friends from './Friends';
+import HomePage from './HomePage';
+import Resources from './Resources';
+import SickCall from './SickCall';
 import User from './User';
 
-import SignIn from '../components/SignIn';
-import Register from '../components/Register';
-import AddStats from '../components/AddStats';
-import Settings from '../components/Settings';
-import Scheduler from '../components/Scheduler';
-
-import Community from '../components/Community';
-
-import SickCall from '../components/SickCall';
+import AddStats from '../forms/AddStats';
+import Register from '../forms/Register';
+import Scheduler from '../forms/Scheduler';
+import Settings from '../forms/Settings';
+import SignIn from '../forms/SignIn';
 
 const App = () => (
   <div className="App">

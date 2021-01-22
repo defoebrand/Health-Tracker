@@ -5,9 +5,9 @@ import { useHistory } from 'react-router-dom';
 
 import Button from 'react-bootstrap/Button';
 
-import { loadUserData } from '../helpers/loadUser';
+import StatsCard from '../components/StatsCard';
 
-import StatChart from '../components/StatChart';
+import loadUserData from '../helpers/loadUserData';
 
 const User = ({ user }) => {
   const history = useHistory();
@@ -29,7 +29,7 @@ const User = ({ user }) => {
           Add Stats
         </Button>
       </div>
-      {charts.map(chart => <StatChart key={chart.title} title={chart.title} data={chart.data} />)}
+      {charts.map(chart => <StatsCard key={chart.title} title={chart.title} data={chart.data} />)}
 
     </>
   );

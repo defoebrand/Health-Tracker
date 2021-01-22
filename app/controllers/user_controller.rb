@@ -88,7 +88,7 @@ class UserController < ApplicationController
 
   def my_doctors
     user = User.find(user_params[:id])
-    render json: { myDocs: user.doctors.uniq }
+    render json: user.doctors.uniq
   end
 
   def appointment

@@ -15,9 +15,7 @@ const Friends = ({ tab, communities, user }) => {
     const url = '/user/user-communities';
     fetch(url, {
       method: 'POST',
-      body: JSON.stringify({
-        user: { id: user.id },
-      }),
+      body: JSON.stringify({ user: { id: user.id } }),
       headers: {
         'Content-type': 'application/json; charset=UTF-8',
       },

@@ -1,7 +1,7 @@
 import { combineReducers, createStore } from 'redux';
 
 import {
-  SUBMIT, COMMUNITY, COMMUNITIES, TAB, DOCTORS, DOCTOR, MYDOCTORS, SIGNOUT,
+  SUBMIT, COMMUNITY, COMMUNITIES, TAB, DOCTORS, DOCTOR, SIGNOUT,
 } from './actions';
 
 const initialUser = { name: '' };
@@ -97,18 +97,6 @@ const allDoctorsReducer = (state = initialArray, action) => {
   }
 };
 
-const myDoctorsReducer = (state = initialArray, action) => {
-  switch (action.type) {
-    case MYDOCTORS:
-      return {
-        myDocs: action.input,
-      };
-
-    default:
-      return state;
-  }
-};
-
 const appointmentReducer = (state = '', action) => {
   switch (action.type) {
     case DOCTOR:
@@ -127,7 +115,6 @@ export const combinedReducers = combineReducers({
   tabReducer,
   allDoctorsReducer,
   appointmentReducer,
-  myDoctorsReducer,
 });
 
 export default createStore(combinedReducers);

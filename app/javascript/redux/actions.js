@@ -4,7 +4,6 @@ export const COMMUNITIES = 'COMMUNITIES';
 export const TAB = 'TAB';
 export const DOCTORS = 'DOCTORS';
 export const DOCTOR = 'DOCTOR';
-export const MYDOCTORS = 'MYDOCTORS';
 export const SIGNOUT = 'SIGNOUT';
 
 export const updateUser = input => ({
@@ -39,10 +38,5 @@ export const allDoctors = input => ({
 
 export const chooseDoctor = input => ({
   type: DOCTOR,
-  input,
-});
-
-export const myDoctors = input => ({
-  type: MYDOCTORS,
   input,
 });

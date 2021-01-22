@@ -1,65 +1,36 @@
-add image blob from active records for profile pics 
+add image blob from active records for profile pics
  - or preselected images to be used as profile pic
- - upload care 
- 
- SET MY COMMS AND MY DOCS TO PULL DATA THE SAME WAY
+ - upload care
+
  UTILIZE THUNK TO PULL FETCH REQUESTS OUT TO SEPARATE FILES
- 
+
  if inches, two inputs for feet / inches
- 
+
 add friend relationship
 
 add api endpoint for external access
  - add query scopes
- 
+
  coming features
-  sick call 
-  friend's chat 
+  sick call
+  friend's chat
   doctor login
-  
+
   Add bootstrap variables
-  
-  CHARTS 
+
+  CHARTS
   - isolate lines with selector
   - add color selector
-  
+
   ADD VALIDATIONS to all forms
-  
+
   ADD SCHEDULING TEXT INPUT FOR NOTES
-  
-  
+
+
   What sex were you born as?
-  Sex at birth 
+  Sex at birth
   Preferred gender
- 
- 
- 
-  COMPONENTS
-  - headernav
-  - communitylink?
-  - doctorcard?
-  - footer
-  - homecarousel
 
- PAGES
-  = Forms = 
-  - signin
-  - register
-  - Addstats
-  - scheduler
-  - settings
-
-  - Homepage
-  - User
-  - resources
-  - sickcall
-  - Doctor?
-  - friends?
-  - community?
- 
- 
- 
- 
 
 
 

@@ -55,8 +55,7 @@ const SignIn = ({ dispatch }) => {
           return response.json();
         }
         throw new Error('Network response was not ok.');
-      }).then(data => {
-        const { token, user } = data;
+      }).then(({ token, user }) => {
         if (memory === true) {
           localStorage.token = token;
         } else {

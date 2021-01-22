@@ -3,12 +3,12 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
-import DoctorCard from './DoctorCard';
 
-const Doctor = ({ doctors, myDocs }) => (
+import DoctorCard from '../components/DoctorCard';
+
+const Doctor = ({ doctors, myDocs, user }) => (
   <>
-    <Tabs defaultActiveKey="personal" transition={false} id="noanim-tab-example" style={{ display: 'flex', justifyContent: 'center', marginTop: 15 }}>
-      {console.log('myDocs', myDocs)}
+    <Tabs defaultActiveKey={user.name === '' ? 'all' : 'personal'} transition={false} id="noanim-tab-example" style={{ display: 'flex', justifyContent: 'center', marginTop: 15 }}>
       <Tab eventKey="personal" title="My Doctors">
         {doctors.filter(doctor => (
           myDocs.includes(doctor.name)
@@ -50,6 +50,9 @@ Doctor.propTypes = {
   myDocs: PropTypes.arrayOf(
     PropTypes.string,
   ),
+  user: PropTypes.shape({
+    name: PropTypes.string,
+  }),
 };
 
 Doctor.defaultProps = {
@@ -60,9 +63,13 @@ Doctor.defaultProps = {
     quote: '',
   }],
   myDocs: [],
+  user: {
+    name: '',
+  },
 };
 
 export default connect(state => ({
   doctors: state.allDoctorsReducer.doctors,
   myDocs: state.myDoctorsReducer.myDocs,
+  user: state.userReducer.user,
 }))(Doctor);

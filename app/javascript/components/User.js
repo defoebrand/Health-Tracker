@@ -1,12 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card';
-import Accordion from 'react-bootstrap/Accordion';
 import { useHistory } from 'react-router-dom';
 
+import Accordion from 'react-bootstrap/Accordion';
+import Card from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/Button';
+
 import { myDoctors } from '../redux/actions';
+import {
+  basePulse, baseTemp, baseSys, baseDia, baseBloodSugar,
+} from '../helpers/baseData';
+
+import StatChart from './StatChart';
 
 import LineRechartComponent from '../charts/line.rechart';
 
@@ -20,10 +26,9 @@ const User = ({ dispatch }) => {
   const [diastolic, setDiastolic] = useState('');
   const [weight, setWeight] = useState({ measurements: '' });
   const [height, setHeight] = useState('');
+
   useEffect(() => {
-    // const url = 'http://localhost:3000/user';
     const url = '/user';
-    // const url = 'https://defoebrand-health-tracker.herokuapp.com/user';
     const { token } = localStorage;
     fetch(url, {
       headers: {
@@ -51,9 +56,8 @@ const User = ({ dispatch }) => {
         setHeight(JSON.parse(data.height));
       }).catch(err => console.log(err));
   }, [history]);
+
   useEffect(() => {
-    // const url = 'http://localhost:3000/user';
-    // const url = 'https://obscure-island-28750.herokuapp.com/user';
     const url = '/user/my-doctors';
     fetch(url, {
       method: 'POST',
@@ -72,7 +76,6 @@ const User = ({ dispatch }) => {
         }
         throw new Error('Network response was not ok.');
       }).then(data => {
-        console.log(data);
         const myDocs = [];
         data.myDocs.forEach(doc => {
           myDocs.push(doc.name);
@@ -80,81 +83,7 @@ const User = ({ dispatch }) => {
         dispatch(myDoctors(myDocs));
       }).catch(err => console.log(err));
   }, [user]);
-  const basePulse = user => {
-    if (user.age > 65) {
-      return 80;
-    } if (user.age > 20) {
-      return 60;
-    } if (user.age > 12) {
-      return 80;
-    } if (user.age > 5) {
-      return 100;
-    } if (user.age > 2) {
-      return 115;
-    } if (user.age > 1) {
-      return 125;
-    }
-    return 135;
-  };
-  const baseTemp = user => {
-    if (user.age > 10 && user.age < 65) {
-      return 37;
-    }
-    return 36;
-  };
-  const baseSys = user => {
-    if (user.age > 59) {
-      return 134;
-    } if (user.age > 54) {
-      return 131;
-    } if (user.age > 49) {
-      return 129;
-    } if (user.age > 44) {
-      return 127;
-    } if (user.age > 39) {
-      return 125;
-    } if (user.age > 34) {
-      return 123;
-    } if (user.age > 29) {
-      return 122;
-    } if (user.age > 24) {
-      return 121;
-    } if (user.age > 19) {
-      return 120;
-    }
-    return 117;
-  };
 
-  const baseDia = user => {
-    if (user.age > 59) {
-      return 87;
-    } if (user.age > 54) {
-      return 86;
-    } if (user.age > 49) {
-      return 85;
-    } if (user.age > 44) {
-      return 84;
-    } if (user.age > 39) {
-      return 83;
-    } if (user.age > 34) {
-      return 82;
-    } if (user.age > 29) {
-      return 81;
-    } if (user.age > 24) {
-      return 80;
-    } if (user.age > 19) {
-      return 79;
-    }
-    return 77;
-  };
-  const baseBloodSugar = user => {
-    if (user.age > 19) {
-      return 5.0;
-    } if (user.age > 12) {
-      return 6.1;
-    }
-    return 7.2;
-  };
   const newPulseData = [];
   const newTempData = [];
   const newBloodSugarData = [];
@@ -218,13 +147,11 @@ const User = ({ dispatch }) => {
       });
     });
   }
-  // console.log('newBMIData', Object.keys(newBMIData[newBMIData.length - 1]));
   return (
     <>
       <div className="welcomeBanner">
         <h1 style={{ whiteSpace: 'nowrap' }}>{`Hello ${user.name}!`}</h1>
         <img src="http://www.messagescollection.com/wp-content/uploads/2015/04/cute-cat-profile-for-facebook.jpg" alt={`${user.name} profile pic`} style={{ borderRadius: '50%', width: '10vw', minWidth: 100 }} />
-
         <Button
           variant="success"
           style={{
@@ -235,59 +162,11 @@ const User = ({ dispatch }) => {
           Add Stats
         </Button>
       </div>
-      <Accordion>
-        <Card>
-          <Accordion.Toggle as={Card.Header} eventKey="0">
-            <h3>{`BMI - ${currentBMI}`}</h3>
-          </Accordion.Toggle>
-          <Accordion.Collapse eventKey="0">
-            <Card.Body>
-              <LineRechartComponent chartData={newBMIData} />
-            </Card.Body>
-          </Accordion.Collapse>
-        </Card>
-      </Accordion>
-      <Accordion>
-        <Card>
-          <Accordion.Toggle as={Card.Header} eventKey="0">
-            <h3>Blood Pressure</h3>
-          </Accordion.Toggle>
-          <Accordion.Collapse eventKey="0">
-            <Card.Body><LineRechartComponent bpChartData={newBloodPressureData} /></Card.Body>
-          </Accordion.Collapse>
-        </Card>
-      </Accordion>
-      <Accordion>
-        <Card>
-          <Accordion.Toggle as={Card.Header} eventKey="0">
-            <h3>Temperature</h3>
-          </Accordion.Toggle>
-          <Accordion.Collapse eventKey="0">
-            <Card.Body><LineRechartComponent chartData={newTempData} /></Card.Body>
-          </Accordion.Collapse>
-        </Card>
-      </Accordion>
-      <Accordion>
-        <Card>
-          <Accordion.Toggle as={Card.Header} eventKey="0">
-            <h3>Pulse</h3>
-          </Accordion.Toggle>
-          <Accordion.Collapse eventKey="0">
-            <Card.Body><LineRechartComponent chartData={newPulseData} /></Card.Body>
-          </Accordion.Collapse>
-        </Card>
-      </Accordion>
-      <Accordion>
-        <Card>
-          <Accordion.Toggle as={Card.Header} eventKey="0">
-            <h3>Blood Sugar</h3>
-          </Accordion.Toggle>
-          <Accordion.Collapse eventKey="0">
-            <Card.Body><LineRechartComponent chartData={newBloodSugarData} /></Card.Body>
-          </Accordion.Collapse>
-        </Card>
-      </Accordion>
-
+      <StatChart title={`BMI - ${currentBMI}`} data={newBMIData} />
+      <StatChart title="Blood Pressure" data={newBloodPressureData} bp />
+      <StatChart title="Temperature" data={newTempData} />
+      <StatChart title="Pulse" data={newPulseData} />
+      <StatChart title="Blood Sugar" data={newBloodSugarData} />
     </>
   );
 };

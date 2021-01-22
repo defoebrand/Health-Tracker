@@ -5,9 +5,9 @@ import PropTypes from 'prop-types';
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
 
-import { myDoctors } from '../redux/actions';
-
 import DoctorCard from '../components/DoctorCard';
+
+import { myDoctors } from '../redux/actions';
 
 const Doctor = ({
   doctors, myDocs, user, dispatch,

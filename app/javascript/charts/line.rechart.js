@@ -1,8 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import {
   LineChart, Line, YAxis, XAxis, CartesianGrid, Tooltip, Legend,
 } from 'recharts';
-import PropTypes from 'prop-types';
 
 const LineRechartComponent = ({ chartData }) => {
   const data = [];

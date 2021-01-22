@@ -12,6 +12,7 @@ import { viewTab } from '../redux/actions';
 const Community = ({ dispatch, community, user }) => {
   const history = useHistory();
   const [members, setMembers] = useState([]);
+
   useEffect(() => {
     const url = '/user/community-users';
     fetch(url, {
@@ -32,10 +33,7 @@ const Community = ({ dispatch, community, user }) => {
         setMembers(data);
       }).catch(err => console.log(err));
   }, []);
-  const handleClick = event => {
-    dispatch(viewTab(event.target.dataset.rbEventKey));
-    history.push('/friends');
-  };
+
   const addCommunity = () => {
     const url = '/user/add-community';
     fetch(url, {
@@ -57,6 +55,7 @@ const Community = ({ dispatch, community, user }) => {
         setMembers(data);
       }).catch(err => console.log(err));
   };
+
   const removeCommunity = () => {
     const url = '/user/remove-community';
     fetch(url, {
@@ -78,6 +77,12 @@ const Community = ({ dispatch, community, user }) => {
         setMembers(data);
       }).catch(err => console.log(err));
   };
+
+  const handleClick = event => {
+    dispatch(viewTab(event.target.dataset.rbEventKey));
+    history.push('/friends');
+  };
+
   return (
     <>
       <Tabs

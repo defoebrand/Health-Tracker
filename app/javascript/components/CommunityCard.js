@@ -1,6 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 
 import Card from 'react-bootstrap/Card';
@@ -9,6 +9,7 @@ import { viewCommunity } from '../redux/actions';
 
 const CommunityCard = ({ dispatch, community }) => {
   const history = useHistory();
+
   const handleClick = () => {
     dispatch(viewCommunity(community.name));
     history.push(`/communities/${community.name}`);

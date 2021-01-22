@@ -24,12 +24,12 @@ const App = () => (
     <Route path="/signin" component={SignIn} />
     <Route path="/register" component={Register} />
     <Route path="/users/:user" component={User} />
-    <Route path="/doctors/:doctor" component={Doctor} />
     <Route path="/new-stats" component={AddStats} />
-    <Route path="/sick-call" component={SickCall} />
+    <Route path="/doctors/:doctor" component={Doctor} />
     <Route path="/resources" component={Resources} />
     <Route path="/friends" component={Friends} />
     <Route path="/settings" component={Settings} />
+    <Route path="/sick-call" component={SickCall} />
     <Route path="/communities/:community" component={Community} />
     <Route path="/:doctor/schedule-an-appointment" component={Scheduler} />
   </div>

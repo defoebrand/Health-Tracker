@@ -1,10 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
+
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
-
-import { useHistory } from 'react-router-dom';
 
 import { chooseDoctor } from '../redux/actions';
 
@@ -12,10 +12,12 @@ const DoctorCard = ({
   img, name, text, specialty, dispatch,
 }) => {
   const history = useHistory();
+
   const handleClick = () => {
     dispatch(chooseDoctor(name));
     history.push(`/${name}/schedule-an-appointment`);
   };
+
   return (
     <Card style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
       <Card.Img

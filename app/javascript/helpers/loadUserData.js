@@ -6,6 +6,7 @@ const loadUserData = user => {
   const {
     temperature, pulse, bloodSugar, systolic, diastolic, weight, height,
   } = user;
+
   const newBMIData = [];
   const newBloodPressureData = [];
   const newTempData = [];
@@ -21,15 +22,18 @@ const loadUserData = user => {
   const diastolicData = Object.keys(diastolic);
 
   const heightForBMI = (Number(height.height) / 100) * (Number(height.height) / 100);
+
   const weightForBMI = key => (
     weight.scale === 'Metric'
       ? Math.round(weight.measurements[key])
-      : (703 * Math.round(weight.measurements[key])));
+      : (703 * Math.round(weight.measurements[key]))
+  );
+
   weightData.forEach((key, index) => {
     newBMIData.push({
       name: key,
       [`${user.name}'s BMI`]: Math.round(weightForBMI(key) / (heightForBMI)).toString(),
-      baseBMI: 23,
+      'Average BMI': 23,
     });
     if (index === weightData.length - 1) {
       currentBMI = Math.round(weight.measurements[key] / (heightForBMI)).toString();
@@ -38,24 +42,42 @@ const loadUserData = user => {
 
   pulseData.forEach(key => {
     Object.entries(pulse[key]).forEach(item => {
-      newPulseData.push({ name: key, [`${user.name}'s Pulse`]: item[1], basePulse: basePulse(user) });
+      newPulseData.push({
+        name: key,
+        [`${user.name}'s Pulse`]: item[1],
+        'Average Pulse': basePulse(user),
+      });
     });
   });
+
   tempData.forEach(key => {
     Object.entries(temperature[key]).forEach(item => {
-      newTempData.push({ name: key, [`${user.name}'s Temp`]: item[1], baseTemp: baseTemp(user) });
+      newTempData.push({
+        name: key,
+        [`${user.name}'s Temp`]: item[1],
+        'Average Temp': baseTemp(user),
+      });
     });
   });
 
   bloodSugarData.forEach(key => {
     Object.entries(bloodSugar[key]).forEach(item => {
-      newBloodSugarData.push({ name: key, [`${user.name}'s Blood Sugar`]: item[1], baseBloodSugar: baseBloodSugar(user) });
+      newBloodSugarData.push({
+        name: key,
+        [`${user.name}'s Blood Sugar`]: item[1],
+        'Average Blood Sugar': baseBloodSugar(user),
+      });
     });
   });
+
   if (systolicData.length !== 0) {
     systolicData.forEach(key => {
       Object.entries(systolic[key]).forEach(item => {
-        newBloodPressureData.push({ name: key, [`${user.name}'s Systolic`]: item[1], baseSys: baseSys(user) });
+        newBloodPressureData.push({
+          name: key,
+          [`${user.name}'s Systolic`]: item[1],
+          'Average Sys': baseSys(user),
+        });
       });
     });
     newBloodPressureData.forEach((entry, index) => {
@@ -65,7 +87,7 @@ const loadUserData = user => {
             newBloodPressureData[index] = {
               ...newBloodPressureData[index],
               [`${user.name}'s Diastolic`]: item[1],
-              baseDia: baseDia(user),
+              'Average Dia': baseDia(user),
             };
           }
         });

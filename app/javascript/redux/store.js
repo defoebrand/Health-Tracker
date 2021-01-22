@@ -6,7 +6,7 @@ import {
 
 const initialUser = { name: '' };
 const initialArray = [];
-const initialTab = 'myCommunities';
+const initialTab = '';
 
 const userReducer = (state = initialUser, action) => {
   switch (action.type) {

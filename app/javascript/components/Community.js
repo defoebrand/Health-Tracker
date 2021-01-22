@@ -12,8 +12,6 @@ const Community = ({ dispatch, community, user }) => {
   const history = useHistory();
   const [members, setMembers] = useState([]);
   useEffect(() => {
-    // const url = 'http://localhost:3000/user';
-    // const url = 'https://obscure-island-28750.herokuapp.com/user';
     const url = '/user/community-users';
     fetch(url, {
       method: 'POST',
@@ -38,8 +36,6 @@ const Community = ({ dispatch, community, user }) => {
     history.push('/friends');
   };
   const addCommunity = () => {
-    // const url = 'http://localhost:3000/user';
-    // const url = 'https://obscure-island-28750.herokuapp.com/user';
     const url = '/user/add-community';
     fetch(url, {
       method: 'POST',
@@ -61,8 +57,6 @@ const Community = ({ dispatch, community, user }) => {
       }).catch(err => console.log(err));
   };
   const removeCommunity = () => {
-    // const url = 'http://localhost:3000/user';
-    // const url = 'https://obscure-island-28750.herokuapp.com/user';
     const url = '/user/remove-community';
     fetch(url, {
       method: 'POST',
@@ -83,7 +77,6 @@ const Community = ({ dispatch, community, user }) => {
         setMembers(data);
       }).catch(err => console.log(err));
   };
-  // const members = ['Me', 'You', 'That other guy'];
   return (
     <>
       <Tabs

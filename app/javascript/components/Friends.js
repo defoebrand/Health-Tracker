@@ -10,8 +10,6 @@ import CommunityLink from './CommunityLink';
 const Friends = ({ tab, communities, user }) => {
   const [myCommunities, setCommunities] = useState([]);
   useEffect(() => {
-    // const url = 'http://localhost:3000/user';
-    // const url = 'https://obscure-island-28750.herokuapp.com/user';
     const url = '/user/user-communities';
     fetch(url, {
       method: 'POST',
@@ -34,7 +32,7 @@ const Friends = ({ tab, communities, user }) => {
   return (
     <>
       <Tabs
-        defaultActiveKey={tab}
+        defaultActiveKey={user.name === '' ? 'communities' : tab}
         transition={false}
         id="noanim-tab-example"
         style={{
@@ -43,17 +41,6 @@ const Friends = ({ tab, communities, user }) => {
       >
         <Tab eventKey="friends" title="My Friends">
           <h2 style={{ margin: '15px auto', whiteSpace: 'wrap', textAlign: 'center' }}>Chat with Friends! - coming soon - </h2>
-          {/* communities.filter(doctor => (
-          myCommunities.includes(doctor.name)
-        )).map((doctor, ind) => (
-          <DoctorCard
-            key={doctor.name + doctor.specialty + ind.toString()}
-            img={doctor.img}
-            name={doctor.name}
-            specialty={doctor.specialty}
-            text={doctor.text}
-          />
-        )) */}
         </Tab>
         <Tab eventKey="myCommunities" title="My Communities">
           <CardGroup style={{ flexDirection: 'column' }}>
@@ -63,29 +50,11 @@ const Friends = ({ tab, communities, user }) => {
                   <CommunityLink key={community.name} community={community} />
             ))}
           </CardGroup>
-          {/* communities.map((doctor, ind) => (
-          <DoctorCard
-            key={doctor.name + doctor.specialty + ind.toString()}
-            img={doctor.img}
-            name={doctor.name}
-            specialty={doctor.specialty}
-            text={doctor.text}
-          />
-        )) */}
         </Tab>
         <Tab eventKey="communities" title="All Communities">
           {communities.map(community => (
             <CommunityLink key={community.name} community={community} />
           ))}
-          {/* communities.map((doctor, ind) => (
-          <DoctorCard
-            key={doctor.name + doctor.specialty + ind.toString()}
-            img={doctor.img}
-            name={doctor.name}
-            specialty={doctor.specialty}
-            text={doctor.text}
-          />
-        )) */}
         </Tab>
       </Tabs>
 
@@ -104,6 +73,7 @@ Friends.propTypes = {
   ),
   user: PropTypes.shape({
     id: PropTypes.number,
+    name: PropTypes.string,
   }),
 };
 
@@ -116,6 +86,7 @@ Friends.defaultProps = {
   }],
   user: {
     id: 0,
+    name: '',
   },
 };
 

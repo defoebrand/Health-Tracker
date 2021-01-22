@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_22_202518) do
+ActiveRecord::Schema.define(version: 2021_01_22_223603) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -56,16 +56,17 @@ ActiveRecord::Schema.define(version: 2021_01_22_202518) do
     t.string "height"
     t.string "weight"
     t.integer "age"
-    t.string "systolic"
-    t.string "diastolic"
-    t.string "pulse"
-    t.string "temperature"
-    t.string "blood_sugar"
+    t.string "systolic", default: "{}"
+    t.string "diastolic", default: "{}"
+    t.string "pulse", default: "{}"
+    t.string "temperature", default: "{}"
+    t.string "blood_sugar", default: "{}"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "sex"
     t.string "ethnicity"
     t.date "dob"
+    t.string "gender"
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 

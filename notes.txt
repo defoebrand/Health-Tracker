@@ -33,13 +33,8 @@ add image blob from active records for profile pics
 
   - = FORMS = - 
   add appointments tab
-  if inches, two inputs for feet / inches
 
-  What sex were you born as?
-  Sex at birth
-  Preferred gender
-
-
+  
 
 
 video conf: Photo by Edward Jenner from Pexels

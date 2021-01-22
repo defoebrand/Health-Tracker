@@ -13,7 +13,6 @@ const loadUserData = user => {
   const newPulseData = [];
   const newBloodSugarData = [];
   let currentBMI = 0;
-
   const weightData = Object.keys(weight.measurements);
   const tempData = Object.keys(temperature);
   const pulseData = Object.keys(pulse);
@@ -21,7 +20,7 @@ const loadUserData = user => {
   const systolicData = Object.keys(systolic);
   const diastolicData = Object.keys(diastolic);
 
-  const heightForBMI = (Number(height.height) / 100) * (Number(height.height) / 100);
+  const heightForBMI = Number(height.height) * Number(height.height);
 
   const weightForBMI = key => (
     weight.scale === 'Metric'
@@ -33,10 +32,10 @@ const loadUserData = user => {
     newBMIData.push({
       name: key,
       [`${user.name}'s BMI`]: Math.round(weightForBMI(key) / (heightForBMI)).toString(),
-      'Average BMI': 23,
+      'Ideal BMI': 23,
     });
     if (index === weightData.length - 1) {
-      currentBMI = Math.round(weight.measurements[key] / (heightForBMI)).toString();
+      currentBMI = Math.round(weightForBMI(key) / heightForBMI).toString();
     }
   });
 
@@ -45,7 +44,7 @@ const loadUserData = user => {
       newPulseData.push({
         name: key,
         [`${user.name}'s Pulse`]: item[1],
-        'Average Pulse': basePulse(user),
+        'Ideal Pulse': basePulse(user),
       });
     });
   });
@@ -55,7 +54,7 @@ const loadUserData = user => {
       newTempData.push({
         name: key,
         [`${user.name}'s Temp`]: item[1],
-        'Average Temp': baseTemp(user),
+        'Ideal Temp': baseTemp(user),
       });
     });
   });
@@ -65,7 +64,7 @@ const loadUserData = user => {
       newBloodSugarData.push({
         name: key,
         [`${user.name}'s Blood Sugar`]: item[1],
-        'Average Blood Sugar': baseBloodSugar(user),
+        'Ideal Blood Sugar': baseBloodSugar(user),
       });
     });
   });
@@ -76,7 +75,7 @@ const loadUserData = user => {
         newBloodPressureData.push({
           name: key,
           [`${user.name}'s Systolic`]: item[1],
-          'Average Sys': baseSys(user),
+          'Ideal Sys': baseSys(user),
         });
       });
     });
@@ -87,7 +86,7 @@ const loadUserData = user => {
             newBloodPressureData[index] = {
               ...newBloodPressureData[index],
               [`${user.name}'s Diastolic`]: item[1],
-              'Average Dia': baseDia(user),
+              'Ideal Dia': baseDia(user),
             };
           }
         });

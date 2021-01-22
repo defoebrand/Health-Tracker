@@ -14,7 +14,7 @@ class UserController < ApplicationController
     @user = User.create(user_params)
     if @user.valid?
       token = encode_token({ user_id: @user.id })
-      render json: { user: @user, token: token }
+      render json: { user: User.find(@user.id), token: token }
     else
       render json: { error: 'Invalid username or password' }
     end
@@ -113,7 +113,7 @@ class UserController < ApplicationController
   def user_params
     params.require(:user).permit(
       :id, :name, :email, :password,
-      :age, :height, :weight,
+      :age, :height, :weight, :gender,
       :dob, :sex, :ethnicity,
       :temp, :pulse, :blood_sugar,
       :systolic, :diastolic

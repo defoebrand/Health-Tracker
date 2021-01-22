@@ -1,6 +1,10 @@
 export const SUBMIT = 'SUBMIT';
 export const COMMUNITY = 'COMMUNITY';
+export const COMMUNITIES = 'COMMUNITIES';
 export const TAB = 'TAB';
+export const DOCTORS = 'DOCTORS';
+export const DOCTOR = 'DOCTOR';
+export const MYDOCTORS = 'MYDOCTORS';
 
 export const updateUser = input => ({
   type: SUBMIT,
@@ -12,7 +16,27 @@ export const viewCommunity = input => ({
   input,
 });
 
+export const allCommunities = input => ({
+  type: COMMUNITIES,
+  input,
+});
+
 export const viewTab = input => ({
   type: TAB,
+  input,
+});
+
+export const allDoctors = input => ({
+  type: DOCTORS,
+  input,
+});
+
+export const chooseDoctor = input => ({
+  type: DOCTOR,
+  input,
+});
+
+export const myDoctors = input => ({
+  type: MYDOCTORS,
   input,
 });

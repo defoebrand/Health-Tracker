@@ -12,9 +12,13 @@ const AddStats = ({ user }) => {
   const [bloodSugar, setBloodSugar] = useState('');
   const [systolic, setSystolic] = useState('');
   const [diastolic, setDiastolic] = useState('');
+  const [weight, setWeight] = useState('');
 
   const changeTemp = e => {
     setTemp(e.target.value);
+  };
+  const changeWeight = e => {
+    setWeight(e.target.value);
   };
   const changePulse = e => {
     setPulse(e.target.value);
@@ -32,17 +36,16 @@ const AddStats = ({ user }) => {
   const submitRegister = e => {
     e.preventDefault();
     console.log(history);
+    console.log('user', user);
     const { token } = localStorage;
     const date = new Date();
     const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-    // const formattedDate = `${months[date.getMonth()]}${date.getDate()}`;
     let time;
     if (date.getHours() > 12) {
       time = `${date.getHours() - 12}p`;
     } else {
       time = `${date.getHours()}a`;
     }
-    // console.log('time', time);
     const dateTime = `${months[date.getMonth()]}${date.getDate()}-${time}`;
     // const url = 'http://localhost:3000/user';
     // const url = 'https://obscure-island-28750.herokuapp.com/user';
@@ -54,6 +57,19 @@ const AddStats = ({ user }) => {
         newPulse[dateTime] = { ...newPulse[dateTime], [time]: Number(pulse) };
       } else {
         newPulse[dateTime] = { [time]: Number(pulse) };
+      }
+    }
+    const newWeight = user.weight === null
+      ? {}
+      : JSON.parse(user.weight);
+    if (weight !== '') {
+      if (newWeight.measurements !== undefined) {
+        newWeight.measurements = {
+          ...newWeight.measurements,
+          [dateTime]: Number(weight),
+        };
+      } else {
+        newWeight.measurements = { [dateTime]: Number(weight) };
       }
     }
     const newTemp = user.temperature === null
@@ -112,6 +128,7 @@ const AddStats = ({ user }) => {
       body: JSON.stringify({
         user: {
           temp: JSON.stringify(newTemp),
+          weight: JSON.stringify(newWeight),
           pulse: JSON.stringify(newPulse),
           blood_sugar: JSON.stringify(newbloodSugar),
           systolic: JSON.stringify(newSystolic),
@@ -135,24 +152,28 @@ const AddStats = ({ user }) => {
   };
   return (
     <Form className="SignInForm" style={{ width: '85vw', maxWidth: 500, margin: '25px auto' }}>
+      <Form.Group controlId="formBasicWeight">
+        <Form.Label>Weight</Form.Label>
+        <Form.Control type="text" placeholder="Weight" onChange={changeWeight} />
+      </Form.Group>
       <Form.Group controlId="formBasicBloodPressure">
         <Form.Label>Blood Pressure</Form.Label>
         <div style={{ display: 'flex' }}>
-          <Form.Control style={{ width: '50%' }} type="systolic" placeholder="Systolic" onChange={changeSystolic} />
-          <Form.Control style={{ width: '50%' }} type="diastolic" placeholder="Diastolic" onChange={changeDiastolic} />
+          <Form.Control style={{ width: '50%' }} type="text" placeholder="Systolic" onChange={changeSystolic} />
+          <Form.Control style={{ width: '50%' }} type="text" placeholder="Diastolic" onChange={changeDiastolic} />
         </div>
       </Form.Group>
       <Form.Group controlId="formBasicTemp">
         <Form.Label>Temperature</Form.Label>
-        <Form.Control type="temp" placeholder="Temperature" onChange={changeTemp} />
+        <Form.Control type="text" placeholder="Temperature" onChange={changeTemp} />
       </Form.Group>
       <Form.Group controlId="formBasicPulse">
         <Form.Label>Pulse</Form.Label>
-        <Form.Control type="pulse" placeholder="Pulse" onChange={changePulse} />
+        <Form.Control type="text" placeholder="Pulse" onChange={changePulse} />
       </Form.Group>
       <Form.Group controlId="formBasicBloodSugar">
         <Form.Label>Blood Sugar</Form.Label>
-        <Form.Control type="bloodsugar" placeholder="BloodSugar" onChange={changeBloodSugar} />
+        <Form.Control type="text" placeholder="BloodSugar" onChange={changeBloodSugar} />
       </Form.Group>
       <Button variant="primary" type="submit" onClick={submitRegister}>
         Submit
@@ -165,6 +186,7 @@ AddStats.propTypes = {
   user: PropTypes.shape({
     name: PropTypes.string,
     id: PropTypes.number,
+    weight: PropTypes.string,
     pulse: PropTypes.string,
     temperature: PropTypes.string,
     blood_sugar: PropTypes.string,
@@ -177,6 +199,7 @@ AddStats.defaultProps = {
   user: {
     name: '',
     id: 0,
+    weight: '',
     pulse: '',
     temperature: '',
     blood_sugar: '',

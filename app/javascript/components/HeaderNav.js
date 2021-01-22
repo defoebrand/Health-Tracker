@@ -8,7 +8,9 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 
 import { useHistory } from 'react-router-dom';
 
-import { updateUser } from '../redux/actions';
+import {
+  updateUser, allCommunities, allDoctors,
+} from '../redux/actions';
 
 const HeaderNav = ({ dispatch, user }) => {
   const doctor = 'list';
@@ -38,6 +40,24 @@ const HeaderNav = ({ dispatch, user }) => {
       }).then(data => {
         dispatch(updateUser(data));
       }).catch(err => console.log(err));
+  }, [history]);
+  useEffect(() => {
+    // const url = 'http://localhost:3000/user';
+    // const url = 'https://obscure-island-28750.herokuapp.com/user';
+    const url = '/user/communities';
+    fetch(url, {
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+      },
+    })
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        }
+        throw new Error('Network response was not ok.');
+      }).then(data => {
+        dispatch(allCommunities(data));
+      }).catch(err => console.log(err));
   }, []);
   useEffect(() => {
     if (user.name === '') {
@@ -46,7 +66,24 @@ const HeaderNav = ({ dispatch, user }) => {
       history.push(`/users/${user.name}`);
     }
   }, [user]);
-
+  useEffect(() => {
+    // const url = 'http://localhost:3000/user';
+    // const url = 'https://obscure-island-28750.herokuapp.com/user';
+    const url = '/user/doctors';
+    fetch(url, {
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+      },
+    })
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        }
+        throw new Error('Network response was not ok.');
+      }).then(data => {
+        dispatch(allDoctors(data.doctors));
+      }).catch(err => console.log(err));
+  }, []);
   const signedIn = (user.name !== ''
     ? (
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -100,12 +137,14 @@ const HeaderNav = ({ dispatch, user }) => {
 HeaderNav.propTypes = {
   dispatch: PropTypes.func.isRequired,
   user: PropTypes.shape({
+    id: PropTypes.number,
     name: PropTypes.string,
   }),
 };
 
 HeaderNav.defaultProps = {
   user: {
+    id: 0,
     name: '',
   },
 };

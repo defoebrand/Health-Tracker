@@ -1,16 +1,23 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import { useHistory } from 'react-router-dom';
 
-const Register = () => {
+import { updateUser } from '../redux/actions';
+
+const Register = ({ dispatch }) => {
   const history = useHistory();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [confirm, setConfirm] = useState(false);
+  const [confirm, setConfirm] = useState('');
   const [age, setAge] = useState('');
   const [dob, setDOB] = useState('');
+  const [ethnicity, setEthnicity] = useState([]);
+  const [sex, setSex] = useState('XX');
+  const [scale, setScale] = useState('Metric');
   const [height, setHeight] = useState('');
   const [weight, setWeight] = useState('');
   const [memory, setMemory] = useState(true);
@@ -31,18 +38,30 @@ const Register = () => {
     setPassword(e.target.value);
   };
   const confirmPassword = e => {
-    if (password === e.target.value) {
-      setConfirm(true);
-    }
+    setConfirm(e.target.value);
   };
-  const changeAge = e => {
-    setAge(e.target.value);
-  };
+  // const changeAge = e => {
+  //   setAge(e.target.value);
+  // };
   const changeHeight = e => {
     setHeight(e.target.value);
   };
   const changeWeight = e => {
     setWeight(e.target.value);
+  };
+  const determineSex = () => {
+    if (sex === 'XX') {
+      setSex('XY');
+    } else {
+      setSex('XX');
+    }
+  };
+  const determineScale = () => {
+    if (scale === 'Metric') {
+      setScale('Imperial');
+    } else {
+      setScale('Metric');
+    }
   };
   const changeDate = e => {
     const birthdate = new Date(e.target.value);
@@ -51,8 +70,24 @@ const Register = () => {
     setDOB(birthdate);
     setAge(years);
   };
+  const adjustEthnoGroup = e => {
+    if (ethnicity.includes(e.target.id)) {
+      setEthnicity(ethnicity.filter(group => group !== e.target.id));
+    } else {
+      setEthnicity([...ethnicity, e.target.id]);
+    }
+  };
+  const date = new Date();
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  let time;
+  if (date.getHours() > 12) {
+    time = `${date.getHours() - 12}p`;
+  } else {
+    time = `${date.getHours()}a`;
+  }
+  const dateTime = `${months[date.getMonth()]}${date.getDate()}-${time}`;
   const submitRegister = e => {
-    if (confirm !== true) {
+    if (password !== confirm) {
       alert("passwords don't match");
     } else {
       e.preventDefault();
@@ -68,8 +103,10 @@ const Register = () => {
             password,
             dob,
             age,
-            height,
-            weight,
+            ethnicity: ethnicity.toString(),
+            sex,
+            height: JSON.stringify({ height, scale }),
+            weight: JSON.stringify({ measurements: { [dateTime]: Number(weight) }, scale }),
           },
         }),
         headers: {
@@ -87,6 +124,7 @@ const Register = () => {
           } else {
             sessionStorage.token = data.token;
           }
+          dispatch(updateUser(data.user));
           history.replace('/');
         }).catch(err => console.log(err));
     }
@@ -95,7 +133,7 @@ const Register = () => {
     <Form className="SignInForm" style={{ width: '85vw', maxWidth: 500, margin: '25px auto' }}>
       <Form.Group controlId="formBasicUsername">
         <Form.Label>UserName</Form.Label>
-        <Form.Control type="username" placeholder="UserName" onChange={changeName} />
+        <Form.Control type="text" placeholder="UserName" onChange={changeName} />
       </Form.Group>
       <Form.Group controlId="formBasicEmail">
         <Form.Label>Email address</Form.Label>
@@ -111,20 +149,39 @@ const Register = () => {
         <Form.Control type="password" placeholder="Confirm Password" onChange={confirmPassword} />
       </Form.Group>
       <Form.Group controlId="formBasicDOB">
-        <Form.Label>DOB</Form.Label>
+        <Form.Label>{`DOB - Age: ${age}`}</Form.Label>
         <Form.Control type="date" placeholder="dob" onChange={changeDate} />
       </Form.Group>
-      <Form.Group controlId="formBasicAge">
-        <Form.Label>Age</Form.Label>
-        <Form.Control type="age" placeholder="Age" onChange={changeAge} value={age} />
+      <Form.Group>
+        <Form.Label>Measurement System</Form.Label>
+        <span style={{ display: 'flex' }}>
+          <Form.Check custom type="radio" name="scale" id="Metric" label="Centimeters / Kilograms" value="Metric" onChange={determineScale} defaultChecked />
+          <Form.Check custom type="radio" name="scale" id="Imperial" label="Inches / Pounds" value="Imperial" onChange={determineScale} style={{ marginLeft: 10 }} />
+        </span>
       </Form.Group>
       <Form.Group controlId="formBasicHeight">
         <Form.Label>Height</Form.Label>
-        <Form.Control type="height" placeholder="Height" onChange={changeHeight} />
+        <Form.Control type="text" placeholder="Height" onChange={changeHeight} />
       </Form.Group>
       <Form.Group controlId="formBasicWeight">
         <Form.Label>Weight</Form.Label>
-        <Form.Control type="weight" placeholder="Weight" onChange={changeWeight} />
+        <Form.Control type="text" placeholder="Weight" onChange={changeWeight} />
+      </Form.Group>
+      <Form.Group controlId="formBasicWeight">
+        <Form.Label>Predominant Ancestry</Form.Label>
+        <Form.Check custom type="checkbox" id="European" label="European" onChange={adjustEthnoGroup} />
+        <Form.Check custom type="checkbox" id="Central & South Asian" label="Central & South Asian" onChange={adjustEthnoGroup} />
+        <Form.Check custom type="checkbox" id="East Asian & Native American" label="East Asian & Native American" onChange={adjustEthnoGroup} />
+        <Form.Check custom type="checkbox" id="Sub-Saharan African" label="Sub-Saharan African" onChange={adjustEthnoGroup} />
+        <Form.Check custom type="checkbox" id="Western Asian & North African" label="Western Asian & North African" onChange={adjustEthnoGroup} />
+        <Form.Check custom type="checkbox" id="Melanesian" label="Melanesian" onChange={adjustEthnoGroup} />
+      </Form.Group>
+      <Form.Group controlId="formBasicWeight">
+        <Form.Label>Sex</Form.Label>
+        <span style={{ display: 'flex' }}>
+          <Form.Check custom type="radio" name="sex" id="XX" label="XX" value="XX" onChange={determineSex} defaultChecked />
+          <Form.Check custom type="radio" name="sex" id="XY" label="XY" value="XY" onChange={determineSex} style={{ marginLeft: 10 }} />
+        </span>
       </Form.Group>
       <Form.Group controlId="formBasicCheckbox">
         <Form.Check type="checkbox" label="Remember Me" defaultChecked onChange={changeMemory} />
@@ -144,4 +201,8 @@ const Register = () => {
   );
 };
 
-export default Register;
+Register.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+};
+
+export default connect(null)(Register);

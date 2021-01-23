@@ -1,27 +1,104 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: MyString
-  email: MyString
-  password_digest: <%= BCrypt::Password.create('secret') %>
+good_user:
+  name: user
+  email: user@user.com
+  password_digest: <%= BCrypt::Password.create('user') %>
   height: 1
   weight: 1
-  age: 1
+  age: 32
   systolic: 1
   diastolic: 1
   pulse: 1
   temperature: 1
   blood_sugar: 1
 
-two:
-  name: MyString
-  email: MyString
-  password_digest: <%= BCrypt::Password.create('secret') %>
+bad_height:
+  name: user
+  email: bad_height@user.com
+  password_digest: <%= BCrypt::Password.create('user') %>
+  weight: 2
+  age: 23
+  systolic: 2
+  diastolic: 2
+  pulse: 2
+  temperature: 2
+  blood_sugar: 2
+
+bad_weight:
+  name: user
+  email: bad_weight@user.com
+  password_digest: <%= BCrypt::Password.create('user') %>
+  height: 3
+  age: 32
+  systolic: 3
+  diastolic: 3
+  pulse: 3
+  temperature: 3
+  blood_sugar: 3
+
+bad_password:
+  name: user
+  email: bad_password@user.com
+  height: 4
+  weight: 4
+  age: 23
+  systolic: 4
+  diastolic: 4
+  pulse: 4
+  temperature: 4
+  blood_sugar: 4
+
+extra_user1:
+  name: user
+  email: extra_user1@user.com
+  password_digest: <%= BCrypt::Password.create('user') %>
   height: 1
   weight: 1
-  age: 1
+  age: 32
   systolic: 1
   diastolic: 1
   pulse: 1
   temperature: 1
   blood_sugar: 1
+
+extra_user2:
+  name: user
+  email: extra_user2@user.com
+  password_digest: <%= BCrypt::Password.create('user') %>
+  height: 2
+  weight: 2
+  age: 23
+  systolic: 2
+  diastolic: 2
+  pulse: 2
+  temperature: 2
+  blood_sugar: 2
+
+extra_user3:
+  name: user
+  email: extra_user3@user.com
+  password_digest: <%= BCrypt::Password.create('user') %>
+  height: 3
+  weight: 3
+  age: 32
+  systolic: 3
+  diastolic: 3
+  pulse: 3
+  temperature: 3
+  blood_sugar: 3
+
+extra_user4:
+  name: user
+  email: extra_user4@user.com
+  password_digest: <%= BCrypt::Password.create('user') %>
+  height: 4
+  weight: 4
+  age: 23
+  systolic: 4
+  diastolic: 4
+  pulse: 4
+  temperature: 4
+  blood_sugar: 4
+
+

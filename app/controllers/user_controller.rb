@@ -2,6 +2,7 @@ class UserController < ApplicationController
   protect_from_forgery with: :null_session
   before_action :authorized, only: [:index]
   before_action :set_user, only: [:login]
+
   def index
     if @user
       render json: @user
@@ -16,7 +17,7 @@ class UserController < ApplicationController
       token = encode_token({ user_id: @user.id })
       render json: { user: User.find(@user.id), token: token }
     else
-      render json: { error: 'Invalid username or password' }
+      render json: { error: 'Incorrect input supplied' }
     end
   end
 

@@ -1,3 +1,6 @@
+import 'core-js/stable';
+import 'regenerator-runtime/runtime';
+
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -11,6 +14,8 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import {
   updateUser, allCommunities, allDoctors, signOutUser,
 } from '../redux/actions';
+
+const fetch = require('node-fetch');
 
 const HeaderNav = ({ dispatch, user }) => {
   const doctor = 'list';

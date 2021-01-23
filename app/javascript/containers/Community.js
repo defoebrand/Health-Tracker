@@ -1,3 +1,5 @@
+import 'core-js/stable';
+import 'regenerator-runtime/runtime';
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -8,6 +10,8 @@ import Tab from 'react-bootstrap/Tab';
 import Button from 'react-bootstrap/Button';
 
 import { viewTab } from '../redux/actions';
+
+const fetch = require('node-fetch');
 
 const Community = ({ dispatch, community, user }) => {
   const history = useHistory();

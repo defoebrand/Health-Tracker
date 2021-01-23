@@ -46,6 +46,7 @@
   },
   "scripts": {
     "test": "jest",
+    "silent-test": "jest --silent",
     "test-watch": "jest --watch"
   },
   "jest": {

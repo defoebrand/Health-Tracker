@@ -1,3 +1,5 @@
+import 'core-js/stable';
+import 'regenerator-runtime/runtime';
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -7,6 +9,8 @@ import Tab from 'react-bootstrap/Tab';
 import CardGroup from 'react-bootstrap/CardGroup';
 
 import CommunityCard from '../components/CommunityCard';
+
+const fetch = require('node-fetch');
 
 const Friends = ({ tab, communities, user }) => {
   const [myCommunities, setCommunities] = useState([]);

@@ -64,7 +64,7 @@ const HeaderNav = ({ dispatch, user }) => {
 
   useEffect(() => {
     if (user.name === '') {
-      history.push('/home');
+      history.replace('/home');
     } else {
       history.push(`/users/${user.name}`);
     }

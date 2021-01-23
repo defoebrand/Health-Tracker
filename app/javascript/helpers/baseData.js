@@ -15,11 +15,17 @@ export const basePulse = ({ age }) => {
   return 135;
 };
 
-export const baseTemp = ({ age }) => {
-  if (age > 10 && age < 65) {
-    return 37;
+export const baseTemp = ({ age, weight }) => {
+  if (weight.scale === 'Metric') {
+    if (age > 10 && age < 65) {
+      return 37;
+    }
+    return 36;
   }
-  return 36;
+  if (age > 10 && age < 65) {
+    return 99;
+  }
+  return 97;
 };
 
 export const baseSys = ({ age }) => {

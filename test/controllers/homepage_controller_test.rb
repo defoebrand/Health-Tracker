@@ -5,7 +5,9 @@ class HomepageControllerTest < ActionDispatch::IntegrationTest
     get root_url
     assert_response :success
   end
+end
 
+class HomepageControllerAPITest < ActionDispatch::IntegrationTest
   test 'should return data for all users' do
     get '/api'
     # assert_equal '{}', @response.parsed_body

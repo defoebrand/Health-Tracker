@@ -3,9 +3,9 @@ import { render } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { Provider } from 'react-redux';
 
-import store from '../redux/store';
+import store from '../../app/javascript/redux/store';
 
-import User from '../containers/User';
+import HomePage from '../../app/javascript/containers/HomePage';
 
 describe('rendered App', () => {
   let renderedComponent;
@@ -13,15 +13,15 @@ describe('rendered App', () => {
   beforeEach(() => {
     renderedComponent = render(
       <Provider store={store}>
-        <User />
+        <HomePage />
       </Provider>,
     );
   });
 
-  it('User has a container with class App', () => {
+  it('HomePage has a container with class App', () => {
     const { getByRole } = renderedComponent;
-    const button = getByRole('button', { name: 'Add Stats' });
-    expect(button).toBeInTheDocument();
+    const link = getByRole('link', { name: 'DefoeBrand' });
+    expect(link).toBeInTheDocument();
   });
 
   // it('has a container with class App', () => {

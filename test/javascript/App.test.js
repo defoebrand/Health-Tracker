@@ -4,9 +4,9 @@ import '@testing-library/jest-dom';
 import { Provider } from 'react-redux';
 import { HashRouter } from 'react-router-dom';
 
-import store from '../redux/store';
+import store from '../../app/javascript/redux/store';
 
-import App from '../containers/App';
+import App from '../../app/javascript/containers/App';
 
 describe('rendered App', () => {
   let renderedComponent;

@@ -3,9 +3,9 @@ import { render } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { Provider } from 'react-redux';
 
-import store from '../redux/store';
+import store from '../../app/javascript/redux/store';
 
-import SickCall from '../containers/SickCall';
+import Resources from '../../app/javascript/containers/Resources';
 
 describe('rendered App', () => {
   let renderedComponent;
@@ -13,15 +13,15 @@ describe('rendered App', () => {
   beforeEach(() => {
     renderedComponent = render(
       <Provider store={store}>
-        <SickCall />
+        <Resources />
       </Provider>,
     );
   });
 
-  it('SickCall has a container with class App', () => {
-    const { getByRole } = renderedComponent;
-    const heading = getByRole('heading', { name: 'Triage Questionnaire coming soon!' });
-    expect(heading).toBeInTheDocument();
+  it('Resources has a container with class App', () => {
+    const { getAllByRole } = renderedComponent;
+    const link = getAllByRole('link', { name: 'Visit Now' });
+    expect(link[0]).toBeInTheDocument();
   });
 
   // it('has a container with class App', () => {

@@ -3,9 +3,9 @@ import { render } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { Provider } from 'react-redux';
 
-import store from '../redux/store';
+import store from '../../app/javascript/redux/store';
 
-import Community from '../containers/Community';
+import Community from '../../app/javascript/containers/Community';
 
 describe('rendered App', () => {
   let renderedComponent;

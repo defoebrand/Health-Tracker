@@ -3,9 +3,9 @@ import { render } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { Provider } from 'react-redux';
 
-import store from '../redux/store';
+import store from '../../app/javascript/redux/store';
 
-import ResourceCard from '../components/ResourceCard';
+import Footer from '../../app/javascript/components/Footer';
 
 describe('rendered App', () => {
   let renderedComponent;
@@ -13,15 +13,15 @@ describe('rendered App', () => {
   beforeEach(() => {
     renderedComponent = render(
       <Provider store={store}>
-        <ResourceCard />
+        <Footer />
       </Provider>,
     );
   });
 
-  it('ResourceCard has a container with class App', () => {
+  it('Footer has a container with class App', () => {
     const { getByRole } = renderedComponent;
-    const img = getByRole('img', { name: '' });
-    expect(img).toBeInTheDocument();
+    const contentinfo = getByRole('contentinfo', { name: '' });
+    expect(contentinfo).toBeInTheDocument();
   });
 
   // it('has a container with class App', () => {

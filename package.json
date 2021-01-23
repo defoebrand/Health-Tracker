@@ -51,7 +51,7 @@
   },
   "jest": {
     "roots": [
-      "app/javascript/__tests__"
+      "test/javascript/"
     ]
   }
 }

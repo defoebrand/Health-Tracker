@@ -3,9 +3,9 @@ import { render } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { Provider } from 'react-redux';
 
-import store from '../redux/store';
+import store from '../../app/javascript/redux/store';
 
-import HomePage from '../containers/HomePage';
+import ResourceAccordion from '../../app/javascript/components/ResourceAccordion';
 
 describe('rendered App', () => {
   let renderedComponent;
@@ -13,15 +13,15 @@ describe('rendered App', () => {
   beforeEach(() => {
     renderedComponent = render(
       <Provider store={store}>
-        <HomePage />
+        <ResourceAccordion />
       </Provider>,
     );
   });
 
-  it('HomePage has a container with class App', () => {
+  it('ResourceAccordion has a container with class App', () => {
     const { getByRole } = renderedComponent;
-    const link = getByRole('link', { name: 'DefoeBrand' });
-    expect(link).toBeInTheDocument();
+    const button = getByRole('button', { name: 'Visit Now' });
+    expect(button).toBeInTheDocument();
   });
 
   // it('has a container with class App', () => {

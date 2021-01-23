@@ -3,9 +3,9 @@ import { render } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { Provider } from 'react-redux';
 
-import store from '../redux/store';
+import store from '../../app/javascript/redux/store';
 
-import CarouselCard from '../components/CarouselCard';
+import Friends from '../../app/javascript/containers/Friends';
 
 describe('rendered App', () => {
   let renderedComponent;
@@ -13,15 +13,15 @@ describe('rendered App', () => {
   beforeEach(() => {
     renderedComponent = render(
       <Provider store={store}>
-        <CarouselCard />
+        <Friends />
       </Provider>,
     );
   });
 
-  it('CarouselCard has a container with class App', () => {
+  it('Friends has a container with class App', () => {
     const { getByRole } = renderedComponent;
-    const img = getByRole('img', { name: 'First slide' });
-    expect(img).toBeInTheDocument();
+    const tablist = getByRole('tablist', { name: '' });
+    expect(tablist).toBeInTheDocument();
   });
 
   // it('has a container with class App', () => {

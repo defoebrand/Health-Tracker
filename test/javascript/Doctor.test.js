@@ -3,9 +3,9 @@ import { render } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { Provider } from 'react-redux';
 
-import store from '../redux/store';
+import store from '../../app/javascript/redux/store';
 
-import DoctorCard from '../components/DoctorCard';
+import Doctor from '../../app/javascript/containers/Doctor';
 
 describe('rendered App', () => {
   let renderedComponent;
@@ -13,15 +13,15 @@ describe('rendered App', () => {
   beforeEach(() => {
     renderedComponent = render(
       <Provider store={store}>
-        <DoctorCard />
+        <Doctor />
       </Provider>,
     );
   });
 
-  it('DoctorCard has a container with class App', () => {
+  it('Doctor has a container with class App', () => {
     const { getByRole } = renderedComponent;
-    const img = getByRole('img', { name: '' });
-    expect(img).toBeInTheDocument();
+    const tablist = getByRole('tablist', { name: '' });
+    expect(tablist).toBeInTheDocument();
   });
 
   // it('has a container with class App', () => {

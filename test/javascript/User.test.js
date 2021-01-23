@@ -3,9 +3,9 @@ import { render } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { Provider } from 'react-redux';
 
-import store from '../redux/store';
+import store from '../../app/javascript/redux/store';
 
-import ResourceAccordion from '../components/ResourceAccordion';
+import User from '../../app/javascript/containers/User';
 
 describe('rendered App', () => {
   let renderedComponent;
@@ -13,14 +13,14 @@ describe('rendered App', () => {
   beforeEach(() => {
     renderedComponent = render(
       <Provider store={store}>
-        <ResourceAccordion />
+        <User />
       </Provider>,
     );
   });
 
-  it('ResourceAccordion has a container with class App', () => {
+  it('User has a container with class App', () => {
     const { getByRole } = renderedComponent;
-    const button = getByRole('button', { name: 'Visit Now' });
+    const button = getByRole('button', { name: 'Add Stats' });
     expect(button).toBeInTheDocument();
   });
 

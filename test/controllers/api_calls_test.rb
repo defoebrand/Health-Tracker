@@ -7,11 +7,12 @@ class ApiCallsTest < ActionDispatch::IntegrationTest
   end
 
   # test 'should return user data matching an age query' do
-  #   get '/api?age=32'
+  #   get '/age/32'
   #   assert_equal 4, @response.parsed_body.count
   # end
+
   # test 'should return user data matching a height query' do
-  #   get '/api?height=3'
+  #   get '/height/3'
   #   assert_equal 2, @response.parsed_body.count
   # end
   # test 'should return user data matching a weight query' do

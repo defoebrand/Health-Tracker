@@ -18,10 +18,13 @@ Rails.application.routes.draw do
 
   scope path: '/api' do
     get '/', to: 'homepage#all'
-    get '/weight', to: 'homepage#check_weight'
-    get '/weight/:weight/:range', to: 'homepage#check_weight'
-    get '/height', to: 'homepage#check_height'
-    get '/height/:height/:range', to: 'homepage#check_height'
+    # get '/age', to: 'homepage#age'
+    get '/age/:age', to: 'homepage#age'
+    # get '/weight', to: 'homepage#check_weight'
+    # get '/weight/:weight/:range', to: 'homepage#check_weight'
+    # get '/height', to: 'homepage#check_height'
+    # get '/height/:height', to: 'homepage#check_height'
+    get '/height/:height/:scale', to: 'homepage#check_height'
   end
 
 

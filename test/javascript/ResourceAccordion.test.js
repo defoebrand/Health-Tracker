@@ -23,34 +23,4 @@ describe('rendered App', () => {
     const button = getByRole('button', { name: 'Visit Now' });
     expect(button).toBeInTheDocument();
   });
-
-  // it('has a container with class App', () => {
-  //   const { getByRole } = renderedComponent;
-  //   const tab = getByRole('tab', { name: 'My Friends' });
-  //   expect(tab).toBeInTheDocument();
-  // });
-  //
-  // it('has a container with class App', () => {
-  //   const { getByRole } = renderedComponent;
-  //   const tab = getByRole('tab', { name: 'My Communities' });
-  //   expect(tab).toBeInTheDocument();
-  // });
-  //
-  // it('has a container with class App', () => {
-  //   const { getByRole } = renderedComponent;
-  //   const tab = getByRole('tab', { name: 'All Communities' });
-  //   expect(tab).toBeInTheDocument();
-  // });
-  //
-  // it('has a container with class App', () => {
-  //   const { getByRole } = renderedComponent;
-  //   const heading = getByRole('heading', { name: 'Members:' });
-  //   expect(heading).toBeInTheDocument();
-  // });
-  //
-  // it('has a container with class App', () => {
-  //   const { getByRole } = renderedComponent;
-  //   const button = getByRole('button', { name: 'Join Community' });
-  //   expect(button).toBeInTheDocument();
-  // });
 });

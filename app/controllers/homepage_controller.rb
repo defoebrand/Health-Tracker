@@ -9,17 +9,18 @@ class HomepageController < ApplicationController
     # end
   end
 
-  def check_weight
-    puts params
+  def age
+    render json: User.where('age = ?', params[:age])
   end
+
+  # def check_weight
+  #   render json: User.where('weight = ?', "{\"height\":#{params[:height]},\"scale\":\"#{params[:scale]}\"}")
+  # end
 
   def check_height
-    puts params
-    render json: User.where('height = ?', JSON.parse(height)) # {}"{\"height\":#{params[:height]},\"scale\":\"Metric\"}")
+    render json: User.where('height = ?', "{\"height\":#{params[:height]},\"scale\":\"#{params[:scale]}\"}")
   end
-  # {params[:height] + params[:range]}
-
-  # "rating >= :min_rating and rating <= :max_rating", :min_rating => min_rating, :max_rating => max_rating
+  # {params[:height] + }
 
   private
 

@@ -60,21 +60,21 @@ class UserController < ApplicationController
   end
 
   def community_users
-    render json: @community.users
+    display_community_users(@community.users)
   end
 
   def user_communities
-    render json: @user.communities
+    display_communities(@user.communities)
   end
 
   def join_community
     @user.communities << @community
-    render json: @community.users
+    display_community_users(@community.users)
   end
 
   def leave_community
     @user.communities.delete(@community)
-    render json: @community.users
+    display_community_users(@community.users)
   end
 
   def user_doctors

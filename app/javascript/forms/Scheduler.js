@@ -26,7 +26,7 @@ const Scheduler = ({ doctor, user }) => {
     : localStorage.token;
 
   const requestAppointment = () => {
-    const url = '/add_appointment';
+    const url = '/user/add_appointment';
     fetch(url, {
       method: 'POST',
       body: JSON.stringify({

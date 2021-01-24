@@ -7,9 +7,9 @@ Rails.application.routes.draw do
       patch 'settings'
       post 'join_community'
       post 'leave_community'
-      post 'community_users'
       post 'user_communities'
       post 'add_appointment'
+      post 'community_users'
     end
   end
 

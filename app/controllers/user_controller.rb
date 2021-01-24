@@ -34,22 +34,22 @@ class UserController < ApplicationController
 
   def update
     user = User.find(params[:id])
-    user.update(pulse: user_params[:pulse]) if user_params[:pulse] != '{}'
-    user.update(weight: user_params[:weight]) if user_params[:weight] != '{}'
-    user.update(temperature: user_params[:temp]) if user_params[:temp] != '{}'
-    user.update(blood_sugar: user_params[:blood_sugar]) if user_params[:blood_sugar] != '{}'
-    user.update(systolic: user_params[:systolic]) if user_params[:systolic] != '{}'
-    user.update(diastolic: user_params[:diastolic]) if user_params[:diastolic] != '{}'
-
-    render json: { message: user }
+    ApplicationRecord.transaction do
+      user_params.each do |param|
+        user.update!(param[0] => user_params[param[0]]) if user_params[param[0]] != '{}'
+      end
+      render json: { user: user }
+    end
+  rescue ActiveRecord::RecordInvalid
+    render json: { user: 'Invalid Input' }
   end
 
   def settings
     user = User.find(user_params[:id])
     ApplicationRecord.transaction do
-      user.update!(name: user_params[:name]) if user.name != user_params[:name]
-      user.update!(email: user_params[:email]) if user.email != user_params[:email]
-      user.update!(password: user_params[:password]) if user.password != user_params[:password]
+      user_params.each do |param|
+        user.update!(param[0] => user_params[param[0]]) if user[param[0]] != user_params[param[0]]
+      end
       render json: { user: user }
     end
   rescue ActiveRecord::RecordInvalid
@@ -117,7 +117,7 @@ class UserController < ApplicationController
       :id, :name, :email, :password,
       :age, :height, :weight, :gender,
       :dob, :sex, :ethnicity,
-      :temp, :pulse, :blood_sugar,
+      :temperature, :pulse, :blood_sugar,
       :systolic, :diastolic
     )
   end

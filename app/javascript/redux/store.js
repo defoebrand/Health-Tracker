@@ -11,7 +11,6 @@ const initialTab = '';
 const userReducer = (state = initialUser, action) => {
   switch (action.type) {
     case SUBMIT:
-      console.log(action);
       return {
         user: {
           id: action.input.id,

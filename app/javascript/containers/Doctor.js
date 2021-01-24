@@ -15,6 +15,14 @@ const Doctor = ({
   doctors, user,
 }) => {
   const [myDoctors, setMyDoctors] = useState([]);
+  const [failedMessage, setFailedMessage] = useState({ display: 'none' });
+  const [error, setError] = useState('');
+
+  const displayMessage = {
+    display: 'block',
+    textAlign: 'center',
+    marginTop: 10,
+  };
 
   useEffect(() => {
     const url = '/user/my-doctors';
@@ -31,12 +39,20 @@ const Doctor = ({
         }
         throw new Error('Network response was not ok.');
       }).then(data => {
-        setMyDoctors(data);
-      }).catch(err => console.log(err));
+        try {
+          setMyDoctors(data);
+        } catch {
+          throw new Error('Failed to Retrieve Your Doctors.');
+        }
+      }).catch(err => {
+        setError(err.message);
+        setFailedMessage(displayMessage);
+      });
   }, [user]);
 
   return (
     <>
+      <h3 style={failedMessage}>{error}</h3>
       <Tabs
         defaultActiveKey={user.name === '' ? 'all' : 'personal'}
         transition={false}

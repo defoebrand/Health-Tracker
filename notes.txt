@@ -1,3 +1,5 @@
+ADD VALIDATIONS to all forms
+ADD ERROR HANDLING
 
  routes
 
@@ -16,7 +18,7 @@
  edit_user
  user
                      
- UTILIZE THUNK TO PULL FETCH REQUESTS OUT TO SEPARATE FILES
+ UTILIZE THUNK TO PULL FETCH REQUESTS OUT TO SEPARATE FILES?
 
  - = BACK END = - 
 add friend relationship
@@ -28,11 +30,7 @@ add image blob from active records for profile pics
  - or preselected images to be used as profile pic
  - upload care
 
- ADD VALIDATIONS to all forms
  
- ADD ERROR HANDLING
-
-
  - = COMING FEATURES = - 
   sick call
   friend's chat
@@ -48,9 +46,6 @@ add image blob from active records for profile pics
   - isolate lines with selector
   - add color selector
 
-
-
-  
 
 
 video conf: Photo by Edward Jenner from Pexels

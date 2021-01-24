@@ -43,7 +43,7 @@ const HeaderNav = ({ dispatch, user }) => {
       }).then(data => {
         dispatch(updateUser(data));
       }).catch(err => console.log(err));
-  }, [history]);
+  }, []);
 
   useEffect(() => {
     const url = '/user/communities';

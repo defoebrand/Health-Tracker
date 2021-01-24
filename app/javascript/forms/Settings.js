@@ -15,6 +15,14 @@ const Settings = ({ user, dispatch }) => {
   const [newEmail, setnewEmail] = useState(email);
   const [newPassword, setNewPassword] = useState('');
   const [confirm, setConfirm] = useState('');
+  const [failedMessage, setFailedMessage] = useState({ display: 'none' });
+  const [error, setError] = useState('Failed');
+
+  const displayMessage = {
+    display: 'block',
+    textAlign: 'center',
+    marginTop: 10,
+  };
 
   const changeName = e => {
     setNewUserName(e.target.value);
@@ -31,7 +39,8 @@ const Settings = ({ user, dispatch }) => {
   };
   const updateSettings = e => {
     if (newPassword !== confirm) {
-      alert("passwords don't match");
+      setError('Passwords Do Not Match');
+      setFailedMessage(displayMessage);
     } else {
       e.preventDefault();
       const url = '/user/settings/';
@@ -53,36 +62,46 @@ const Settings = ({ user, dispatch }) => {
           if (response.ok) {
             return response.json();
           }
-          throw new Error('Network response was not ok.');
+          throw new Error('Network Response Failed.');
         }).then(({ user }) => {
-          dispatch(updateUser(user));
+          try {
+            dispatch(updateUser(user));
+          } catch {
+            throw new Error('Failed to update settings. Please try again.');
+          }
           history.push('/');
-        }).catch(err => console.log(err));
+        }).catch(err => {
+          setError(err.message);
+          setFailedMessage(displayMessage);
+        });
     }
   };
   return (
-    <Form className="SignInForm" style={{ width: '85vw', maxWidth: 500, margin: '25px auto' }}>
-      <Form.Group controlId="formBasicName">
-        <Form.Label>UserName</Form.Label>
-        <Form.Control type="username" placeholder="UserName" onChange={changeName} value={newUserName} />
-      </Form.Group>
-      <Form.Group controlId="formBasicEmail">
-        <Form.Label>Email address</Form.Label>
-        <Form.Control type="email" placeholder="Enter email" onChange={changeEmail} value={newEmail} />
-        <Form.Text className="text-muted">We will never share your email with anyone else.</Form.Text>
-      </Form.Group>
-      <Form.Group controlId="formBasicPassword">
-        <Form.Label>Password</Form.Label>
-        <Form.Control type="text" placeholder="Password" onChange={changePassword} />
-      </Form.Group>
-      <Form.Group controlId="formBasicConfirmPassword">
-        <Form.Label>Confirm Password</Form.Label>
-        <Form.Control type="text" placeholder="Confirm Password" onChange={confirmPassword} />
-      </Form.Group>
-      <Button variant="primary" type="submit" onClick={updateSettings}>
-        Update Settings
-      </Button>
-    </Form>
+    <>
+      <h3 style={failedMessage}>{error}</h3>
+      <Form className="SignInForm" style={{ width: '85vw', maxWidth: 500, margin: '25px auto' }}>
+        <Form.Group controlId="formBasicName">
+          <Form.Label>UserName</Form.Label>
+          <Form.Control type="username" placeholder="UserName" onChange={changeName} value={newUserName} />
+        </Form.Group>
+        <Form.Group controlId="formBasicEmail">
+          <Form.Label>Email address</Form.Label>
+          <Form.Control type="email" placeholder="Enter email" onChange={changeEmail} value={newEmail} />
+          <Form.Text className="text-muted">We will never share your email with anyone else.</Form.Text>
+        </Form.Group>
+        <Form.Group controlId="formBasicPassword">
+          <Form.Label>Password</Form.Label>
+          <Form.Control type="text" placeholder="Password" onChange={changePassword} />
+        </Form.Group>
+        <Form.Group controlId="formBasicConfirmPassword">
+          <Form.Label>Confirm Password</Form.Label>
+          <Form.Control type="text" placeholder="Confirm Password" onChange={confirmPassword} />
+        </Form.Group>
+        <Button variant="primary" type="submit" onClick={updateSettings}>
+          Update Settings
+        </Button>
+      </Form>
+    </>
   );
 };
 

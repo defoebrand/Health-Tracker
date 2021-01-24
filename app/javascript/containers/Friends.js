@@ -14,6 +14,14 @@ const fetch = require('node-fetch');
 
 const Friends = ({ tab, communities, user }) => {
   const [myCommunities, setCommunities] = useState([]);
+  const [failedMessage, setFailedMessage] = useState({ display: 'none' });
+  const [error, setError] = useState('');
+
+  const displayMessage = {
+    display: 'block',
+    textAlign: 'center',
+    marginTop: 10,
+  };
 
   useEffect(() => {
     const url = '/user/user-communities';
@@ -30,12 +38,20 @@ const Friends = ({ tab, communities, user }) => {
         }
         throw new Error('Network response was not ok.');
       }).then(data => {
-        setCommunities(data);
-      }).catch(err => console.log(err));
+        try {
+          setCommunities(data);
+        } catch {
+          throw new Error('Failed to Retrieve Your Communities.');
+        }
+      }).catch(err => {
+        setError(err.message);
+        setFailedMessage(displayMessage);
+      });
   }, []);
 
   return (
     <>
+      <h3 style={failedMessage}>{error}</h3>
       <Tabs
         defaultActiveKey={user.name === '' ? 'communities' : tab}
         transition={false}

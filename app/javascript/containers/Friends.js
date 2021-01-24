@@ -26,9 +26,12 @@ const Friends = ({
     textAlign: 'center',
     marginTop: 10,
   };
+  const token = localStorage.token === ''
+    ? sessionStorage.token
+    : localStorage.token;
 
   useEffect(() => {
-    const url = '/user/communities';
+    const url = '/communities';
     fetch(url, {
       headers: {
         'Content-type': 'application/json; charset=UTF-8',
@@ -53,12 +56,13 @@ const Friends = ({
 
   useEffect(() => {
     if (user.name !== '') {
-      const url = '/user/user-communities';
+      const url = '/user_communities';
       fetch(url, {
         method: 'POST',
         body: JSON.stringify({ user: { id: user.id } }),
         headers: {
           'Content-type': 'application/json; charset=UTF-8',
+          Authorization: `Bearer ${token}`,
         },
       })
         .then(response => {

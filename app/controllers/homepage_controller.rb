@@ -1,102 +1,84 @@
 class HomepageController < ApplicationController
-  def index; end
+  def doctors
+    doctors = Doctor.all
+    param_array = %w[id name specialty quote image]
+    @return_doctors = []
+    doctors.each do |doctor|
+      @doctor = {}
+      doctor.attributes.each do |param|
+        @doctor[(param[0]).to_s] = param[1] if param_array.include?(param[0])
+      end
+      @return_doctors << @doctor
+    end
+    render json: @return_doctors
+  end
+
+  def communities
+    communities = Community.all
+    param_array = %w[id name image description]
+    @return_communities = []
+    communities.each do |community|
+      @community = {}
+      community.attributes.each do |param|
+        @community[(param[0]).to_s] = param[1] if param_array.include?(param[0])
+      end
+      @return_communities << @community
+    end
+    render json: @return_communities
+  end
 
   def all
-    # if params.keys.count <= 2
-    return_all_users
-    # else
-    #   return_query
-    # end
+    users = User.all
+    display_users(users)
   end
 
-  def age
-    render json: User.where('age = ?', params[:age])
+  def by_age
+    users = User.where('age = ?', params[:age])
+    display_users(users)
   end
 
-  # def check_weight
-  #   render json: User.where('weight = ?', "{\"height\":#{params[:height]},\"scale\":\"#{params[:scale]}\"}")
-  # end
-
-  def check_height
-    render json: User.where('height = ?', "{\"height\":#{params[:height]},\"scale\":\"#{params[:scale]}\"}")
+  def by_sex
+    users = User.where('sex = ?', params[:sex])
+    display_users(users)
   end
-  # {params[:height] + }
+
+  def by_ethnicity
+    puts params[:ethnicity].split(',')
+    users = User.where('ethnicity = ?', params[:ethnicity])
+    display_users(users)
+  end
+
+  def by_height
+    height = (params[:height].to_f / 100) if params[:scale] == 'Metric'
+    users = User.where('height = ?', "{\"height\":#{height},\"scale\":\"#{params[:scale]}\"}")
+    display_users(users)
+  end
 
   private
 
-  def return_all_users
-    @users = User.all
-    @return_user = sanitize_user(@users)
+  def display_users(users)
+    @return_user = sanitize_user(users)
     render json: @return_user
   end
 
-  def return_query
-    @users = []
-    @users = check_height(params['height'], params['scale']) if params['height']
-    @users = check_weight(params['weight'], params['scale']) if params['weight']
-    # puts 'weight' if params['weight']
-    # puts 'weight' if params['weight']
-    # puts 'weight' if params['weight']
-    # puts 'weight' if params['weight']
-    # puts 'weight' if params['weight']
-    # puts 'weight' if params['weight']
-    # puts 'weight' if params['weight']
-    # puts 'weight' if params['weight']
-    # params.each do |param|
-    #   next if %w[action controller].include?(param[0])
-    #
-    #   @users = if ['height'].include?(param[0])
-    #              check_height(param[0], param[1], param[3])
-    #            else
-    #              check_weight(param[0], param[1], param[3])
-    #            end
-    #   # @users = User.where("#{param[0]} = ?", param[1])
-    # end
-    @return_user = sanitize_user(@users)
-    if !@return_user.count.zero?
-      # @unique_users = only_unique(@return_user)
-      # render json: @unique_users
-      render json: @return_user
-
-    else
-      render json: { message: 'No matching result' }
-    end
-  end
-
-  # def check_height(param, scale)
-  #   User.where('height = ?', "{\"height\":#{param},\"scale\":\"#{scale}\"}")
-  # end
-
-  # def check_weight(_param1, param2, param3)
-  #   User.where('weight = ?', "{\"measurements\":{\"#{/[*]/}\":#{param2}},\"scale\":\"#{param3}\"}")
-  # end
-
-  def check_age; end
-
   def sanitize_user(user_array)
+    param_array = %w[height weight systolic diastolic pulse temperature blood_sugar]
     @return_user = []
     user_array.each do |user|
-      @user = {
-        id: user.id,
-        age: user.age,
-        height: user.height,
-        weight: user.weight,
-        systolic: JSON.parse(user.systolic || '{}'),
-        diastolic: JSON.parse(user.systolic || '{}'),
-        pulse: JSON.parse(user.systolic || '{}'),
-        temperature: JSON.parse(user.systolic || '{}'),
-        blood_sugar: JSON.parse(user.systolic || '{}')
-      }
+      @user = {}
+      @user['id'] = user.id
+      @user['age'] = user.age
+      user.attributes.each do |param|
+        @user[(param[0]).to_s] = JSON.parse(param[1] || '{}') if param_array.include?(param[0])
+      end
       @return_user << @user
     end
-    @return_user
+    only_unique(@return_user)
   end
 
   def only_unique(users_to_return)
-    return_users = users_to_return.uniq do |user|
-      puts user['id']
-      user['id']
-    end
+    # puts users_to_return
+    return_users = users_to_return.uniq
     return_users
   end
 end

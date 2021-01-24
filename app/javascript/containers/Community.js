@@ -26,7 +26,7 @@ const Community = ({ dispatch, community, user }) => {
   };
 
   useEffect(() => {
-    const url = '/user/community-users';
+    const url = '/user/community_users';
     fetch(url, {
       method: 'POST',
       body: JSON.stringify({
@@ -54,7 +54,7 @@ const Community = ({ dispatch, community, user }) => {
   }, []);
 
   const addCommunity = () => {
-    const url = '/user/add-community';
+    const url = '/user/join_community';
     fetch(url, {
       method: 'POST',
       body: JSON.stringify({
@@ -83,7 +83,7 @@ const Community = ({ dispatch, community, user }) => {
   };
 
   const removeCommunity = () => {
-    const url = '/user/remove-community';
+    const url = '/user/leave_community';
     fetch(url, {
       method: 'POST',
       body: JSON.stringify({

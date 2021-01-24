@@ -1,15 +1,15 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Button from 'react-bootstrap/Button';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 
-import { useHistory } from 'react-router-dom';
-
 import {
-  updateUser, allCommunities, allDoctors,
+  updateUser, allCommunities, allDoctors, signOutUser,
 } from '../redux/actions';
 
 const HeaderNav = ({ dispatch, user }) => {
@@ -23,8 +23,6 @@ const HeaderNav = ({ dispatch, user }) => {
     }
   };
   useEffect(() => {
-    // const url = 'http://localhost:3000/user';
-    // const url = 'https://obscure-island-28750.herokuapp.com/user';
     const url = '/user';
     const { token } = localStorage;
     fetch(url, {
@@ -41,9 +39,8 @@ const HeaderNav = ({ dispatch, user }) => {
         dispatch(updateUser(data));
       }).catch(err => console.log(err));
   }, [history]);
+
   useEffect(() => {
-    // const url = 'http://localhost:3000/user';
-    // const url = 'https://obscure-island-28750.herokuapp.com/user';
     const url = '/user/communities';
     fetch(url, {
       headers: {
@@ -59,6 +56,7 @@ const HeaderNav = ({ dispatch, user }) => {
         dispatch(allCommunities(data));
       }).catch(err => console.log(err));
   }, []);
+
   useEffect(() => {
     if (user.name === '') {
       history.push('/home');
@@ -67,8 +65,6 @@ const HeaderNav = ({ dispatch, user }) => {
     }
   }, [user]);
   useEffect(() => {
-    // const url = 'http://localhost:3000/user';
-    // const url = 'https://obscure-island-28750.herokuapp.com/user';
     const url = '/user/doctors';
     fetch(url, {
       headers: {
@@ -84,11 +80,12 @@ const HeaderNav = ({ dispatch, user }) => {
         dispatch(allDoctors(data.doctors));
       }).catch(err => console.log(err));
   }, []);
+
   const signedIn = (user.name !== ''
     ? (
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         <Nav.Link onClick={() => history.push(`/users/${user.name}`)}>{user.name}</Nav.Link>
-        <Nav.Link className="signOutBtn" onClick={() => { dispatch(updateUser({ name: '' })); localStorage.token = ''; }}>Sign out</Nav.Link>
+        <Nav.Link className="signOutBtn" onClick={() => { dispatch(signOutUser({ name: '' })); localStorage.token = ''; }}>Sign out</Nav.Link>
       </div>
     )
     : (
@@ -101,6 +98,7 @@ const HeaderNav = ({ dispatch, user }) => {
       </div>
     )
   );
+
   return (
     <div className="HeaderNav">
       <Navbar bg="light" expand="lg">
@@ -127,7 +125,7 @@ const HeaderNav = ({ dispatch, user }) => {
           </Nav>
         </Navbar.Collapse>
         {user.name !== ''
-          ? <Nav.Link className="bigScreenSignOutBtn" onClick={() => { dispatch(updateUser({ name: '' })); localStorage.token = ''; }}>Sign out</Nav.Link>
+          ? <Nav.Link className="bigScreenSignOutBtn" onClick={() => { dispatch(signOutUser({ name: '' })); localStorage.token = ''; }}>Sign out</Nav.Link>
           : null}
       </Navbar>
     </div>

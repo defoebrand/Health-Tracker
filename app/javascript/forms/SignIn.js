@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
+
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import { useHistory } from 'react-router-dom';
-import PropTypes from 'prop-types';
-
-import { connect } from 'react-redux';
 
 import { updateUser } from '../redux/actions';
 
@@ -13,7 +13,9 @@ const SignIn = ({ dispatch }) => {
   const [password, setPassword] = useState('');
   const [memory, setMemory] = useState(true);
   const [status, setStatus] = useState(false);
+
   const history = useHistory();
+
   const goToRegister = () => {
     history.push('/register');
   };
@@ -29,11 +31,13 @@ const SignIn = ({ dispatch }) => {
   const changeEmail = e => {
     setEmail(e.target.value);
   };
+
   const changePassword = e => {
     setPassword(e.target.value);
   };
+
   const submitSignIn = () => {
-    const url = '/user/login';
+    const url = status === false ? '/user/login' : '/user/doctor';
     fetch(url, {
       method: 'POST',
       body: JSON.stringify({
@@ -51,13 +55,13 @@ const SignIn = ({ dispatch }) => {
           return response.json();
         }
         throw new Error('Network response was not ok.');
-      }).then(data => {
+      }).then(({ token, user }) => {
         if (memory === true) {
-          localStorage.token = data.token;
+          localStorage.token = token;
         } else {
-          sessionStorage.token = data.token;
+          sessionStorage.token = token;
         }
-        dispatch(updateUser(data.user));
+        dispatch(updateUser(user));
         history.replace('/');
       }).catch(err => console.log(err));
   };

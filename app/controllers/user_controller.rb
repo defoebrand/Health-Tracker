@@ -14,7 +14,7 @@ class UserController < ApplicationController
     @user = User.create(user_params)
     if @user.valid?
       token = encode_token({ user_id: @user.id })
-      render json: { user: @user, token: token }
+      render json: { user: User.find(@user.id), token: token }
     else
       render json: { error: 'Invalid username or password' }
     end
@@ -88,14 +88,20 @@ class UserController < ApplicationController
 
   def my_doctors
     user = User.find(user_params[:id])
-    render json: { myDocs: user.doctors.uniq }
+    render json: user.doctors.uniq
   end
 
   def appointment
     @user = User.find(appt_params[:user_id])
     @doc = Doctor.find_by(name: appt_params[:doc_name])
-    @appt = Appointment.create(doctor: @doc, user: @user, date: appt_params[:date], time: appt_params[:time])
-    render json: { myDocs: user.doctors.uniq }
+    @appt = Appointment.create(
+      doctor: @doc,
+      user: @user,
+      date: appt_params[:date],
+      time: appt_params[:time],
+      notes: appt_params[:notes]
+    )
+    render json: @user.doctors.uniq
   end
 
   private
@@ -107,7 +113,7 @@ class UserController < ApplicationController
   def user_params
     params.require(:user).permit(
       :id, :name, :email, :password,
-      :age, :height, :weight,
+      :age, :height, :weight, :gender,
       :dob, :sex, :ethnicity,
       :temp, :pulse, :blood_sugar,
       :systolic, :diastolic
@@ -119,6 +125,6 @@ class UserController < ApplicationController
   end
 
   def appt_params
-    params.require(:appt).permit(:user_id, :doc_name, :date, :time)
+    params.require(:appt).permit(:user_id, :doc_name, :date, :time, :notes)
   end
 end

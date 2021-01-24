@@ -1,63 +1,40 @@
-add image blob from active records for profile pics 
- - or preselected images to be used as profile pic
- - upload care 
- 
- if inches, two inputs for feet / inches
- 
+
+ UTILIZE THUNK TO PULL FETCH REQUESTS OUT TO SEPARATE FILES
+
+ - = BACK END = - 
 add friend relationship
 
 add api endpoint for external access
  - add query scopes
+
+add image blob from active records for profile pics
+ - or preselected images to be used as profile pic
+ - upload care
+
+ ADD VALIDATIONS to all forms
  
- coming features
-  sick call 
-  friend's chat 
+ ADD ERROR HANDLING
+
+
+ - = COMING FEATURES = - 
+  sick call
+  friend's chat
   doctor login
-  
+
+
+   - = STYLES = - 
   Add bootstrap variables
-  
-  CHARTS 
+  migrate jsx styles to scss
+
+  CHARTS
   - isolate lines with selector
   - add color selector
-  
-  ADD VALIDATIONS to all forms
-  
-  ADD SCHEDULING TEXT INPUT FOR NOTES
-  
-  
-  What sex were you born as?
-  Sex at birth 
-  Preferred gender
- 
- 
- 
-  COMPONENTS
-  - headernav
-  - communitylink?
-  - doctorcard?
-  - footer
-  - homecarousel
 
- PAGES
-  = Forms = 
-  - signin
-  - register
-  - Addstats
-  - scheduler
-  - settings
 
-  - Homepage
-  - User
-  - resources
-  - sickcall
-  - Doctor?
-  - friends?
-  - community?
- 
- 
- 
- 
+  - = FORMS = - 
+  add appointments tab
 
+  
 
 
 video conf: Photo by Edward Jenner from Pexels

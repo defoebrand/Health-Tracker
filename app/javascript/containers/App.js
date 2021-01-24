@@ -3,21 +3,19 @@ import { Route } from 'react-router-dom';
 
 import HeaderNav from '../components/HeaderNav';
 
+import Community from './Community';
+import Doctor from './Doctor';
+import Friends from './Friends';
 import HomePage from './HomePage';
 import Resources from './Resources';
+import SickCall from './SickCall';
+import User from './User';
 
-import SignIn from '../components/SignIn';
-import Register from '../components/Register';
-import AddStats from '../components/AddStats';
-import Settings from '../components/Settings';
-import Scheduler from '../components/Scheduler';
-
-import User from '../components/User';
-import Doctor from '../components/Doctor';
-import Friends from '../components/Friends';
-import Community from '../components/Community';
-
-import SickCall from '../components/SickCall';
+import AddStats from '../forms/AddStats';
+import Register from '../forms/Register';
+import Scheduler from '../forms/Scheduler';
+import Settings from '../forms/Settings';
+import SignIn from '../forms/SignIn';
 
 const App = () => (
   <div className="App">
@@ -26,12 +24,12 @@ const App = () => (
     <Route path="/signin" component={SignIn} />
     <Route path="/register" component={Register} />
     <Route path="/users/:user" component={User} />
-    <Route path="/doctors/:doctor" component={Doctor} />
     <Route path="/new-stats" component={AddStats} />
-    <Route path="/sick-call" component={SickCall} />
+    <Route path="/doctors/:doctor" component={Doctor} />
     <Route path="/resources" component={Resources} />
     <Route path="/friends" component={Friends} />
     <Route path="/settings" component={Settings} />
+    <Route path="/sick-call" component={SickCall} />
     <Route path="/communities/:community" component={Community} />
     <Route path="/:doctor/schedule-an-appointment" component={Scheduler} />
   </div>

@@ -1,48 +1,48 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
+
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
-import { useHistory } from 'react-router-dom';
 import { updateUser } from '../redux/actions';
 
 const Settings = ({ user, dispatch }) => {
+  const { name, email } = user;
   const history = useHistory();
-  const [name, setName] = useState(user.name);
-  const [email, setEmail] = useState(user.email);
-  const [password, setPassword] = useState('');
+  const [newUserName, setNewUserName] = useState(name);
+  const [newEmail, setnewEmail] = useState(email);
+  const [newPassword, setNewPassword] = useState('');
   const [confirm, setConfirm] = useState('');
 
   const changeName = e => {
-    setName(e.target.value);
+    setNewUserName(e.target.value);
   };
   const changeEmail = e => {
-    setEmail(e.target.value);
+    setnewEmail(e.target.value);
   };
   const changePassword = e => {
-    setPassword(e.target.value);
+    setNewPassword(e.target.value);
   };
 
   const confirmPassword = e => {
     setConfirm(e.target.value);
   };
   const updateSettings = e => {
-    if (password !== confirm) {
+    if (newPassword !== confirm) {
       alert("passwords don't match");
     } else {
       e.preventDefault();
-      // const url = 'http://localhost:3000/user';
-      // const url = 'https://obscure-island-28750.herokuapp.com/user';
       const url = '/user/settings/';
       fetch(url, {
         method: 'PATCH',
         body: JSON.stringify({
           user: {
             id: user.id,
-            name,
-            email,
-            password,
+            name: newUserName,
+            email: newEmail,
+            password: newPassword,
           },
         }),
         headers: {
@@ -54,8 +54,8 @@ const Settings = ({ user, dispatch }) => {
             return response.json();
           }
           throw new Error('Network response was not ok.');
-        }).then(data => {
-          dispatch(updateUser(data.user));
+        }).then(({ user }) => {
+          dispatch(updateUser(user));
           history.push('/');
         }).catch(err => console.log(err));
     }
@@ -64,20 +64,20 @@ const Settings = ({ user, dispatch }) => {
     <Form className="SignInForm" style={{ width: '85vw', maxWidth: 500, margin: '25px auto' }}>
       <Form.Group controlId="formBasicName">
         <Form.Label>UserName</Form.Label>
-        <Form.Control type="username" placeholder="UserName" onChange={changeName} value={name} />
+        <Form.Control type="username" placeholder="UserName" onChange={changeName} value={newUserName} />
       </Form.Group>
       <Form.Group controlId="formBasicEmail">
         <Form.Label>Email address</Form.Label>
-        <Form.Control type="email" placeholder="Enter email" onChange={changeEmail} value={user.email} />
+        <Form.Control type="email" placeholder="Enter email" onChange={changeEmail} value={newEmail} />
         <Form.Text className="text-muted">We will never share your email with anyone else.</Form.Text>
       </Form.Group>
       <Form.Group controlId="formBasicPassword">
         <Form.Label>Password</Form.Label>
-        <Form.Control type="password" placeholder="Password" onChange={changePassword} value="" />
+        <Form.Control type="text" placeholder="Password" onChange={changePassword} />
       </Form.Group>
       <Form.Group controlId="formBasicConfirmPassword">
         <Form.Label>Confirm Password</Form.Label>
-        <Form.Control type="password" placeholder="Confirm Password" onChange={confirmPassword} />
+        <Form.Control type="text" placeholder="Confirm Password" onChange={confirmPassword} />
       </Form.Group>
       <Button variant="primary" type="submit" onClick={updateSettings}>
         Update Settings
@@ -97,7 +97,7 @@ Settings.propTypes = {
 
 Settings.defaultProps = {
   user: {
-    id: '',
+    id: 0,
     name: '',
     email: '',
   },

@@ -1,12 +1,15 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
+
 import Card from 'react-bootstrap/Card';
+
 import { viewCommunity } from '../redux/actions';
 
-const CommunityLink = ({ dispatch, community }) => {
+const CommunityCard = ({ dispatch, community }) => {
   const history = useHistory();
+
   const handleClick = () => {
     dispatch(viewCommunity(community.name));
     history.push(`/communities/${community.name}`);
@@ -49,7 +52,7 @@ const CommunityLink = ({ dispatch, community }) => {
   );
 };
 
-CommunityLink.propTypes = {
+CommunityCard.propTypes = {
   dispatch: PropTypes.func.isRequired,
   community: PropTypes.shape({
     name: PropTypes.string,
@@ -58,7 +61,7 @@ CommunityLink.propTypes = {
   }),
 };
 
-CommunityLink.defaultProps = {
+CommunityCard.defaultProps = {
   community: {
     name: '',
     image: '',
@@ -66,4 +69,4 @@ CommunityLink.defaultProps = {
   },
 };
 
-export default connect(null)(CommunityLink);
+export default connect(null)(CommunityCard);

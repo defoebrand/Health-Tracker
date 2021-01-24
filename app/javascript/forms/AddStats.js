@@ -1,18 +1,23 @@
 import React, { useState } from 'react';
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
-import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
+
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 
 const AddStats = ({ user }) => {
+  const {
+    pulse, temperature, bloodSugar, systolic, diastolic, weight,
+  } = user;
+
   const history = useHistory();
-  const [temp, setTemp] = useState('');
-  const [pulse, setPulse] = useState('');
-  const [bloodSugar, setBloodSugar] = useState('');
-  const [systolic, setSystolic] = useState('');
-  const [diastolic, setDiastolic] = useState('');
-  const [weight, setWeight] = useState('');
+  const [newTemp, setTemp] = useState('');
+  const [newPulse, setPulse] = useState('');
+  const [newBloodSugar, setBloodSugar] = useState('');
+  const [newSystolic, setSystolic] = useState('');
+  const [newDiastolic, setDiastolic] = useState('');
+  const [newWeight, setWeight] = useState('');
 
   const changeTemp = e => {
     setTemp(e.target.value);
@@ -35,8 +40,6 @@ const AddStats = ({ user }) => {
 
   const submitRegister = e => {
     e.preventDefault();
-    console.log(history);
-    console.log('user', user);
     const { token } = localStorage;
     const date = new Date();
     const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -47,78 +50,63 @@ const AddStats = ({ user }) => {
       time = `${date.getHours()}a`;
     }
     const dateTime = `${months[date.getMonth()]}${date.getDate()}-${time}`;
-    // const url = 'http://localhost:3000/user';
-    // const url = 'https://obscure-island-28750.herokuapp.com/user';
-    const newPulse = user.pulse === null
-      ? {}
-      : JSON.parse(user.pulse);
-    if (pulse !== '') {
-      if (newPulse[dateTime] !== undefined) {
-        newPulse[dateTime] = { ...newPulse[dateTime], [time]: Number(pulse) };
+
+    if (newPulse !== '') {
+      if (pulse[dateTime] !== undefined) {
+        pulse[dateTime] = { ...pulse[dateTime], [time]: Number(newPulse) };
       } else {
-        newPulse[dateTime] = { [time]: Number(pulse) };
+        pulse[dateTime] = { [time]: Number(newPulse) };
       }
     }
-    const newWeight = user.weight === null
-      ? {}
-      : JSON.parse(user.weight);
-    if (weight !== '') {
-      if (newWeight.measurements !== undefined) {
-        newWeight.measurements = {
-          ...newWeight.measurements,
-          [dateTime]: Number(weight),
+
+    if (newWeight !== '') {
+      if (weight.measurements !== undefined) {
+        weight.measurements = {
+          ...weight.measurements,
+          [dateTime]: Number(newWeight),
         };
       } else {
-        newWeight.measurements = { [dateTime]: Number(weight) };
+        weight.measurements = { [dateTime]: Number(newWeight) };
       }
     }
-    const newTemp = user.temperature === null
-      ? {}
-      : JSON.parse(user.temperature);
-    if (temp !== '') {
-      if (newTemp[dateTime] !== undefined) {
-        newTemp[dateTime] = { ...newTemp[dateTime], [time]: Number(temp) };
+    if (newTemp !== '') {
+      if (temperature[dateTime] !== undefined) {
+        temperature[dateTime] = { ...temperature[dateTime], [time]: Number(newTemp) };
       } else {
-        newTemp[dateTime] = { [time]: Number(temp) };
+        temperature[dateTime] = { [time]: Number(newTemp) };
       }
     }
-    const newbloodSugar = user.blood_sugar === null
-      ? {}
-      : JSON.parse(user.blood_sugar);
-    if (bloodSugar !== '') {
-      if (newbloodSugar[dateTime] !== undefined) {
-        newbloodSugar[dateTime] = {
-          ...newbloodSugar[dateTime],
-          [time]: Number(bloodSugar),
+
+    if (newBloodSugar !== '') {
+      if (bloodSugar[dateTime] !== undefined) {
+        bloodSugar[dateTime] = {
+          ...bloodSugar[dateTime],
+          [time]: Number(newBloodSugar),
         };
       } else {
-        newbloodSugar[dateTime] = { [time]: Number(bloodSugar) };
+        bloodSugar[dateTime] = { [time]: Number(newBloodSugar) };
       }
     }
-    const newSystolic = user.systolic === null
-      ? {}
-      : JSON.parse(user.systolic);
-    if (systolic !== '') {
-      if (newSystolic[dateTime] !== undefined) {
-        newSystolic[dateTime] = {
-          ...newSystolic[dateTime],
-          [time]: Number(systolic),
+
+    if (newSystolic !== '') {
+      if (systolic[dateTime] !== undefined) {
+        systolic[dateTime] = {
+          ...systolic[dateTime],
+          [time]: Number(newSystolic),
         };
       } else {
-        newSystolic[dateTime] = { [time]: Number(systolic) };
+        systolic[dateTime] = { [time]: Number(newSystolic) };
       }
     }
-    const newDiastolic = user.diastolic === null
-      ? {}
-      : JSON.parse(user.diastolic);
-    if (diastolic !== '') {
-      if (newDiastolic[dateTime] !== undefined) {
-        newDiastolic[dateTime] = {
-          ...newDiastolic[dateTime],
-          [time]: Number(diastolic),
+
+    if (newDiastolic !== '') {
+      if (diastolic[dateTime] !== undefined) {
+        diastolic[dateTime] = {
+          ...diastolic[dateTime],
+          [time]: Number(newDiastolic),
         };
       } else {
-        newDiastolic[dateTime] = { [time]: Number(diastolic) };
+        diastolic[dateTime] = { [time]: Number(newDiastolic) };
       }
     }
 
@@ -127,12 +115,12 @@ const AddStats = ({ user }) => {
       method: 'PATCH',
       body: JSON.stringify({
         user: {
-          temp: JSON.stringify(newTemp),
-          weight: JSON.stringify(newWeight),
-          pulse: JSON.stringify(newPulse),
-          blood_sugar: JSON.stringify(newbloodSugar),
-          systolic: JSON.stringify(newSystolic),
-          diastolic: JSON.stringify(newDiastolic),
+          temp: JSON.stringify(temperature),
+          weight: JSON.stringify(weight),
+          pulse: JSON.stringify(pulse),
+          blood_sugar: JSON.stringify(bloodSugar),
+          systolic: JSON.stringify(systolic),
+          diastolic: JSON.stringify(diastolic),
         },
       }),
       headers: {
@@ -145,11 +133,11 @@ const AddStats = ({ user }) => {
           return response.json();
         }
         throw new Error('Network response was not ok.');
-      }).then(data => {
-        console.log(data);
-        history.push(`/users/${history.location.state.user.name}`);
+      }).then(({ name }) => {
+        history.push(`/users/${name}`);
       }).catch(err => console.log(err));
   };
+
   return (
     <Form className="SignInForm" style={{ width: '85vw', maxWidth: 500, margin: '25px auto' }}>
       <Form.Group controlId="formBasicWeight">
@@ -186,12 +174,12 @@ AddStats.propTypes = {
   user: PropTypes.shape({
     name: PropTypes.string,
     id: PropTypes.number,
-    weight: PropTypes.string,
-    pulse: PropTypes.string,
-    temperature: PropTypes.string,
-    blood_sugar: PropTypes.string,
-    systolic: PropTypes.string,
-    diastolic: PropTypes.string,
+    weight: PropTypes.shape(),
+    pulse: PropTypes.shape(),
+    temperature: PropTypes.shape(),
+    bloodSugar: PropTypes.shape(),
+    systolic: PropTypes.shape(),
+    diastolic: PropTypes.shape(),
   }),
 };
 
@@ -199,12 +187,12 @@ AddStats.defaultProps = {
   user: {
     name: '',
     id: 0,
-    weight: '',
-    pulse: '',
-    temperature: '',
-    blood_sugar: '',
-    systolic: '',
-    diastolic: '',
+    weight: {},
+    pulse: {},
+    temperature: {},
+    bloodSugar: {},
+    systolic: {},
+    diastolic: {},
   },
 };
 

@@ -1,20 +1,50 @@
 import { combineReducers, createStore } from 'redux';
 
 import {
-  SUBMIT, COMMUNITY, COMMUNITIES, TAB, DOCTORS, DOCTOR, MYDOCTORS,
+  SUBMIT, COMMUNITY, COMMUNITIES, TAB, DOCTORS, DOCTOR, SIGNOUT,
 } from './actions';
 
 const initialUser = { name: '' };
 const initialArray = [];
-const initialTab = 'myCommunities';
+const initialTab = '';
 
 const userReducer = (state = initialUser, action) => {
   switch (action.type) {
     case SUBMIT:
+      console.log(action);
       return {
-        user: action.input,
+        user: {
+          id: action.input.id,
+          name: action.input.name,
+          email: action.input.email,
+          age: action.input.age,
+          dob: action.input.dob,
+          bloodSugar: JSON.parse(action.input.blood_sugar),
+          diastolic: JSON.parse(action.input.diastolic),
+          height: JSON.parse(action.input.height),
+          pulse: JSON.parse(action.input.pulse),
+          systolic: JSON.parse(action.input.systolic),
+          temperature: JSON.parse(action.input.temperature),
+          weight: JSON.parse(action.input.weight),
+        },
       };
-
+    case SIGNOUT:
+      return {
+        user: {
+          name: action.input.name,
+          id: 0,
+          email: '',
+          age: '',
+          dob: '',
+          bloodSugar: {},
+          diastolic: {},
+          height: {},
+          pulse: {},
+          systolic: {},
+          temperature: {},
+          weight: { measurements: '' },
+        },
+      };
     default:
       return state;
   }
@@ -68,18 +98,6 @@ const allDoctorsReducer = (state = initialArray, action) => {
   }
 };
 
-const myDoctorsReducer = (state = initialArray, action) => {
-  switch (action.type) {
-    case MYDOCTORS:
-      return {
-        myDocs: action.input,
-      };
-
-    default:
-      return state;
-  }
-};
-
 const appointmentReducer = (state = '', action) => {
   switch (action.type) {
     case DOCTOR:
@@ -98,7 +116,6 @@ export const combinedReducers = combineReducers({
   tabReducer,
   allDoctorsReducer,
   appointmentReducer,
-  myDoctorsReducer,
 });
 
 export default createStore(combinedReducers);

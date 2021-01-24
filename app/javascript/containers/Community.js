@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
+
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
 import Button from 'react-bootstrap/Button';
 
-import { useHistory } from 'react-router-dom';
 import { viewTab } from '../redux/actions';
 
 const Community = ({ dispatch, community, user }) => {
   const history = useHistory();
   const [members, setMembers] = useState([]);
+
   useEffect(() => {
-    // const url = 'http://localhost:3000/user';
-    // const url = 'https://obscure-island-28750.herokuapp.com/user';
     const url = '/user/community-users';
     fetch(url, {
       method: 'POST',
@@ -33,13 +33,8 @@ const Community = ({ dispatch, community, user }) => {
         setMembers(data);
       }).catch(err => console.log(err));
   }, []);
-  const handleClick = event => {
-    dispatch(viewTab(event.target.dataset.rbEventKey));
-    history.push('/friends');
-  };
+
   const addCommunity = () => {
-    // const url = 'http://localhost:3000/user';
-    // const url = 'https://obscure-island-28750.herokuapp.com/user';
     const url = '/user/add-community';
     fetch(url, {
       method: 'POST',
@@ -60,9 +55,8 @@ const Community = ({ dispatch, community, user }) => {
         setMembers(data);
       }).catch(err => console.log(err));
   };
+
   const removeCommunity = () => {
-    // const url = 'http://localhost:3000/user';
-    // const url = 'https://obscure-island-28750.herokuapp.com/user';
     const url = '/user/remove-community';
     fetch(url, {
       method: 'POST',
@@ -83,7 +77,12 @@ const Community = ({ dispatch, community, user }) => {
         setMembers(data);
       }).catch(err => console.log(err));
   };
-  // const members = ['Me', 'You', 'That other guy'];
+
+  const handleClick = event => {
+    dispatch(viewTab(event.target.dataset.rbEventKey));
+    history.push('/friends');
+  };
+
   return (
     <>
       <Tabs

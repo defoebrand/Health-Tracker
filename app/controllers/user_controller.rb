@@ -1,7 +1,11 @@
 class UserController < ApplicationController
   protect_from_forgery with: :null_session
   before_action :authorized, only: %i[index user_doctors user_communities user_appointments add_appointment]
-  before_action :set_user, only: [:login]
+  before_action :set_user_by_email, only: [:login]
+  before_action :set_user_by_id, only: %i[settings user_communities join_community
+                                          leave_community user_doctors user_appointments
+                                          add_appointment]
+  before_action :set_community, only: %i[community_users join_community leave_community]
 
   def index
     if @user
@@ -45,53 +49,43 @@ class UserController < ApplicationController
   end
 
   def settings
-    user = User.find(user_params[:id])
-
     ApplicationRecord.transaction do
       user_params.each do |param|
-        user.update!(param[0] => user_params[param[0]]) if user[param[0]] != user_params[param[0]]
+        @user.update!(param[0] => user_params[param[0]]) if @user[param[0]] != user_params[param[0]]
       end
-      render json: { user: user }
+      render json: { user: @user }
     end
   rescue ActiveRecord::RecordInvalid
     render json: { user: 'Invalid Input' }
   end
 
   def community_users
-    @community = Community.find_by(name: comm_params[:name])
     render json: @community.users
   end
 
   def user_communities
-    @user = User.find(user_params[:id])
     render json: @user.communities
   end
 
   def join_community
-    @user = User.find(user_params[:id])
-    @community = Community.find_by(name: comm_params[:name])
     @user.communities << @community
     render json: @community.users
   end
 
   def leave_community
-    @user = User.find(user_params[:id])
-    @community = Community.find_by(name: comm_params[:name])
     @user.communities.delete(@community)
     render json: @community.users
   end
 
-  def doctors
-    render json: Doctor.all
+  def user_doctors
+    render json: @user.doctors.uniq
   end
 
-  def user_doctors
-    user = User.find(user_params[:id])
-    render json: user.doctors.uniq
+  def user_appointments
+    render json: @user.appointments
   end
 
   def add_appointment
-    @user = User.find(appt_params[:user_id])
     @doc = Doctor.find_by(name: appt_params[:doc_name])
     @appt = Appointment.create(
       doctor: @doc,
@@ -103,15 +97,18 @@ class UserController < ApplicationController
     render json: @user.doctors.uniq
   end
 
-  def user_appointments
-    @user = User.find(user_params[:id])
-    render json: @user.appointments
-  end
-
   private
 
-  def set_user
+  def set_user_by_email
     @user = User.find_by(email: user_params[:email])
+  end
+
+  def set_user_by_id
+    @user = User.find(user_params[:id])
+  end
+
+  def set_community
+    @community = Community.find_by(name: comm_params[:name])
   end
 
   def user_params

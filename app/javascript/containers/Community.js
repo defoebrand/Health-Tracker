@@ -69,7 +69,7 @@ const Community = ({ dispatch, community, user }) => {
         if (response.ok) {
           return response.json();
         }
-        throw new Error('Network Response Failed.');
+        throw new Error('Please Log In First.');
       }).then(data => {
         try {
           setMembers(data);

@@ -30,8 +30,10 @@ const Scheduler = ({ doctor, user }) => {
     fetch(url, {
       method: 'POST',
       body: JSON.stringify({
+        user: {
+          id: user.id,
+        },
         appt: {
-          user_id: user.id,
           doc_name: doctor,
           date,
           time,

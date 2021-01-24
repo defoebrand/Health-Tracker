@@ -1,5 +1,26 @@
+FIREFOX only CAUSES DOUBLE LOGIN
 
- UTILIZE THUNK TO PULL FETCH REQUESTS OUT TO SEPARATE FILES
+ADD VALIDATIONS to all forms
+ADD ERROR HANDLING
+
+ routes
+
+ login_user_index
+ settings_user_index
+ add_community_user_index
+ remove_community_user_index
+ community_users_user_index
+ user_communities_user_index
+ appointment_user_index
+ my_doctors_user_index
+ doctors_user_index
+ communities_user_index
+ user_index
+ new_user
+ edit_user
+ user
+                     
+ UTILIZE THUNK TO PULL FETCH REQUESTS OUT TO SEPARATE FILES?
 
  - = BACK END = - 
 add friend relationship
@@ -11,15 +32,12 @@ add image blob from active records for profile pics
  - or preselected images to be used as profile pic
  - upload care
 
- ADD VALIDATIONS to all forms
  
- ADD ERROR HANDLING
-
-
  - = COMING FEATURES = - 
   sick call
   friend's chat
   doctor login
+  appointments tab
 
 
    - = STYLES = - 
@@ -30,11 +48,6 @@ add image blob from active records for profile pics
   - isolate lines with selector
   - add color selector
 
-
-  - = FORMS = - 
-  add appointments tab
-
-  
 
 
 video conf: Photo by Edward Jenner from Pexels

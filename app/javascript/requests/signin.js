@@ -6,6 +6,7 @@ import { updateUser } from '../redux/actions';
 
 const signin = async ({ user, memory, dispatch }) => {
   const history = useHistory();
+
   const url = '/user/login';
   fetch(url, {
     method: 'POST',
@@ -18,7 +19,7 @@ const signin = async ({ user, memory, dispatch }) => {
       if (response.ok) {
         return response.json();
       }
-      throw new Error('Network response was not ok.');
+      throw new Error('Network Response Failed.');
     }).then(data => {
       if (memory === true) {
         localStorage.token = data.token;
@@ -27,7 +28,7 @@ const signin = async ({ user, memory, dispatch }) => {
       }
       dispatch(updateUser(data.user));
       history.replace('/');
-    }).catch(err => console.log(err));
+    }).catch();
 };
 
 signin.propTypes = {

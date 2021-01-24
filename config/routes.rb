@@ -17,7 +17,14 @@ Rails.application.routes.draw do
   end
 
   scope path: '/api' do
-    get '/', to: 'homepage#api'
+    get '/', to: 'homepage#all'
+    # get '/age', to: 'homepage#age'
+    get '/age/:age', to: 'homepage#age'
+    # get '/weight', to: 'homepage#check_weight'
+    # get '/weight/:weight/:range', to: 'homepage#check_weight'
+    # get '/height', to: 'homepage#check_height'
+    # get '/height/:height', to: 'homepage#check_height'
+    get '/height/:height/:scale', to: 'homepage#check_height'
   end
 
 

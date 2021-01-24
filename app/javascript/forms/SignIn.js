@@ -13,6 +13,14 @@ const SignIn = ({ dispatch }) => {
   const [password, setPassword] = useState('');
   const [memory, setMemory] = useState(true);
   const [status, setStatus] = useState(false);
+  const [failedMessage, setFailedMessage] = useState({ display: 'none' });
+  const [error, setError] = useState('');
+
+  const displayMessage = {
+    display: 'block',
+    textAlign: 'center',
+    marginTop: 10,
+  };
 
   const history = useHistory();
 
@@ -36,7 +44,8 @@ const SignIn = ({ dispatch }) => {
     setPassword(e.target.value);
   };
 
-  const submitSignIn = () => {
+  const submitSignIn = e => {
+    e.preventDefault();
     const url = status === false ? '/user/login' : '/user/doctor';
     fetch(url, {
       method: 'POST',
@@ -54,51 +63,61 @@ const SignIn = ({ dispatch }) => {
         if (response.ok) {
           return response.json();
         }
-        throw new Error('Network response was not ok.');
+        throw new Error('Network Response Failed.');
       }).then(({ token, user }) => {
         if (memory === true) {
           localStorage.token = token;
         } else {
           sessionStorage.token = token;
         }
-        dispatch(updateUser(user));
+        try {
+          dispatch(updateUser(user));
+        } catch {
+          throw new Error('Failed Login. Please Try Again');
+        }
         history.replace('/');
-      }).catch(err => console.log(err));
+      }).catch(err => {
+        setError(err.message);
+        setFailedMessage(displayMessage);
+      });
   };
 
   return (
-    <Form className="SignInForm" style={{ width: '85vw', maxWidth: 500, margin: '25px auto' }}>
-      <Form.Check
-        type="switch"
-        id="custom-switch"
-        label="I am a Doctor"
-        onChange={changeStatus}
-      />
-      <br />
-      <Form.Group controlId="formBasicEmail">
-        <Form.Label>Email address</Form.Label>
-        <Form.Control type="email" placeholder="Enter email" onChange={changeEmail} />
-        <Form.Text className="text-muted">We will never share your email with anyone else.</Form.Text>
-      </Form.Group>
-      <Form.Group controlId="formBasicPassword">
-        <Form.Label>Password</Form.Label>
-        <Form.Control type="password" placeholder="Password" onChange={changePassword} />
-      </Form.Group>
-      <Form.Group controlId="formBasicCheckbox">
-        <Form.Check type="checkbox" label="Remember Me" defaultChecked onChange={changeMemory} />
-      </Form.Group>
-      <Button variant="primary" type="submit" onClick={submitSignIn}>
-        Submit
-      </Button>
-      <Button
-        variant="primary"
-        type="register"
-        onClick={goToRegister}
-        style={{ marginLeft: 15 }}
-      >
-        Register
-      </Button>
-    </Form>
+    <>
+      <h3 style={failedMessage}>{error}</h3>
+      <Form className="SignInForm" style={{ width: '85vw', maxWidth: 500, margin: '25px auto' }}>
+        <Form.Check
+          type="switch"
+          id="custom-switch"
+          label="I am a Doctor"
+          onChange={changeStatus}
+        />
+        <br />
+        <Form.Group controlId="formBasicEmail">
+          <Form.Label>Email address</Form.Label>
+          <Form.Control type="email" placeholder="Enter email" onChange={changeEmail} />
+          <Form.Text className="text-muted">We will never share your email with anyone else.</Form.Text>
+        </Form.Group>
+        <Form.Group controlId="formBasicPassword">
+          <Form.Label>Password</Form.Label>
+          <Form.Control type="password" placeholder="Password" onChange={changePassword} />
+        </Form.Group>
+        <Form.Group controlId="formBasicCheckbox">
+          <Form.Check type="checkbox" label="Remember Me" defaultChecked onChange={changeMemory} />
+        </Form.Group>
+        <Button variant="primary" type="submit" onClick={submitSignIn}>
+          Submit
+        </Button>
+        <Button
+          variant="primary"
+          type="register"
+          onClick={goToRegister}
+          style={{ marginLeft: 15 }}
+        >
+          Register
+        </Button>
+      </Form>
+    </>
   );
 };
 

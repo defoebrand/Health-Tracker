@@ -2,14 +2,14 @@
 
 one:
   name: MyString
-  email: MyString
-  password: 
+  email: doctoremail1@email.com
+  password_digest: MyString
   specialty: MyString
   quote: MyString
 
 two:
   name: MyString
-  email: MyString
-  password: 
+  email: doctoremail2@email.com
+  password_digest: MyString
   specialty: MyString
   quote: MyString

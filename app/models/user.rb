@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   has_secure_password
   validates :email, presence: true, uniqueness: true
+  validates :height, :weight, presence: true
   has_many :users_communities
   has_many :communities, through: :users_communities
   has_many :appointments

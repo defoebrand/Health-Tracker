@@ -1,3 +1,5 @@
+import 'core-js/stable';
+import 'regenerator-runtime/runtime';
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -9,9 +11,19 @@ import Button from 'react-bootstrap/Button';
 
 import { viewTab } from '../redux/actions';
 
+const fetch = require('node-fetch');
+
 const Community = ({ dispatch, community, user }) => {
   const history = useHistory();
   const [members, setMembers] = useState([]);
+  const [failedMessage, setFailedMessage] = useState({ display: 'none' });
+  const [error, setError] = useState('');
+
+  const displayMessage = {
+    display: 'block',
+    textAlign: 'center',
+    marginTop: 10,
+  };
 
   useEffect(() => {
     const url = '/user/community-users';
@@ -28,10 +40,17 @@ const Community = ({ dispatch, community, user }) => {
         if (response.ok) {
           return response.json();
         }
-        throw new Error('Network response was not ok.');
+        throw new Error('Network Response Failed.');
       }).then(data => {
-        setMembers(data);
-      }).catch(err => console.log(err));
+        try {
+          setMembers(data);
+        } catch {
+          throw new Error('Failed to Retrieve Communities.');
+        }
+      }).catch(err => {
+        setError(err.message);
+        setFailedMessage(displayMessage);
+      });
   }, []);
 
   const addCommunity = () => {
@@ -50,10 +69,17 @@ const Community = ({ dispatch, community, user }) => {
         if (response.ok) {
           return response.json();
         }
-        throw new Error('Network response was not ok.');
+        throw new Error('Network Response Failed.');
       }).then(data => {
-        setMembers(data);
-      }).catch(err => console.log(err));
+        try {
+          setMembers(data);
+        } catch {
+          throw new Error('Failed to Join Community.');
+        }
+      }).catch(err => {
+        setError(err.message);
+        setFailedMessage(displayMessage);
+      });
   };
 
   const removeCommunity = () => {
@@ -72,10 +98,17 @@ const Community = ({ dispatch, community, user }) => {
         if (response.ok) {
           return response.json();
         }
-        throw new Error('Network response was not ok.');
+        throw new Error('Network Response Failed.');
       }).then(data => {
-        setMembers(data);
-      }).catch(err => console.log(err));
+        try {
+          setMembers(data);
+        } catch {
+          throw new Error('Failed to Leave Community.');
+        }
+      }).catch(err => {
+        setError(err.message);
+        setFailedMessage(displayMessage);
+      });
   };
 
   const handleClick = event => {
@@ -85,6 +118,7 @@ const Community = ({ dispatch, community, user }) => {
 
   return (
     <>
+      <h3 style={failedMessage}>{error}</h3>
       <Tabs
         defaultActiveKey=""
         transition={false}

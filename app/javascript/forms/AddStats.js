@@ -18,6 +18,14 @@ const AddStats = ({ user }) => {
   const [newSystolic, setSystolic] = useState('');
   const [newDiastolic, setDiastolic] = useState('');
   const [newWeight, setWeight] = useState('');
+  const [failedMessage, setFailedMessage] = useState({ display: 'none' });
+  const [error, setError] = useState('');
+
+  const displayMessage = {
+    display: 'block',
+    textAlign: 'center',
+    marginTop: 10,
+  };
 
   const changeTemp = e => {
     setTemp(e.target.value);
@@ -132,41 +140,47 @@ const AddStats = ({ user }) => {
         if (response.ok) {
           return response.json();
         }
-        throw new Error('Network response was not ok.');
+        throw new Error('Network Response Failed.');
       }).then(({ name }) => {
         history.push(`/users/${name}`);
-      }).catch(err => console.log(err));
+      }).catch(err => {
+        setError(err.message);
+        setFailedMessage(displayMessage);
+      });
   };
 
   return (
-    <Form className="SignInForm" style={{ width: '85vw', maxWidth: 500, margin: '25px auto' }}>
-      <Form.Group controlId="formBasicWeight">
-        <Form.Label>Weight</Form.Label>
-        <Form.Control type="text" placeholder="Weight" onChange={changeWeight} />
-      </Form.Group>
-      <Form.Group controlId="formBasicBloodPressure">
-        <Form.Label>Blood Pressure</Form.Label>
-        <div style={{ display: 'flex' }}>
-          <Form.Control style={{ width: '50%' }} type="text" placeholder="Systolic" onChange={changeSystolic} />
-          <Form.Control style={{ width: '50%' }} type="text" placeholder="Diastolic" onChange={changeDiastolic} />
-        </div>
-      </Form.Group>
-      <Form.Group controlId="formBasicTemp">
-        <Form.Label>Temperature</Form.Label>
-        <Form.Control type="text" placeholder="Temperature" onChange={changeTemp} />
-      </Form.Group>
-      <Form.Group controlId="formBasicPulse">
-        <Form.Label>Pulse</Form.Label>
-        <Form.Control type="text" placeholder="Pulse" onChange={changePulse} />
-      </Form.Group>
-      <Form.Group controlId="formBasicBloodSugar">
-        <Form.Label>Blood Sugar</Form.Label>
-        <Form.Control type="text" placeholder="BloodSugar" onChange={changeBloodSugar} />
-      </Form.Group>
-      <Button variant="primary" type="submit" onClick={submitRegister}>
-        Submit
-      </Button>
-    </Form>
+    <>
+      <h3 style={failedMessage}>{error}</h3>
+      <Form className="SignInForm" style={{ width: '85vw', maxWidth: 500, margin: '25px auto' }}>
+        <Form.Group controlId="formBasicWeight">
+          <Form.Label>Weight</Form.Label>
+          <Form.Control type="text" placeholder="Weight" onChange={changeWeight} />
+        </Form.Group>
+        <Form.Group controlId="formBasicBloodPressure">
+          <Form.Label>Blood Pressure</Form.Label>
+          <div style={{ display: 'flex' }}>
+            <Form.Control style={{ width: '50%' }} type="text" placeholder="Systolic" onChange={changeSystolic} />
+            <Form.Control style={{ width: '50%' }} type="text" placeholder="Diastolic" onChange={changeDiastolic} />
+          </div>
+        </Form.Group>
+        <Form.Group controlId="formBasicTemp">
+          <Form.Label>Temperature</Form.Label>
+          <Form.Control type="text" placeholder="Temperature" onChange={changeTemp} />
+        </Form.Group>
+        <Form.Group controlId="formBasicPulse">
+          <Form.Label>Pulse</Form.Label>
+          <Form.Control type="text" placeholder="Pulse" onChange={changePulse} />
+        </Form.Group>
+        <Form.Group controlId="formBasicBloodSugar">
+          <Form.Label>Blood Sugar</Form.Label>
+          <Form.Control type="text" placeholder="BloodSugar" onChange={changeBloodSugar} />
+        </Form.Group>
+        <Button variant="primary" type="submit" onClick={submitRegister}>
+          Submit
+        </Button>
+      </Form>
+    </>
   );
 };
 

@@ -12,6 +12,14 @@ const Scheduler = ({ doctor, user }) => {
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
   const [notes, setNotes] = useState('');
+  const [failedMessage, setFailedMessage] = useState({ display: 'none' });
+  const [error, setError] = useState('');
+
+  const displayMessage = {
+    display: 'block',
+    textAlign: 'center',
+    marginTop: 10,
+  };
 
   const requestAppointment = () => {
     const url = '/user/appointment';
@@ -34,8 +42,11 @@ const Scheduler = ({ doctor, user }) => {
         if (response.ok) {
           return response.json();
         }
-        throw new Error('Network response was not ok.');
-      }).then(history.replace(`/doctors/${list}`)).catch(err => console.log(err));
+        throw new Error('Network Response Failed.');
+      }).then(history.replace(`/doctors/${list}`)).catch(err => {
+        setError(err.message);
+        setFailedMessage(displayMessage);
+      });
   };
 
   const changeDate = e => {
@@ -52,6 +63,7 @@ const Scheduler = ({ doctor, user }) => {
 
   return (
     <>
+      <h3 style={failedMessage}>{error}</h3>
       <Form className="SignInForm" style={{ width: '85vw', maxWidth: 500, margin: '25px auto' }}>
         <h1 style={{ textAlign: 'center' }}>{`Schedule an appointment with ${doctor}`}</h1>
         <Form.Group controlId="formBasicDate">

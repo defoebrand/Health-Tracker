@@ -1,38 +1,79 @@
-import React from 'react';
+import 'core-js/stable';
+import 'regenerator-runtime/runtime';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import Card from 'react-bootstrap/Card';
 import DoctorCard from './DoctorCard';
 
+import { allDoctors } from '../redux/actions';
+
 const featured = ['Dr. Kim', 'Dr. Smith'];
 
-const Footer = ({ doctors }) => (
-  <footer className="Footer">
-    <Card className="text-center">
-      <Card.Header>Featured Doctors</Card.Header>
+const fetch = require('node-fetch');
 
-      {doctors.filter(doctor => (
-        featured.includes(doctor.name)
-      )).map((doctor, ind) => (
-        <DoctorCard
-          key={doctor.name + doctor.specialty + ind.toString()}
-          img={doctor.image}
-          name={doctor.name}
-          specialty={doctor.specialty}
-          text={doctor.quote}
-        />
-      ))}
+const Footer = ({ doctors, dispatch }) => {
+  const [failedMessage, setFailedMessage] = useState({ display: 'none' });
+  const [error, setError] = useState('');
 
-      <Card.Footer className="text-muted">
-        Health Tracker©
-        <a href="https://www.defoebrand.com"> DefoeBrand</a>
-      </Card.Footer>
-    </Card>
-  </footer>
-);
+  const displayMessage = {
+    display: 'block',
+    textAlign: 'center',
+    marginTop: 10,
+  };
+  useEffect(() => {
+    const url = '/user/doctors';
+    fetch(url, {
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+      },
+    })
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        }
+        throw new Error('Failed to Retrieve Doctors.');
+      }).then(({ doctors }) => {
+        try {
+          dispatch(allDoctors(doctors));
+        } catch {
+          throw new Error('Failed to Retrieve Doctors.');
+        }
+      }).catch(err => {
+        setError(err.message);
+        setFailedMessage(displayMessage);
+      });
+  }, []);
+
+  return (
+    <footer className="Footer">
+      <Card className="text-center">
+        <Card.Header>Featured Doctors</Card.Header>
+        <h3 style={failedMessage}>{error}</h3>
+        {doctors.filter(doctor => (
+          featured.includes(doctor.name)
+        )).map((doctor, ind) => (
+          <DoctorCard
+            key={doctor.name + doctor.specialty + ind.toString()}
+            img={doctor.image}
+            name={doctor.name}
+            specialty={doctor.specialty}
+            text={doctor.quote}
+          />
+        ))}
+
+        <Card.Footer className="text-muted">
+          Health Tracker©
+          <a href="https://www.defoebrand.com"> DefoeBrand</a>
+        </Card.Footer>
+      </Card>
+    </footer>
+  );
+};
 
 Footer.propTypes = {
+  dispatch: PropTypes.func.isRequired,
   doctors: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string,

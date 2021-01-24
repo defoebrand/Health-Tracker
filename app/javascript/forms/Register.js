@@ -25,6 +25,14 @@ const Register = ({ dispatch }) => {
   const [height, setHeight] = useState('');
   const [weight, setWeight] = useState('');
   const [memory, setMemory] = useState(true);
+  const [failedMessage, setFailedMessage] = useState({ display: 'none' });
+  const [error, setError] = useState('');
+
+  const displayMessage = {
+    display: 'block',
+    textAlign: 'center',
+    marginTop: 10,
+  };
 
   const changeMemory = () => {
     setMemory(!memory);
@@ -51,7 +59,8 @@ const Register = ({ dispatch }) => {
   };
 
   const changeHeight = e => {
-    setHeight(e.target.value / 100);
+    const height = e.target.value === '' ? e.target.value : e.target.value / 100;
+    setHeight(height);
   };
 
   const changeWeight = e => {
@@ -119,8 +128,11 @@ const Register = ({ dispatch }) => {
   const dateTime = `${months[date.getMonth()]}${date.getDate()}-${time}`;
 
   const submitRegister = e => {
+    const heightData = height === '' ? height : JSON.stringify({ height, scale });
+    const weightData = weight === '' ? weight : JSON.stringify({ measurements: { [dateTime]: Number(weight) }, scale });
     if (password !== confirm) {
-      alert("passwords don't match");
+      setError('Passwords Do Not Match');
+      setFailedMessage(displayMessage);
     } else {
       e.preventDefault();
       const url = '/user';
@@ -136,8 +148,8 @@ const Register = ({ dispatch }) => {
             sex,
             gender,
             ethnicity: ethnicity.toString(),
-            height: JSON.stringify({ height, scale }),
-            weight: JSON.stringify({ measurements: { [dateTime]: Number(weight) }, scale }),
+            height: heightData,
+            weight: weightData,
           },
         }),
         headers: {
@@ -148,98 +160,108 @@ const Register = ({ dispatch }) => {
           if (response.ok) {
             return response.json();
           }
-          throw new Error('Network response was not ok.');
+          throw new Error('Network Response Failed.');
         }).then(({ token, user }) => {
           if (memory === true) {
             localStorage.token = token;
           } else {
             sessionStorage.token = token;
           }
-          dispatch(updateUser(user));
+          try {
+            dispatch(updateUser(user));
+          } catch {
+            throw new Error('Failed to Register. Please try again.');
+          }
           history.replace('/');
-        }).catch(err => console.log(err));
+        }).catch(err => {
+          setError(err.message);
+          setFailedMessage(displayMessage);
+        });
     }
   };
   return (
-    <Form className="SignInForm" style={{ width: '85vw', maxWidth: 500, margin: '25px auto' }}>
-      <Form.Group controlId="formBasicUsername">
-        <Form.Label>UserName</Form.Label>
-        <Form.Control type="text" placeholder="UserName" onChange={changeName} />
-      </Form.Group>
-      <Form.Group controlId="formBasicEmail">
-        <Form.Label>Email address</Form.Label>
-        <Form.Control type="email" placeholder="Enter email" onChange={changeEmail} />
-        <Form.Text className="text-muted">We will never share your email with anyone else.</Form.Text>
-      </Form.Group>
-      <Form.Group controlId="formBasicPassword">
-        <Form.Label>Password</Form.Label>
-        <Form.Control type="password" placeholder="Password" onChange={changePassword} />
-      </Form.Group>
-      <Form.Group controlId="formBasicConfirmPassword">
-        <Form.Label>Confirm Password</Form.Label>
-        <Form.Control type="password" placeholder="Confirm Password" onChange={confirmPassword} />
-      </Form.Group>
-      <Form.Group controlId="formBasicDOB">
-        <Form.Label>{`DOB - Age: ${age}`}</Form.Label>
-        <Form.Control type="date" placeholder="dob" onChange={changeDate} />
-      </Form.Group>
-      <Form.Group>
-        <Form.Label>Measurement System</Form.Label>
-        <span style={{ display: 'flex' }}>
-          <Form.Check custom type="radio" name="scale" id="Metric" label="Centimeters / Kilograms" value="Metric" onChange={determineScale} defaultChecked />
-          <Form.Check custom type="radio" name="scale" id="Imperial" label="Inches / Pounds" value="Imperial" onChange={determineScale} style={{ marginLeft: 10 }} />
-        </span>
-      </Form.Group>
-      <Form.Group controlId="formBasicHeight">
-        <Form.Label>Height</Form.Label>
-        {scale === 'Metric'
-          ? <Form.Control type="text" placeholder="Centimeters" onChange={changeHeight} />
-          : (
-            <span style={{ display: 'flex' }}>
-              <Form.Control type="text" placeholder="Feet" onChange={changeFeet} />
-              <Form.Control type="text" placeholder="Inches" onChange={changeInches} />
-            </span>
-          )}
-      </Form.Group>
-      <Form.Group controlId="formBasicWeight">
-        <Form.Label>Weight</Form.Label>
-        <Form.Control type="text" placeholder={scale === 'Metric' ? 'Kilograms' : 'Pounds'} onChange={changeWeight} />
-      </Form.Group>
-      <Form.Group controlId="formBasicAncestry">
-        <Form.Label>Predominant Ancestry</Form.Label>
-        <Form.Check custom type="checkbox" id="European" label="European" onChange={adjustEthnoGroup} />
-        <Form.Check custom type="checkbox" id="Central & South Asian" label="Central & South Asian" onChange={adjustEthnoGroup} />
-        <Form.Check custom type="checkbox" id="East Asian & Native American" label="East Asian & Native American" onChange={adjustEthnoGroup} />
-        <Form.Check custom type="checkbox" id="Sub-Saharan African" label="Sub-Saharan African" onChange={adjustEthnoGroup} />
-        <Form.Check custom type="checkbox" id="Western Asian & North African" label="Western Asian & North African" onChange={adjustEthnoGroup} />
-        <Form.Check custom type="checkbox" id="Melanesian" label="Melanesian" onChange={adjustEthnoGroup} />
-      </Form.Group>
-      <Form.Group controlId="formBasicSex">
-        <Form.Label>Sex at birth</Form.Label>
-        <span style={{ display: 'flex' }}>
-          <Form.Check custom type="radio" name="sex" id="XX" label="XX" value="XX" onChange={determineSex} defaultChecked />
-          <Form.Check custom type="radio" name="sex" id="XY" label="XY" value="XY" onChange={determineSex} style={{ marginLeft: 10 }} />
-        </span>
-      </Form.Group>
-      <Form.Group controlId="formBasicGender">
-        <Form.Label>Preferred Gender</Form.Label>
-        <Form.Control type="text" placeholder="Gender" onChange={changeGender} />
-      </Form.Group>
-      <Form.Group controlId="formBasicCheckbox">
-        <Form.Check type="checkbox" label="Remember Me" defaultChecked onChange={changeMemory} />
-      </Form.Group>
-      <Button variant="primary" type="submit" onClick={submitRegister}>
-        Submit
-      </Button>
-      <Button
-        variant="primary"
-        type="signin"
-        onClick={gotToSignIn}
-        style={{ marginLeft: 15 }}
-      >
-        Sign In
-      </Button>
-    </Form>
+    <>
+      <h3 style={failedMessage}>{error}</h3>
+      <Form className="SignInForm" style={{ width: '85vw', maxWidth: 500, margin: '25px auto' }}>
+        <Form.Group controlId="formBasicUsername">
+          <Form.Label>UserName</Form.Label>
+          <Form.Control type="text" placeholder="UserName" onChange={changeName} />
+        </Form.Group>
+        <Form.Group controlId="formBasicEmail">
+          <Form.Label>Email address</Form.Label>
+          <Form.Control type="email" placeholder="Enter email" onChange={changeEmail} />
+          <Form.Text className="text-muted">We will never share your email with anyone else.</Form.Text>
+        </Form.Group>
+        <Form.Group controlId="formBasicPassword">
+          <Form.Label>Password</Form.Label>
+          <Form.Control type="password" placeholder="Password" onChange={changePassword} />
+        </Form.Group>
+        <Form.Group controlId="formBasicConfirmPassword">
+          <Form.Label>Confirm Password</Form.Label>
+          <Form.Control type="password" placeholder="Confirm Password" onChange={confirmPassword} />
+        </Form.Group>
+        <Form.Group controlId="formBasicDOB">
+          <Form.Label>{`DOB - Age: ${age}`}</Form.Label>
+          <Form.Control type="date" placeholder="dob" onChange={changeDate} />
+        </Form.Group>
+        <Form.Group>
+          <Form.Label>Measurement System</Form.Label>
+          <span style={{ display: 'flex' }}>
+            <Form.Check custom type="radio" name="scale" id="Metric" label="Centimeters / Kilograms" value="Metric" onChange={determineScale} defaultChecked />
+            <Form.Check custom type="radio" name="scale" id="Imperial" label="Inches / Pounds" value="Imperial" onChange={determineScale} style={{ marginLeft: 10 }} />
+          </span>
+        </Form.Group>
+        <Form.Group controlId="formBasicHeight">
+          <Form.Label>Height</Form.Label>
+          {scale === 'Metric'
+            ? <Form.Control type="text" placeholder="Centimeters" onChange={changeHeight} />
+            : (
+              <span style={{ display: 'flex' }}>
+                <Form.Control type="text" placeholder="Feet" onChange={changeFeet} />
+                <Form.Control type="text" placeholder="Inches" onChange={changeInches} />
+              </span>
+            )}
+        </Form.Group>
+        <Form.Group controlId="formBasicWeight">
+          <Form.Label>Weight</Form.Label>
+          <Form.Control type="text" placeholder={scale === 'Metric' ? 'Kilograms' : 'Pounds'} onChange={changeWeight} />
+        </Form.Group>
+        <Form.Group controlId="formBasicAncestry">
+          <Form.Label>Predominant Ancestry</Form.Label>
+          <Form.Check custom type="checkbox" id="European" label="European" onChange={adjustEthnoGroup} />
+          <Form.Check custom type="checkbox" id="Central & South Asian" label="Central & South Asian" onChange={adjustEthnoGroup} />
+          <Form.Check custom type="checkbox" id="East Asian & Native American" label="East Asian & Native American" onChange={adjustEthnoGroup} />
+          <Form.Check custom type="checkbox" id="Sub-Saharan African" label="Sub-Saharan African" onChange={adjustEthnoGroup} />
+          <Form.Check custom type="checkbox" id="Western Asian & North African" label="Western Asian & North African" onChange={adjustEthnoGroup} />
+          <Form.Check custom type="checkbox" id="Melanesian" label="Melanesian" onChange={adjustEthnoGroup} />
+        </Form.Group>
+        <Form.Group controlId="formBasicSex">
+          <Form.Label>Sex at birth</Form.Label>
+          <span style={{ display: 'flex' }}>
+            <Form.Check custom type="radio" name="sex" id="XX" label="XX" value="XX" onChange={determineSex} defaultChecked />
+            <Form.Check custom type="radio" name="sex" id="XY" label="XY" value="XY" onChange={determineSex} style={{ marginLeft: 10 }} />
+          </span>
+        </Form.Group>
+        <Form.Group controlId="formBasicGender">
+          <Form.Label>Preferred Gender</Form.Label>
+          <Form.Control type="text" placeholder="Gender" onChange={changeGender} />
+        </Form.Group>
+        <Form.Group controlId="formBasicCheckbox">
+          <Form.Check type="checkbox" label="Remember Me" defaultChecked onChange={changeMemory} />
+        </Form.Group>
+        <Button variant="primary" type="submit" onClick={submitRegister}>
+          Submit
+        </Button>
+        <Button
+          variant="primary"
+          type="signin"
+          onClick={gotToSignIn}
+          style={{ marginLeft: 15 }}
+        >
+          Sign In
+        </Button>
+      </Form>
+    </>
   );
 };
 

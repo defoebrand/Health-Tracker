@@ -10,13 +10,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 document.addEventListener('DOMContentLoaded', () => {
   ReactDOM.render(
-    <React.StrictMode>
-      <HashRouter basename="/">
-        <Provider store={store}>
-          <App />
-        </Provider>
-      </HashRouter>
-    </React.StrictMode>,
+    <HashRouter basename="/">
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </HashRouter>,
     document.getElementById('root'),
   );
 });

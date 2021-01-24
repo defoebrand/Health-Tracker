@@ -25,29 +25,31 @@ const Doctor = ({
   };
 
   useEffect(() => {
-    const url = '/user/my-doctors';
-    fetch(url, {
-      method: 'POST',
-      body: JSON.stringify({ user: { id: user.id } }),
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8',
-      },
-    })
-      .then(response => {
-        if (response.ok) {
-          return response.json();
-        }
-        throw new Error('Network response was not ok.');
-      }).then(data => {
-        try {
-          setMyDoctors(data);
-        } catch {
-          throw new Error('Failed to Retrieve Your Doctors.');
-        }
-      }).catch(err => {
-        setError(err.message);
-        setFailedMessage(displayMessage);
-      });
+    if (user.name !== '') {
+      const url = '/user/my-doctors';
+      fetch(url, {
+        method: 'POST',
+        body: JSON.stringify({ user: { id: user.id } }),
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+        },
+      })
+        .then(response => {
+          if (response.ok) {
+            return response.json();
+          }
+          throw new Error('Network Response Failed.');
+        }).then(data => {
+          try {
+            setMyDoctors(data);
+          } catch {
+            throw new Error('Failed to Retrieve Your Doctors.');
+          }
+        }).catch(err => {
+          setError(err.message);
+          setFailedMessage(displayMessage);
+        });
+    }
   }, [user]);
 
   return (

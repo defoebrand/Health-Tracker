@@ -32,7 +32,6 @@ class UserController < ApplicationController
     end
   end
 
-  # rubocop:disable Metrics/CyclomaticComplexity
   def update
     user = User.find(params[:id])
     user.update(pulse: user_params[:pulse]) if user_params[:pulse] != '{}'
@@ -44,15 +43,17 @@ class UserController < ApplicationController
 
     render json: { message: user }
   end
-  # rubocop:enable Metrics/CyclomaticComplexity
 
   def settings
     user = User.find(user_params[:id])
-    user.update(name: user_params[:name]) if user.name != user_params[:name]
-    user.update(email: user_params[:email]) if user.email != user_params[:email]
-    user.update(password: user_params[:password]) if user.password != user_params[:password]
-
-    render json: { user: user }
+    ApplicationRecord.transaction do
+      user.update!(name: user_params[:name]) if user.name != user_params[:name]
+      user.update!(email: user_params[:email]) if user.email != user_params[:email]
+      user.update!(password: user_params[:password]) if user.password != user_params[:password]
+      render json: { user: user }
+    end
+  rescue ActiveRecord::RecordInvalid
+    render json: { user: 'Invalid Input' }
   end
 
   def communities

@@ -59,7 +59,8 @@ const Register = ({ dispatch }) => {
   };
 
   const changeHeight = e => {
-    setHeight(e.target.value / 100);
+    const height = e.target.value === '' ? e.target.value : e.target.value / 100;
+    setHeight(height);
   };
 
   const changeWeight = e => {

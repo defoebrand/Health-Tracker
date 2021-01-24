@@ -10,9 +10,13 @@ import CardGroup from 'react-bootstrap/CardGroup';
 
 import CommunityCard from '../components/CommunityCard';
 
+import { allCommunities } from '../redux/actions';
+
 const fetch = require('node-fetch');
 
-const Friends = ({ tab, communities, user }) => {
+const Friends = ({
+  tab, communities, user, dispatch,
+}) => {
   const [myCommunities, setCommunities] = useState([]);
   const [failedMessage, setFailedMessage] = useState({ display: 'none' });
   const [error, setError] = useState('');
@@ -24,10 +28,8 @@ const Friends = ({ tab, communities, user }) => {
   };
 
   useEffect(() => {
-    const url = '/user/user-communities';
+    const url = '/user/communities';
     fetch(url, {
-      method: 'POST',
-      body: JSON.stringify({ user: { id: user.id } }),
       headers: {
         'Content-type': 'application/json; charset=UTF-8',
       },
@@ -36,17 +38,45 @@ const Friends = ({ tab, communities, user }) => {
         if (response.ok) {
           return response.json();
         }
-        throw new Error('Network response was not ok.');
+        throw new Error('Failed to Retrieve Communities.');
       }).then(data => {
         try {
-          setCommunities(data);
+          dispatch(allCommunities(data));
         } catch {
-          throw new Error('Failed to Retrieve Your Communities.');
+          throw new Error('Failed to Retrieve Communities.');
         }
       }).catch(err => {
         setError(err.message);
         setFailedMessage(displayMessage);
       });
+  }, []);
+
+  useEffect(() => {
+    if (user.name !== '') {
+      const url = '/user/user-communities';
+      fetch(url, {
+        method: 'POST',
+        body: JSON.stringify({ user: { id: user.id } }),
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+        },
+      })
+        .then(response => {
+          if (response.ok) {
+            return response.json();
+          }
+          throw new Error('Network Response Failed.');
+        }).then(data => {
+          try {
+            setCommunities(data);
+          } catch {
+            throw new Error('Failed to Retrieve Your Communities.');
+          }
+        }).catch(err => {
+          setError(err.message);
+          setFailedMessage(displayMessage);
+        });
+    }
   }, []);
 
   return (
@@ -84,6 +114,7 @@ const Friends = ({ tab, communities, user }) => {
 };
 
 Friends.propTypes = {
+  dispatch: PropTypes.func.isRequired,
   tab: PropTypes.string,
   communities: PropTypes.arrayOf(
     PropTypes.shape({

@@ -45,8 +45,7 @@
     "webpack-dev-server": "^3.11.2"
   },
   "scripts": {
-    "test": "jest",
-    "silent-test": "jest --silent",
+    "test": "jest --silent",
     "test-watch": "jest --watch"
   },
   "jest": {

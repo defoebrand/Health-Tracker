@@ -44,7 +44,8 @@ const SignIn = ({ dispatch }) => {
     setPassword(e.target.value);
   };
 
-  const submitSignIn = () => {
+  const submitSignIn = e => {
+    e.preventDefault();
     const url = status === false ? '/user/login' : '/user/doctor';
     fetch(url, {
       method: 'POST',

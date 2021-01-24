@@ -12,7 +12,7 @@ import Button from 'react-bootstrap/Button';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 
 import {
-  updateUser, allCommunities, allDoctors, signOutUser,
+  updateUser, signOutUser,
 } from '../redux/actions';
 
 const fetch = require('node-fetch');
@@ -20,6 +20,7 @@ const fetch = require('node-fetch');
 const HeaderNav = ({ dispatch, user }) => {
   const doctor = 'list';
   const history = useHistory();
+
   const clickAccount = () => {
     if (user.name !== '') {
       history.push('/settings');
@@ -27,64 +28,38 @@ const HeaderNav = ({ dispatch, user }) => {
       history.push('/register');
     }
   };
+
+  useEffect(() => {
+    if (user.name === '') {
+      history.push('/home');
+    } else {
+      history.push(`/users/${user.name}`);
+    }
+  }, [user]);
+
+  const token = localStorage.token === ''
+    ? sessionStorage.token
+    : localStorage.token;
+
   useEffect(() => {
     const url = '/user';
-    const { token } = localStorage;
     fetch(url, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     })
-      .then(response => {
-        if (response.ok) {
-          return response.json();
-        }
-        throw new Error('Network response was not ok.');
-      }).then(data => {
+      .then(response => (
+        response.ok
+          ? response.json()
+          : null
+      )).then(data => {
         dispatch(updateUser(data));
-      }).catch(err => console.log(err));
-  }, []);
-
-  useEffect(() => {
-    const url = '/user/communities';
-    fetch(url, {
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8',
-      },
-    })
-      .then(response => {
-        if (response.ok) {
-          return response.json();
+      }).catch(err => {
+        if (err) {
+          history.replace('/home');
         }
-        throw new Error('Network response was not ok.');
-      }).then(data => {
-        dispatch(allCommunities(data));
-      }).catch(err => console.log(err));
-  }, []);
-
-  useEffect(() => {
-    if (user.name === '') {
-      history.replace('/home');
-    } else {
-      history.push(`/users/${user.name}`);
-    }
-  }, [user]);
-  useEffect(() => {
-    const url = '/user/doctors';
-    fetch(url, {
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8',
-      },
-    })
-      .then(response => {
-        if (response.ok) {
-          return response.json();
-        }
-        throw new Error('Network response was not ok.');
-      }).then(data => {
-        dispatch(allDoctors(data.doctors));
-      }).catch(err => console.log(err));
-  }, []);
+      });
+  }, [history]);
 
   const signedIn = (user.name !== ''
     ? (
@@ -103,7 +78,6 @@ const HeaderNav = ({ dispatch, user }) => {
       </div>
     )
   );
-
   return (
     <div className="HeaderNav">
       <Navbar bg="light" expand="lg">
@@ -129,9 +103,7 @@ const HeaderNav = ({ dispatch, user }) => {
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>
-        {user.name !== ''
-          ? <Nav.Link className="bigScreenSignOutBtn" onClick={() => { dispatch(signOutUser({ name: '' })); localStorage.token = ''; }}>Sign out</Nav.Link>
-          : null}
+        {user.name && <Nav.Link className="bigScreenSignOutBtn" onClick={() => { dispatch(signOutUser({ name: '' })); localStorage.token = ''; }}>Sign out</Nav.Link>}
       </Navbar>
     </div>
   );

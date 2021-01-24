@@ -19,7 +19,7 @@ const signin = async ({ user, memory, dispatch }) => {
       if (response.ok) {
         return response.json();
       }
-      throw new Error('Network response was not ok.');
+      throw new Error('Network Response Failed.');
     }).then(data => {
       if (memory === true) {
         localStorage.token = data.token;

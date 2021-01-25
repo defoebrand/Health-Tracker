@@ -21,13 +21,19 @@ const Scheduler = ({ doctor, user }) => {
     marginTop: 10,
   };
 
+  const token = localStorage.token === ''
+    ? sessionStorage.token
+    : localStorage.token;
+
   const requestAppointment = () => {
-    const url = '/user/appointment';
+    const url = '/user/add_appointment';
     fetch(url, {
       method: 'POST',
       body: JSON.stringify({
+        user: {
+          id: user.id,
+        },
         appt: {
-          user_id: user.id,
           doc_name: doctor,
           date,
           time,
@@ -36,6 +42,7 @@ const Scheduler = ({ doctor, user }) => {
       }),
       headers: {
         'Content-type': 'application/json; charset=UTF-8',
+        Authorization: `Bearer ${token}`,
       },
     })
       .then(response => {

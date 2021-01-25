@@ -1,31 +1,30 @@
 Rails.application.routes.draw do
   root 'homepage#index'
-  
+
   resources :user do
     collection do
       post 'login'
       patch 'settings'
-      post 'add-community', to: 'add_community'
-      post 'remove-community', to: 'remove_community'
-      post 'community-users', to: 'community_users'
-      post 'user-communities', to: 'user_communities'
-      post 'appointment'
-      post 'my-doctors', to: 'my_doctors'
-      get 'doctors'
-      get 'communities'
+      post 'join_community'
+      post 'leave_community'
+      post 'user_communities'
+      post 'add_appointment'
+      post 'community_users'
     end
   end
 
+  post 'user_communities', to: 'user#user_communities'
+  post 'user_doctors', to: 'user#user_doctors'
+  post 'add_appointment', to: 'user#add_appointment'
+
   scope path: '/api' do
     get '/', to: 'homepage#all'
-    # get '/age', to: 'homepage#age'
-    get '/age/:age', to: 'homepage#age'
-    # get '/weight', to: 'homepage#check_weight'
-    # get '/weight/:weight/:range', to: 'homepage#check_weight'
-    # get '/height', to: 'homepage#check_height'
-    # get '/height/:height', to: 'homepage#check_height'
-    get '/height/:height/:scale', to: 'homepage#check_height'
+    get '/age/:age', to: 'homepage#by_age'
+    get '/sex/:sex', to: 'homepage#by_sex'
+    get '/ethnicity/:ethnicity', to: 'homepage#by_ethnicity'
+    get '/height/:scale/:height', to: 'homepage#by_height'
   end
 
-
+  get 'doctors', to: 'homepage#doctors'
+  get 'communities', to: 'homepage#communities'
 end

@@ -123,7 +123,7 @@ const AddStats = ({ user }) => {
       method: 'PATCH',
       body: JSON.stringify({
         user: {
-          temp: JSON.stringify(temperature),
+          temperature: JSON.stringify(temperature),
           weight: JSON.stringify(weight),
           pulse: JSON.stringify(pulse),
           blood_sugar: JSON.stringify(bloodSugar),

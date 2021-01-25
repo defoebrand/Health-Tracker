@@ -23,7 +23,7 @@ const Footer = ({ doctors, dispatch }) => {
     marginTop: 10,
   };
   useEffect(() => {
-    const url = '/user/doctors';
+    const url = '/doctors';
     fetch(url, {
       headers: {
         'Content-type': 'application/json; charset=UTF-8',
@@ -34,9 +34,9 @@ const Footer = ({ doctors, dispatch }) => {
           return response.json();
         }
         throw new Error('Failed to Retrieve Doctors.');
-      }).then(({ doctors }) => {
+      }).then(data => {
         try {
-          dispatch(allDoctors(doctors));
+          dispatch(allDoctors(data));
         } catch {
           throw new Error('Failed to Retrieve Doctors.');
         }

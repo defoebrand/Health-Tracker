@@ -23,15 +23,19 @@ const Doctor = ({
     textAlign: 'center',
     marginTop: 10,
   };
+  const token = localStorage.token === ''
+    ? sessionStorage.token
+    : localStorage.token;
 
   useEffect(() => {
     if (user.name !== '') {
-      const url = '/user/my-doctors';
+      const url = '/user_doctors';
       fetch(url, {
         method: 'POST',
         body: JSON.stringify({ user: { id: user.id } }),
         headers: {
           'Content-type': 'application/json; charset=UTF-8',
+          Authorization: `Bearer ${token}`,
         },
       })
         .then(response => {

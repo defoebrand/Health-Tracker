@@ -12,6 +12,7 @@ The project is a tracker app designed to display tracked results fetched from a 
 #### Features
 -   Responsive layout works well on mobile or desktop
 -   Secure data: all data shared through our API is anonymous and contains no personally identifying information
+-   Secure Login: JWT authentication is required
 -   Track health data such as BMI, Blood pressure, Temperature, Pulse, and Blood Sugar
 -   Inputted data can be corrected within the same clock hour
 -   Monitor data over time with line graphs of data points as compared to the ideal point for each graph
@@ -81,7 +82,7 @@ MY ACCOUNT:
 
 ### To Use The API 
 Replace any words that begin as `:` with your search criteria. For example, to get all users who are 33 years old, use   
-`GET /age/32` 
+`GET /age/33` 
   
 `- GET / ` will retrieve all users registered with this app  
 
@@ -102,6 +103,7 @@ Ethnicity options are as follows:
 
 `- GET /height/:scale/:height ` will retrieve all users that match the given height.  
 Scale options are `Metric` or `Imperial`  
+Note: Measurements in Metric must be given in Centimeters, Imperial in Inches
 
 `- GET doctors `  will retrieve all doctors registered with this app  
 
@@ -176,6 +178,7 @@ If you've read this far....give us a ⭐️!
 "Stethoscope": Photo by Negative Space  
 "Dr. Smith": Image by <a href="https://pixabay.com/users/tatyanabuzmakova_krasnova-12151052/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=5871743">Татьяна Краснова</a> from <a href="https://pixabay.com/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=5871743">Pixabay</a>  
 "Dr. Kim": Image by <a href="https://pixabay.com/users/anhngoc1397-14450218/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=4677401">Anh Nguyễn Duy</a> from <a href="https://pixabay.com/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=4677401">Pixabay</a>
+"Standard Profile": Image by <a href="https://pixabay.com/users/wanderercreative-855399/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=973460">Stephanie Edwards</a> from <a href="https://pixabay.com/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=973460">Pixabay</a>
 
 
 ## 📝 License

@@ -18,7 +18,13 @@ const User = ({ user }) => {
     <>
       <div className="welcomeBanner">
         <h1 style={{ whiteSpace: 'nowrap' }}>{`Hello ${user.name}!`}</h1>
-        <img src="http://www.messagescollection.com/wp-content/uploads/2015/04/cute-cat-profile-for-facebook.jpg" alt={`${user.name} profile pic`} style={{ borderRadius: '50%', width: '10vw', minWidth: 100 }} />
+        <img
+          src="/images/blank-profile-pic.png"
+          alt={`${user.name} profile pic`}
+          style={{
+            borderRadius: '50%', width: '10vw', minWidth: 100, margin: 10,
+          }}
+        />
         <Button
           variant="success"
           style={{

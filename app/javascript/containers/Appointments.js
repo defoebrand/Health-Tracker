@@ -33,7 +33,7 @@ const Appointments = () => {
         if (response.ok) {
           return response.json();
         }
-        throw new Error('Network Response Failed.');
+        throw new Error('');
       }).then(data => {
         try {
           setMyAppointments(data);

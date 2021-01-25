@@ -14,9 +14,6 @@ user can update measurements within the same hour
  - = BACK END = - 
 add friend relationship
 
- - = FRONT END = -
- view appointments
-
  - add api query scopes?
 
 add image blob from active records for profile pics
@@ -28,7 +25,6 @@ add image blob from active records for profile pics
   sick call
   friend's chat
   doctor login
-  appointments tab
 
 
    - = STYLES = - 
@@ -39,90 +35,3 @@ add image blob from active records for profile pics
   - isolate lines with selector
   - add color selector
 
-
-
-video conf: Photo by Edward Jenner from Pexels
-hands: Photo by fauxels from Pexels
-steth: Photo by Negative Space
-
-male doc: Image by <a href="https://pixabay.com/users/tatyanabuzmakova_krasnova-12151052/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=5871743">Татьяна Краснова</a> from <a href="https://pixabay.com/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=5871743">Pixabay</a>
-
-female doc: Image by <a href="https://pixabay.com/users/anhngoc1397-14450218/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=4677401">Anh Nguyễn Duy</a> from <a href="https://pixabay.com/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=4677401">Pixabay</a>
-
-
-
-Temperature
-Type of reading	 0–2 years  	             3–10 years                  	11–65 years	                 Over 65 years
-Oral	        95.9–99.5°F (35.5–37.5°C) 36	95.9–99.5°F (35.5–37.5°C) 36	97.6–99.6°F (36.4–37.6°C) 37	96.4–98.5°F (35.8–36.9°C) 36
-Rectal      	97.9–100.4°F (36.6–38°C)	97.9–100.4°F (36.6–38°C)	98.6–100.6°F (37.0–38.1°C)	97.1–99.2°F (36.2–37.3°C)
-Armpit      	94.5–99.1°F (34.7–37.3°C)	96.6–98.0°F (35.9–36.7°C)	95.3–98.4°F (35.2–36.9°C)	96.0–97.4°F (35.6–36.3°C)
-Ear	            97.5–100.4°F (36.4–38°C)	97.0–100.0°F (36.1–37.8°C)	96.6–99.7°F (35.9–37.6°C)	96.4–99.5°F (35.8–37.5°C)
-
-PULSE
- Men - 60 Women - 65
-Kids 6 - 15: 
-
-< 1 year 	110 – 160
-1 – 2 year 	125
-2 – 5 year 	115
-5 – 12 year 	100
-12 - 20 year 	80
-20+  60
-65+ 80?
-
-BLOOD PRESSURE 
-Age         	Average
-60 to 64 years 	134/87
-55 to 59 years 	131/86
-50 to 54 years 	129/85
-45 to 49 years 	127/84
-40 to 44 years 	125/83
-35 to 39 years 	123/82
-30 to 34 years 	122/81
-25 to 19 years 	121/80
-20 to 24 years 	120/79
-15 to 19 years 	117/77
-
-
-
-BLOOD SUGAR 
-UK mmol/l ~5
-Empty stomach - 4.7 mmol/L
-2hours after eating - 7.8 mmol/L
-
-US mg/dl 
-6-12 - 
-Fasting: 7.2
-Before Meal: 7.4
-Bedtime: 7.7
-
-13-19 - 
-Fasting: 6.1
-Before Meal: 6.1
-Bedtime: 6.6
-
-20+ - 
-Fasting: 5.0
-Before Meal: 5.5
-Bedtime: 6.6
-
-US mg/dl 
-6-12 - 
-Fasting: 130
-Before Meal: 135
-Bedtime: 140
-
-13-19 - 
-Fasting: 110
-Before Meal: 110
-Bedtime: 120
-
-20+ - 
-Fasting: 90
-Before Meal: 100
-Bedtime: 120
-
-
-
-
-BMI

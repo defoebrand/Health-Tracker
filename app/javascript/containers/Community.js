@@ -16,14 +16,8 @@ const fetch = require('node-fetch');
 const Community = ({ dispatch, community, user }) => {
   const history = useHistory();
   const [members, setMembers] = useState([]);
-  const [failedMessage, setFailedMessage] = useState({ display: 'none' });
+  const [failedMessage, setFailedMessage] = useState('noMessage');
   const [error, setError] = useState('');
-
-  const displayMessage = {
-    display: 'block',
-    textAlign: 'center',
-    marginTop: 10,
-  };
 
   useEffect(() => {
     const url = '/user/community_users';
@@ -49,7 +43,7 @@ const Community = ({ dispatch, community, user }) => {
         }
       }).catch(err => {
         setError(err.message);
-        setFailedMessage(displayMessage);
+        setFailedMessage('displayMessage');
       });
   }, []);
 
@@ -78,7 +72,7 @@ const Community = ({ dispatch, community, user }) => {
         }
       }).catch(err => {
         setError(err.message);
-        setFailedMessage(displayMessage);
+        setFailedMessage('displayMessage');
       });
   };
 
@@ -107,7 +101,7 @@ const Community = ({ dispatch, community, user }) => {
         }
       }).catch(err => {
         setError(err.message);
-        setFailedMessage(displayMessage);
+        setFailedMessage('displayMessage');
       });
   };
 
@@ -118,7 +112,7 @@ const Community = ({ dispatch, community, user }) => {
 
   return (
     <>
-      <h3 style={failedMessage}>{error}</h3>
+      <h3 className={failedMessage}>{error}</h3>
       <Tabs
         defaultActiveKey=""
         transition={false}

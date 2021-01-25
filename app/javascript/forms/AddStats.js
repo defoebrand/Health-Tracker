@@ -18,14 +18,8 @@ const AddStats = ({ user }) => {
   const [newSystolic, setSystolic] = useState('');
   const [newDiastolic, setDiastolic] = useState('');
   const [newWeight, setWeight] = useState('');
-  const [failedMessage, setFailedMessage] = useState({ display: 'none' });
+  const [failedMessage, setFailedMessage] = useState('noMessage');
   const [error, setError] = useState('');
-
-  const displayMessage = {
-    display: 'block',
-    textAlign: 'center',
-    marginTop: 10,
-  };
 
   const changeTemp = e => {
     setTemp(e.target.value);
@@ -149,14 +143,14 @@ const AddStats = ({ user }) => {
         history.push(`/users/${name}`);
       }).catch(err => {
         setError(err.message);
-        setFailedMessage(displayMessage);
+        setFailedMessage('displayMessage');
       });
   };
 
   return (
     <>
-      <h3 style={failedMessage}>{error}</h3>
-      <Form className="SignInForm" style={{ width: '85vw', maxWidth: 500, margin: '25px auto' }}>
+      <h3 className={failedMessage}>{error}</h3>
+      <Form className="FormBox">
         <Form.Group controlId="formBasicWeight">
           <Form.Label>Weight</Form.Label>
           <Form.Control type="text" placeholder="Weight" onChange={changeWeight} />

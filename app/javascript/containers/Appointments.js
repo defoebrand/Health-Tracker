@@ -7,15 +7,9 @@ import AppointmentCard from '../components/AppointmentCard';
 const fetch = require('node-fetch');
 
 const Appointments = () => {
-  const [failedMessage, setFailedMessage] = useState({ display: 'none' });
+  const [failedMessage, setFailedMessage] = useState('noMessage');
   const [error, setError] = useState('');
   const [myAppointments, setMyAppointments] = useState([]);
-
-  const displayMessage = {
-    display: 'block',
-    textAlign: 'center',
-    marginTop: 10,
-  };
 
   const token = localStorage.token === ''
     ? sessionStorage.token
@@ -42,7 +36,7 @@ const Appointments = () => {
         }
       }).catch(err => {
         setError(err.message);
-        setFailedMessage(displayMessage);
+        setFailedMessage('displayMessage');
       });
   }, []);
 
@@ -76,13 +70,13 @@ const Appointments = () => {
         }
       }).catch(err => {
         setError(err.message);
-        setFailedMessage(displayMessage);
+        setFailedMessage('displayMessage');
       });
   };
 
   return (
     <>
-      <h3 style={failedMessage}>{error}</h3>
+      <h3 className={failedMessage}>{error}</h3>
       <div style={{
         margin: '25px auto', width: '85vw', display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center',
       }}

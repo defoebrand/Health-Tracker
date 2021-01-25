@@ -25,14 +25,8 @@ const Register = ({ dispatch }) => {
   const [height, setHeight] = useState('');
   const [weight, setWeight] = useState('');
   const [memory, setMemory] = useState(true);
-  const [failedMessage, setFailedMessage] = useState({ display: 'none' });
+  const [failedMessage, setFailedMessage] = useState('noMessage');
   const [error, setError] = useState('');
-
-  const displayMessage = {
-    display: 'block',
-    textAlign: 'center',
-    marginTop: 10,
-  };
 
   const changeMemory = () => {
     setMemory(!memory);
@@ -132,7 +126,7 @@ const Register = ({ dispatch }) => {
     const weightData = weight === '' ? weight : JSON.stringify({ measurements: { [dateTime]: Number(weight) }, scale });
     if (password !== confirm) {
       setError('Passwords Do Not Match');
-      setFailedMessage(displayMessage);
+      setFailedMessage('displayMessage');
     } else {
       e.preventDefault();
       const url = '/user';
@@ -175,15 +169,15 @@ const Register = ({ dispatch }) => {
           history.replace('/');
         }).catch(err => {
           setError(err.message);
-          setFailedMessage(displayMessage);
+          setFailedMessage('displayMessage');
         });
     }
   };
   return (
     <>
-      <h3 style={failedMessage}>{error}</h3>
-      <h5 style={{ textAlign: 'center', marginTop: 10 }}>All Fields Must Be Filled In</h5>
-      <Form className="SignInForm" style={{ width: '85vw', maxWidth: 500, margin: '25px auto' }}>
+      <h3 className={failedMessage}>{error}</h3>
+      <h5 className="FormHeader">All Fields Must Be Filled In</h5>
+      <Form className="FormBox">
         <Form.Group controlId="formBasicUsername">
           <Form.Label>UserName</Form.Label>
           <Form.Control type="text" placeholder="UserName" onChange={changeName} />

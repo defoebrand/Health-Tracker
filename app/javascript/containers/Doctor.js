@@ -16,14 +16,9 @@ const Doctor = ({
   doctors, user,
 }) => {
   const [myDoctors, setMyDoctors] = useState([]);
-  const [failedMessage, setFailedMessage] = useState({ display: 'none' });
+  const [failedMessage, setFailedMessage] = useState('noMessage');
   const [error, setError] = useState('');
 
-  const displayMessage = {
-    display: 'block',
-    textAlign: 'center',
-    marginTop: 10,
-  };
   const token = localStorage.token === ''
     ? sessionStorage.token
     : localStorage.token;
@@ -52,14 +47,14 @@ const Doctor = ({
           }
         }).catch(err => {
           setError(err.message);
-          setFailedMessage(displayMessage);
+          setFailedMessage('displayMessage');
         });
     }
   }, [user]);
 
   return (
     <>
-      <h3 style={failedMessage}>{error}</h3>
+      <h3 className={failedMessage}>{error}</h3>
       <Tabs
         defaultActiveKey={user.name === '' ? 'all' : 'personal'}
         transition={false}

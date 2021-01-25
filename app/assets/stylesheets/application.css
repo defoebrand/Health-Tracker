@@ -17,3 +17,13 @@
 html {
   height: 100vh;
 }
+
+.noMessage {
+  display: none;
+}
+
+.displayMessage {
+  display: block;
+  text-align: center;
+  margin-top: 10px;
+}

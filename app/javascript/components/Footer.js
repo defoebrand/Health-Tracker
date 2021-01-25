@@ -14,14 +14,9 @@ const featured = ['Dr. Kim', 'Dr. Smith'];
 const fetch = require('node-fetch');
 
 const Footer = ({ doctors, dispatch }) => {
-  const [failedMessage, setFailedMessage] = useState({ display: 'none' });
+  const [failedMessage, setFailedMessage] = useState('noMessage');
   const [error, setError] = useState('');
 
-  const displayMessage = {
-    display: 'block',
-    textAlign: 'center',
-    marginTop: 10,
-  };
   useEffect(() => {
     const url = '/doctors';
     fetch(url, {
@@ -42,7 +37,7 @@ const Footer = ({ doctors, dispatch }) => {
         }
       }).catch(err => {
         setError(err.message);
-        setFailedMessage(displayMessage);
+        setFailedMessage('displayMessage');
       });
   }, []);
 
@@ -50,7 +45,7 @@ const Footer = ({ doctors, dispatch }) => {
     <footer className="Footer">
       <Card className="text-center">
         <Card.Header>Featured Doctors</Card.Header>
-        <h3 style={failedMessage}>{error}</h3>
+        <h3 className={failedMessage}>{error}</h3>
         {doctors.filter(doctor => (
           featured.includes(doctor.name)
         )).map((doctor, ind) => (

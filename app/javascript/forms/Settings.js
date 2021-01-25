@@ -15,14 +15,8 @@ const Settings = ({ user, dispatch }) => {
   const [newEmail, setnewEmail] = useState(email);
   const [newPassword, setNewPassword] = useState('');
   const [confirm, setConfirm] = useState('');
-  const [failedMessage, setFailedMessage] = useState({ display: 'none' });
+  const [failedMessage, setFailedMessage] = useState('noMessage');
   const [error, setError] = useState('Failed');
-
-  const displayMessage = {
-    display: 'block',
-    textAlign: 'center',
-    marginTop: 10,
-  };
 
   const changeName = e => {
     setNewUserName(e.target.value);
@@ -47,7 +41,7 @@ const Settings = ({ user, dispatch }) => {
   const updateSettings = e => {
     if (newPassword !== confirm) {
       setError('Passwords Do Not Match');
-      setFailedMessage(displayMessage);
+      setFailedMessage('displayMessage');
     } else {
       e.preventDefault();
       const url = '/user/settings/';
@@ -80,14 +74,14 @@ const Settings = ({ user, dispatch }) => {
           history.push('/');
         }).catch(err => {
           setError(err.message);
-          setFailedMessage(displayMessage);
+          setFailedMessage('displayMessage');
         });
     }
   };
   return (
     <>
-      <h3 style={failedMessage}>{error}</h3>
-      <Form className="SignInForm" style={{ width: '85vw', maxWidth: 500, margin: '25px auto' }}>
+      <h3 className={failedMessage}>{error}</h3>
+      <Form className="FormBox">
         <Form.Group controlId="formBasicName">
           <Form.Label>UserName</Form.Label>
           <Form.Control type="username" placeholder="UserName" onChange={changeName} value={newUserName} />

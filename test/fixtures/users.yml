@@ -1,10 +1,10 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 good_user:
-  name: user
-  email: user@user.com
+  name: 'user'
+  email: 'user@user.com'
   password_digest: <%= BCrypt::Password.create('user') %>
-  height: 1
+  height: '{"height":1.66,"scale":"Metric"}'
   weight: 1
   age: 32
   systolic: 1
@@ -12,6 +12,9 @@ good_user:
   pulse: 1
   temperature: 1
   blood_sugar: 1
+  ethnicity: 'Central & South Asian'
+  sex: 'XX'
+  gender: 'Female'
 
 bad_height:
   name: user
@@ -24,18 +27,21 @@ bad_height:
   pulse: 2
   temperature: 2
   blood_sugar: 2
+  ethnicity: 'European'
+  sex: 'XX'
 
 bad_weight:
   name: user
   email: bad_weight@user.com
   password_digest: <%= BCrypt::Password.create('user') %>
-  height: 3
+  height: '{"height":1.66,"scale":"Metric"}'
   age: 32
   systolic: 3
   diastolic: 3
   pulse: 3
   temperature: 3
   blood_sugar: 3
+  sex: 'XY'
 
 bad_password:
   name: user
@@ -48,6 +54,7 @@ bad_password:
   pulse: 4
   temperature: 4
   blood_sugar: 4
+  sex: 'XY'
 
 extra_user1:
   name: user
@@ -60,6 +67,7 @@ extra_user1:
   diastolic: 1
   pulse: 1
   temperature: 1
+  ethnicity: 'European'
   blood_sugar: 1
 
 extra_user2:

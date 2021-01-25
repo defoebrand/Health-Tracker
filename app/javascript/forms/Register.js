@@ -182,6 +182,7 @@ const Register = ({ dispatch }) => {
   return (
     <>
       <h3 style={failedMessage}>{error}</h3>
+      <h5 style={{ textAlign: 'center', marginTop: 10 }}>All Fields Must Be Filled In</h5>
       <Form className="SignInForm" style={{ width: '85vw', maxWidth: 500, margin: '25px auto' }}>
         <Form.Group controlId="formBasicUsername">
           <Form.Label>UserName</Form.Label>

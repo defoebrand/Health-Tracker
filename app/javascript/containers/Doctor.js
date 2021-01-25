@@ -8,6 +8,7 @@ import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
 
 import DoctorCard from '../components/DoctorCard';
+import Appointments from './Appointments';
 
 const fetch = require('node-fetch');
 
@@ -90,6 +91,9 @@ const Doctor = ({
               text={doctor.quote}
             />
           ))}
+        </Tab>
+        <Tab eventKey="apointments" title="My Appointments">
+          <Appointments />
         </Tab>
       </Tabs>
 

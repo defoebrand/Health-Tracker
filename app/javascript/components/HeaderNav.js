@@ -67,7 +67,6 @@ const HeaderNav = ({ dispatch, user }) => {
   };
 
   const clickLink = e => {
-    console.log(e);
     history.push(`/${e.target.id}`);
   };
 
@@ -102,8 +101,8 @@ const HeaderNav = ({ dispatch, user }) => {
             <Nav.Link onClick={clickLink} id="resources">Resources</Nav.Link>
             <NavDropdown title="Community" id="basic-nav-dropdown">
               <div className="dropdownLinks">
-                <NavDropdown.Item className="text-center top-p-5" id={`doctors/${doctor}`} onClick={clickLink}>Doctors</NavDropdown.Item>
-                <NavDropdown.Item className="text-center top-p-5" id="friends" onClick={clickLink}>Friends</NavDropdown.Item>
+                <NavDropdown.Item className="text-center p-1" id={`doctors/${doctor}`} onClick={clickLink}>Doctors</NavDropdown.Item>
+                <NavDropdown.Item className="text-center p-1" id="friends" onClick={clickLink}>Friends</NavDropdown.Item>
                 <NavDropdown.Item className="text-center" style={{ borderLeft: '1px solid gray' }} onClick={clickAccount}>My Account</NavDropdown.Item>
               </div>
             </NavDropdown>

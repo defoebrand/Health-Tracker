@@ -8,7 +8,11 @@
 
 .signOutBtn {
   padding-right: 5px;
-  color: #007bff !important;
+  color: var(--primary) !important;
+}
+
+.signOutBtn:hover {
+  color: #24a9e5 !important;
 }
 
 .bigScreenSignOutBtn {
@@ -53,10 +57,11 @@
 
 .communityCardBody {
   justify-content: center;
+  flex-direction: row !important;
 }
 
 .communityCardImage {
-  width: 250px;
+  max-width: 250px;
   height: auto;
   max-height: 275px;
   object-fit: contain;
@@ -71,7 +76,7 @@
 }
 
 .doctorCard {
-  flex-direction: row;
+  flex-direction: row !important;
 }
 
 .doctorCardImageContainer {

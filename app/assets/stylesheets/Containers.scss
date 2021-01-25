@@ -64,3 +64,17 @@
     flex-direction: column;
   }
 }
+
+.colorPicker {
+  width: 85vw;
+  margin: 10px auto;
+
+  div {
+    white-space: nowrap;
+    margin-left: 15px;
+
+    p {
+      margin-right: 15px;
+    }
+  }
+}

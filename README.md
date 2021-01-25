@@ -146,9 +146,6 @@ body: { user: { id }, appt: { id }}
 **requires token
 
 
-
-
- 
 ## Live Demo
 #### Deployed on: HEROKU
 Try it out [here](https://defoebrand-health-tracker.herokuapp.com)
@@ -175,11 +172,11 @@ Navigate to `http://localhost:3000/` in a browser of your choice to see the appl
 
 ### Testing
 ##### Back-End
-This project uses Minitest for testing.
+This project uses Minitest for testing Rails features.
 > To run tests open a terminal inside the project's root directory and enter `rails test`
 
 ##### Front-End
-This project uses React Testing Library and Jest-Dom for testing.
+This project uses React Testing Library and Jest-Dom for testing React features.
 > To run tests open a terminal inside the project's root directory and enter `yarn test`
 
 ## Authors

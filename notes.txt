@@ -27,10 +27,6 @@ add image blob from active records for profile pics
   doctor login
 
 
-   - = STYLES = - 
-  Add bootstrap variables
-  migrate jsx styles to scss
-
   CHARTS
   - isolate lines with selector
   - add color selector

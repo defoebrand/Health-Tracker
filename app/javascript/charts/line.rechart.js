@@ -5,7 +5,7 @@ import {
   LineChart, Line, YAxis, XAxis, CartesianGrid, Tooltip, Legend,
 } from 'recharts';
 
-const LineRechartComponent = ({ chartData }) => {
+const LineRechartComponent = ({ chartData, colors }) => {
   const data = [];
 
   chartData.forEach(entry => {
@@ -18,7 +18,7 @@ const LineRechartComponent = ({ chartData }) => {
 
   const dataPoints = data.filter((e, i) => data.indexOf(e) === i);
 
-  const lineColors = ['#0095FF', '#ff0000'];
+  // const lineColors = ['#0095FF', '#ff0000'];
 
   return (
     <LineChart
@@ -39,7 +39,7 @@ const LineRechartComponent = ({ chartData }) => {
           type="monotone"
           key={line + index.toString()}
           dataKey={dataPoints[index]}
-          stroke={lineColors[index % 2]}
+          stroke={colors[index % 2]}
         />
       )) }
     </LineChart>
@@ -48,6 +48,7 @@ const LineRechartComponent = ({ chartData }) => {
 
 LineRechartComponent.propTypes = {
   chartData: PropTypes.arrayOf(PropTypes.shape()),
+  colors: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 LineRechartComponent.defaultProps = {

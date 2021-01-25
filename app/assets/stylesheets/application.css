@@ -18,6 +18,23 @@ html {
   height: 100vh;
 }
 
+body {
+  font-family: HelveticaBold, sans-serif;
+  color: var(--dark);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: HelveticaLight, sans-serif;
+}
+
+.btn-primary {
+  color: var(--dark);
+}
+
 .noMessage {
   display: none;
 }
@@ -58,10 +75,6 @@ html {
 
 .text-center {
   text-align: center;
-}
-
-.top-p-5 {
-  padding: 5px 0;
 }
 
 .mar-L-10 {

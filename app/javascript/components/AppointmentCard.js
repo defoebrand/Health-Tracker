@@ -47,10 +47,8 @@ const AppointmentCard = ({
 };
 
 AppointmentCard.propTypes = {
-  appt: PropTypes.arrayOf(
-    PropTypes.shape(),
-  ),
   handleClick: PropTypes.func.isRequired,
+  appt: PropTypes.shape(),
 };
 
 AppointmentCard.defaultProps = {

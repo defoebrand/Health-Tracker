@@ -150,7 +150,7 @@ const AddStats = ({ user }) => {
   return (
     <>
       <h3 className={failedMessage}>{error}</h3>
-      <Form className="FormBox">
+      <Form className="formBox">
         <Form.Group controlId="formBasicWeight">
           <Form.Label>Weight</Form.Label>
           <Form.Control type="text" placeholder="Weight" onChange={changeWeight} />

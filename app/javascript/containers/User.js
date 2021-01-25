@@ -21,15 +21,11 @@ const User = ({ user }) => {
         <img
           src="/images/blank-profile-pic.png"
           alt={`${user.name} profile pic`}
-          style={{
-            borderRadius: '50%', width: '10vw', minWidth: 100, margin: 10,
-          }}
+          className="userImage"
         />
         <Button
           variant="success"
-          style={{
-            whiteSpace: 'nowrap', height: 'auto', width: '20%', minWidth: 'max-content', padding: '10px',
-          }}
+          className="userButton"
           onClick={() => history.push({ pathname: '/new-stats', state: { user } })}
         >
           Add Stats

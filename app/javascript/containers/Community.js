@@ -117,28 +117,19 @@ const Community = ({ dispatch, community, user }) => {
         defaultActiveKey=""
         transition={false}
         id="noanim-tab-example"
-        style={{
-          display: 'flex', justifyContent: 'center', marginTop: 15, flexWrap: 'nowrap',
-        }}
         onClick={handleClick}
       >
         <Tab eventKey="friends" title="My Friends" />
         <Tab eventKey="myCommunities" title="My Communities" />
         <Tab eventKey="communities" title="All Communities" />
       </Tabs>
-      <div style={{
-        margin: '25px auto', width: '85vw', display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center',
-      }}
-      >
-        <span style={{
-          display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginBottom: 15,
-        }}
-        >
+      <div className="viewContainer">
+        <span className="viewBox">
           <h1>{community}</h1>
           <span>
             {members.some(member => member.name === user.name)
               ? <Button variant="info" onClick={removeCommunity}>Leave Community</Button>
-              : <Button variant="info" onClick={addCommunity} style={{ marginRight: 10 }}>Join Community</Button>}
+              : <Button variant="info" onClick={addCommunity}>Join Community</Button>}
           </span>
         </span>
         <div style={{ border: '1px solid black', padding: 25 }}>

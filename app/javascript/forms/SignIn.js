@@ -79,7 +79,7 @@ const SignIn = ({ dispatch }) => {
   return (
     <>
       <h3 className={failedMessage}>{error}</h3>
-      <Form className="FormBox">
+      <Form className="formBox">
         <Form.Check
           type="switch"
           id="custom-switch"

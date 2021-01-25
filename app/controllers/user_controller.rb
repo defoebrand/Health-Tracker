@@ -1,6 +1,8 @@
 class UserController < ApplicationController
   protect_from_forgery with: :null_session
-  before_action :authorized, only: %i[index settings user_doctors user_communities user_appointments add_appointment cancel_appointment]
+  before_action :authorized, only: %i[index settings user_doctors
+                                      user_communities user_appointments
+                                      add_appointment cancel_appointment]
   before_action :set_user_by_email, only: [:login]
   before_action :set_user_by_id, only: %i[join_community leave_community]
   before_action :set_community, only: %i[community_users join_community leave_community]

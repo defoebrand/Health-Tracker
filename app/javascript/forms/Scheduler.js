@@ -65,8 +65,8 @@ const Scheduler = ({ doctor, user }) => {
   return (
     <>
       <h3 className={failedMessage}>{error}</h3>
-      <h5 className="FormHeader">All Fields Must Be Filled In</h5>
-      <Form className="FormBox">
+      <h5 className="formHeader">All Fields Must Be Filled In</h5>
+      <Form className="formBox">
         <h1 style={{ textAlign: 'center' }}>{`Schedule an appointment with ${doctor}`}</h1>
         <Form.Group controlId="formBasicDate">
           <Form.Label>Date requested</Form.Label>

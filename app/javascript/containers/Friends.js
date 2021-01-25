@@ -85,12 +85,9 @@ const Friends = ({
         defaultActiveKey={user.name === '' ? 'communities' : tab}
         transition={false}
         id="noanim-tab-example"
-        style={{
-          display: 'flex', justifyContent: 'center', marginTop: 15, flexWrap: 'nowrap',
-        }}
       >
         <Tab eventKey="friends" title="My Friends">
-          <h2 style={{ margin: '15px auto', whiteSpace: 'wrap', textAlign: 'center' }}>Chat with Friends! - coming soon - </h2>
+          <h2 className="placeHolderText">Chat with Friends! - coming soon - </h2>
         </Tab>
         <Tab eventKey="myCommunities" title="My Communities">
           <CardGroup style={{ flexDirection: 'column' }}>

@@ -77,14 +77,8 @@ const Appointments = () => {
   return (
     <>
       <h3 className={failedMessage}>{error}</h3>
-      <div style={{
-        margin: '25px auto', width: '85vw', display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center',
-      }}
-      >
-        <span style={{
-          display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginBottom: 15,
-        }}
-        >
+      <div className="viewContainer">
+        <span className="viewBox">
           { myAppointments.map(appt => (
             appt.user.name
               && <AppointmentCard key={appt.id} appt={appt} handleClick={cancelAppointment} />

@@ -1,0 +1,75 @@
+.nav-tabs {
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+  flex-wrap: nowrap !important;
+
+  a {
+    text-align: center;
+  }
+}
+
+.viewContainer {
+  margin: 25px auto;
+  width: 85vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.viewBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.Carousel {
+  .imageContainer {
+    max-height: 75vmin;
+    text-shadow: 3px 3px 15px #000, -3px -3px 15px #000, -3px 3px 15px #000, 3px -3px 15px #000;
+    font-weight: 700;
+
+    img {
+      width: 100%;
+      object-fit: cover;
+    }
+  }
+}
+
+.welcomeBanner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 15px auto;
+  max-width: 75vw;
+}
+
+.userImage {
+  border-radius: 50%;
+  width: 10vw;
+  min-width: 100px;
+  margin: 10px;
+}
+
+.userButton {
+  white-space: nowrap;
+  height: auto;
+  width: 20%;
+  min-width: max-content;
+  padding: 10px;
+}
+
+@media only screen and (max-width: 968px) {
+  .welcomeBanner {
+    max-width: 85vw;
+  }
+}
+
+@media only screen and (max-width: 576px) {
+  .welcomeBanner {
+    flex-direction: column;
+  }
+}

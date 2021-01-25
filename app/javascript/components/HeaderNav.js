@@ -21,13 +21,9 @@ const HeaderNav = ({ dispatch, user }) => {
   const doctor = 'list';
   const history = useHistory();
 
-  const clickAccount = () => {
-    if (user.name !== '') {
-      history.push('/settings');
-    } else {
-      history.push('/register');
-    }
-  };
+  const token = localStorage.token === ''
+    ? sessionStorage.token
+    : localStorage.token;
 
   useEffect(() => {
     if (user.name === '') {
@@ -36,10 +32,6 @@ const HeaderNav = ({ dispatch, user }) => {
       history.push(`/users/${user.name}`);
     }
   }, [user]);
-
-  const token = localStorage.token === ''
-    ? sessionStorage.token
-    : localStorage.token;
 
   useEffect(() => {
     const url = '/user';
@@ -61,19 +53,36 @@ const HeaderNav = ({ dispatch, user }) => {
       });
   }, [history]);
 
+  const clickSignOut = () => {
+    dispatch(signOutUser({ name: '' }));
+    localStorage.token = '';
+  };
+
+  const clickAccount = () => {
+    if (user.name !== '') {
+      history.push('/settings');
+    } else {
+      history.push('/register');
+    }
+  };
+
+  const clickLink = e => {
+    history.push(`/${e.target.id}`);
+  };
+
   const signedIn = (user.name !== ''
     ? (
-      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <Nav.Link onClick={() => history.push(`/users/${user.name}`)}>{user.name}</Nav.Link>
-        <Nav.Link className="signOutBtn" onClick={() => { dispatch(signOutUser({ name: '' })); localStorage.token = ''; }}>Sign out</Nav.Link>
+      <div className="userName">
+        <Nav.Link id={`/users/${user.name}`} onClick={clickLink}>{user.name}</Nav.Link>
+        <Nav.Link className="signOutBtn" onClick={clickSignOut}>Sign out</Nav.Link>
       </div>
     )
     : (
       <div className="signInBtn">
-        <Button variant="outline-success" style={{ width: 75, whiteSpace: 'nowrap' }} onClick={() => history.push('/signin')}>Sign In</Button>
+        <Button variant="outline-success" className="userSignIn" id="signin" onClick={clickLink}>Sign In</Button>
         <div style={{ display: 'flex' }}>
           <p style={{ margin: 0, alignSelf: 'center' }}>Not a member?</p>
-          <Nav.Link style={{ marginLeft: 10 }} onClick={() => history.push('/register')}>Register Now!</Nav.Link>
+          <Nav.Link style={{ marginLeft: 10 }} id="register" onClick={clickLink}>Register Now!</Nav.Link>
         </div>
       </div>
     )
@@ -81,29 +90,25 @@ const HeaderNav = ({ dispatch, user }) => {
   return (
     <div className="HeaderNav">
       <Navbar bg="light" expand="lg">
-        <Navbar.Brand onClick={() => history.push('/home')} style={{ cursor: 'pointer' }}>
+        <Navbar.Brand id="home" onClick={clickLink} style={{ cursor: 'pointer' }}>
           <h2>Health Tracker</h2>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
             {signedIn}
-            <Nav.Link onClick={() => history.push('/sick-call')}>Sick Call</Nav.Link>
-            <Nav.Link onClick={() => history.push('/resources')}>Resources</Nav.Link>
+            <Nav.Link onClick={clickLink} id="sick-call">Sick Call</Nav.Link>
+            <Nav.Link onClick={clickLink} id="resources">Resources</Nav.Link>
             <NavDropdown title="Community" id="basic-nav-dropdown">
-              <div style={{
-                display: 'flex', justifyContent: 'space-around', minWidth: 300, maxWidth: '85vw', margin: '0 auto',
-              }}
-              >
-
-                <NavDropdown.Item style={{ textAlign: 'center', padding: '5px 0' }} onClick={() => history.push(`/doctors/${doctor}`)}>Doctors</NavDropdown.Item>
-                <NavDropdown.Item style={{ textAlign: 'center', padding: '5px 0' }} onClick={() => history.push('/friends')}>Friends</NavDropdown.Item>
+              <div className="dropdownLinks">
+                <NavDropdown.Item style={{ textAlign: 'center', padding: '5px 0' }} id={`doctors/${doctor}`} onClick={clickLink}>Doctors</NavDropdown.Item>
+                <NavDropdown.Item style={{ textAlign: 'center', padding: '5px 0' }} id="friends" onClick={clickLink}>Friends</NavDropdown.Item>
                 <NavDropdown.Item style={{ borderLeft: '1px solid gray', textAlign: 'center' }} onClick={clickAccount}>My Account</NavDropdown.Item>
               </div>
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>
-        {user.name && <Nav.Link className="bigScreenSignOutBtn" onClick={() => { dispatch(signOutUser({ name: '' })); localStorage.token = ''; }}>Sign out</Nav.Link>}
+        {user.name && <Nav.Link className="bigScreenSignOutBtn" onClick={clickSignOut}>Sign out</Nav.Link>}
       </Navbar>
     </div>
   );

@@ -59,9 +59,6 @@ const Doctor = ({
         defaultActiveKey={user.name === '' ? 'all' : 'personal'}
         transition={false}
         id="noanim-tab-example"
-        style={{
-          display: 'flex', justifyContent: 'center', marginTop: 15,
-        }}
       >
         <Tab eventKey="personal" title="My Doctors">
           {doctors.filter(doctor => (

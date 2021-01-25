@@ -17,29 +17,18 @@ const AppointmentCard = ({
         <Card.Header>
           <small className="text-muted">{`${appt.date} - ${timeString}`}</small>
         </Card.Header>
-        <Card.Body style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
+        <Card.Body className="appointmentBody">
           <Card.Img
             variant="top"
             src={appt.doctor.image}
-            style={{
-              width: 250, height: 'auto', maxHeight: '275px', objectFit: 'contain', margin: '10px auto',
-            }}
+            className="appointmentImage"
           />
-          <div style={{
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
-            textAlign: 'center',
-            padding: 10,
-            margin: '0 auto',
-          }}
-          >
+          <div className="appointmentText">
             <Card.Title>{appt.doctor.name}</Card.Title>
             <Card.Text style={{ maxWidth: 250 }}>{appt.notes}</Card.Text>
           </div>
         </Card.Body>
-        <Button style={{ width: 'max-content', alignSelf: 'center', marginBottom: 15 }} variant="danger" onClick={() => handleClick(appt)}>Cancel</Button>
+        <Button className="appointmentButton" variant="danger" onClick={() => handleClick(appt)}>Cancel</Button>
       </Card>
 
     </>

@@ -176,8 +176,8 @@ const Register = ({ dispatch }) => {
   return (
     <>
       <h3 className={failedMessage}>{error}</h3>
-      <h5 className="FormHeader">All Fields Must Be Filled In</h5>
-      <Form className="FormBox">
+      <h5 className="formHeader">All Fields Must Be Filled In</h5>
+      <Form className="formBox">
         <Form.Group controlId="formBasicUsername">
           <Form.Label>UserName</Form.Label>
           <Form.Control type="text" placeholder="UserName" onChange={changeName} />

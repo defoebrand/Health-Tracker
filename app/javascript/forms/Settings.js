@@ -81,7 +81,7 @@ const Settings = ({ user, dispatch }) => {
   return (
     <>
       <h3 className={failedMessage}>{error}</h3>
-      <Form className="FormBox">
+      <Form className="formBox">
         <Form.Group controlId="formBasicName">
           <Form.Label>UserName</Form.Label>
           <Form.Control type="username" placeholder="UserName" onChange={changeName} value={newUserName} />

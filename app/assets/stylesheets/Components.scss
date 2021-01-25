@@ -1,0 +1,135 @@
+.signInBtn {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+
+  div {
+    margin-left: 10px;
+  }
+}
+
+.signOutBtn {
+  padding-right: 5px;
+  color: #007bff !important;
+}
+
+.bigScreenSignOutBtn {
+  display: none !important;
+}
+
+@media only screen and (min-width: 992px) {
+  .signOutBtn {
+    display: none !important;
+  }
+
+  .bigScreenSignOutBtn {
+    display: block !important;
+  }
+}
+
+.resourceImage {
+  height: 300px;
+  object-fit: contain;
+  padding: 10px;
+}
+
+.appointmentImage {
+  width: 250px;
+  height: auto;
+  max-height: 275px;
+  object-fit: contain;
+  margin: 10px auto;
+}
+
+.appointmentText {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 10px;
+  margin: 0 auto;
+}
+
+.appointmentBody {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.appointmentButton {
+  width: max-content;
+  align-self: center;
+  margin-bottom: 15px;
+}
+
+.eraseButtonStyle {
+  border: none;
+  background-color: inherit;
+}
+
+.communityCardBody {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.communityCardImage {
+  width: 250px;
+  height: auto;
+  max-height: 275px;
+  object-fit: contain;
+  margin: 10px auto;
+}
+
+.communityCardText {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 5px;
+  width: 64%;
+  margin: 0 auto;
+}
+
+.doctorCard {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.doctorCardImage {
+  width: 34%;
+  min-width: 250px;
+  height: auto;
+  max-height: 275px;
+  object-fit: contain;
+  margin: 10px auto;
+}
+
+.doctorCardBody {
+  width: 64%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.userName {
+  display: flex;
+  justify-content: space-between;
+}
+
+.userSignIn {
+  width: 75px;
+  white-space: nowrap;
+}
+
+.dropdownLinks {
+  display: flex;
+  justify-content: space-around;
+  min-width: 300px;
+  max-width: 85vw;
+  margin: 0 auto;
+}

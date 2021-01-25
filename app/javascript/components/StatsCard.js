@@ -6,7 +6,7 @@ import Card from 'react-bootstrap/Card';
 
 import LineRechartComponent from '../charts/line.rechart';
 
-const StatsCard = ({ title, data, colors }) => (
+const StatsCard = ({ title, data }) => (
   <Accordion>
     <Card>
       <Accordion.Toggle as={Card.Header} eventKey="0">
@@ -14,7 +14,7 @@ const StatsCard = ({ title, data, colors }) => (
       </Accordion.Toggle>
       <Accordion.Collapse eventKey="0">
         <Card.Body>
-          <LineRechartComponent chartData={data} colors={colors} />
+          <LineRechartComponent chartData={data} />
         </Card.Body>
       </Accordion.Collapse>
     </Card>
@@ -23,13 +23,11 @@ const StatsCard = ({ title, data, colors }) => (
 StatsCard.propTypes = {
   title: PropTypes.string,
   data: PropTypes.arrayOf(PropTypes.shape()),
-  colors: PropTypes.arrayOf(PropTypes.string),
 };
 
 StatsCard.defaultProps = {
   title: '',
   data: [{}],
-  colors: [],
 };
 
 export default StatsCard;

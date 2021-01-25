@@ -3,7 +3,7 @@ const resourceData = [
     Heading: 'Dietary',
     Info: [
       {
-        image: 'https://eats-shoots-leaves.herokuapp.com/logo.png',
+        image: '/images/eatshootsleaves.png',
         title: 'Eats Shoots Leaves',
         text: 'A wonderfully robust recipe catalog focused around vegan recipes.',
         link: 'https://eats-shoots-leaves.herokuapp.com/',
@@ -26,7 +26,7 @@ const resourceData = [
     Heading: 'Prescription',
     Info: [
       {
-        image: 'https://tpc.googlesyndication.com/simgad/7914881263719625537/downsize_200k_v1?w=100&h=100',
+        image: '/images/bulbbrain.png',
         title: 'Online Drug Database',
         text: 'Find precription information by name.',
         link: 'https://www.rxlist.com/drugs/alpha_a.htm',

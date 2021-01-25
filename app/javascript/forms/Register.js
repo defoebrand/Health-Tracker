@@ -201,9 +201,9 @@ const Register = ({ dispatch }) => {
         </Form.Group>
         <Form.Group>
           <Form.Label>Measurement System</Form.Label>
-          <span style={{ display: 'flex' }}>
+          <span className="flex">
             <Form.Check custom type="radio" name="scale" id="Metric" label="Centimeters / Kilograms" value="Metric" onChange={determineScale} defaultChecked />
-            <Form.Check custom type="radio" name="scale" id="Imperial" label="Inches / Pounds" value="Imperial" onChange={determineScale} style={{ marginLeft: 10 }} />
+            <Form.Check custom type="radio" name="scale" id="Imperial" label="Inches / Pounds" value="Imperial" onChange={determineScale} className="mar-L-10" />
           </span>
         </Form.Group>
         <Form.Group controlId="formBasicHeight">
@@ -211,7 +211,7 @@ const Register = ({ dispatch }) => {
           {scale === 'Metric'
             ? <Form.Control type="text" placeholder="Centimeters" onChange={changeHeight} />
             : (
-              <span style={{ display: 'flex' }}>
+              <span className="flex">
                 <Form.Control type="text" placeholder="Feet" onChange={changeFeet} />
                 <Form.Control type="text" placeholder="Inches" onChange={changeInches} />
               </span>
@@ -232,9 +232,9 @@ const Register = ({ dispatch }) => {
         </Form.Group>
         <Form.Group controlId="formBasicSex">
           <Form.Label>Sex at birth</Form.Label>
-          <span style={{ display: 'flex' }}>
+          <span className="flex">
             <Form.Check custom type="radio" name="sex" id="XX" label="XX" value="XX" onChange={determineSex} defaultChecked />
-            <Form.Check custom type="radio" name="sex" id="XY" label="XY" value="XY" onChange={determineSex} style={{ marginLeft: 10 }} />
+            <Form.Check custom type="radio" name="sex" id="XY" label="XY" value="XY" onChange={determineSex} className="mar-L-10" />
           </span>
         </Form.Group>
         <Form.Group controlId="formBasicGender">
@@ -251,7 +251,7 @@ const Register = ({ dispatch }) => {
           variant="primary"
           type="signin"
           onClick={gotToSignIn}
-          style={{ marginLeft: 15 }}
+          className="mar-L-15"
         >
           Sign In
         </Button>

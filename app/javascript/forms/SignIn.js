@@ -106,7 +106,7 @@ const SignIn = ({ dispatch }) => {
           variant="primary"
           type="register"
           onClick={goToRegister}
-          style={{ marginLeft: 15 }}
+          className="mar-L-15"
         >
           Register
         </Button>

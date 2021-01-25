@@ -67,22 +67,23 @@ const HeaderNav = ({ dispatch, user }) => {
   };
 
   const clickLink = e => {
+    console.log(e);
     history.push(`/${e.target.id}`);
   };
 
   const signedIn = (user.name !== ''
     ? (
-      <div className="userName">
-        <Nav.Link id={`/users/${user.name}`} onClick={clickLink}>{user.name}</Nav.Link>
+      <div className="userName flex">
+        <Nav.Link id={`users/${user.name}`} onClick={clickLink}>{user.name}</Nav.Link>
         <Nav.Link className="signOutBtn" onClick={clickSignOut}>Sign out</Nav.Link>
       </div>
     )
     : (
-      <div className="signInBtn">
+      <div className="signInBtn flex-wrap">
         <Button variant="outline-success" className="userSignIn" id="signin" onClick={clickLink}>Sign In</Button>
-        <div style={{ display: 'flex' }}>
+        <div className="flex'">
           <p style={{ margin: 0, alignSelf: 'center' }}>Not a member?</p>
-          <Nav.Link style={{ marginLeft: 10 }} id="register" onClick={clickLink}>Register Now!</Nav.Link>
+          <Nav.Link className="mar-L-10" id="register" onClick={clickLink}>Register Now!</Nav.Link>
         </div>
       </div>
     )
@@ -90,8 +91,8 @@ const HeaderNav = ({ dispatch, user }) => {
   return (
     <div className="HeaderNav">
       <Navbar bg="light" expand="lg">
-        <Navbar.Brand id="home" onClick={clickLink} style={{ cursor: 'pointer' }}>
-          <h2>Health Tracker</h2>
+        <Navbar.Brand onClick={clickLink} style={{ cursor: 'pointer' }}>
+          <h2 id="home">Health Tracker</h2>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
@@ -101,9 +102,9 @@ const HeaderNav = ({ dispatch, user }) => {
             <Nav.Link onClick={clickLink} id="resources">Resources</Nav.Link>
             <NavDropdown title="Community" id="basic-nav-dropdown">
               <div className="dropdownLinks">
-                <NavDropdown.Item style={{ textAlign: 'center', padding: '5px 0' }} id={`doctors/${doctor}`} onClick={clickLink}>Doctors</NavDropdown.Item>
-                <NavDropdown.Item style={{ textAlign: 'center', padding: '5px 0' }} id="friends" onClick={clickLink}>Friends</NavDropdown.Item>
-                <NavDropdown.Item style={{ borderLeft: '1px solid gray', textAlign: 'center' }} onClick={clickAccount}>My Account</NavDropdown.Item>
+                <NavDropdown.Item className="text-center top-p-5" id={`doctors/${doctor}`} onClick={clickLink}>Doctors</NavDropdown.Item>
+                <NavDropdown.Item className="text-center top-p-5" id="friends" onClick={clickLink}>Friends</NavDropdown.Item>
+                <NavDropdown.Item className="text-center" style={{ borderLeft: '1px solid gray' }} onClick={clickAccount}>My Account</NavDropdown.Item>
               </div>
             </NavDropdown>
           </Nav>

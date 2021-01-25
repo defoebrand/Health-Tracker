@@ -12,17 +12,10 @@
 .viewContainer {
   margin: 25px auto;
   width: 85vw;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
+  justify-content: flex-start !important;
 }
 
 .viewBox {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
   margin-bottom: 15px;
 }
 
@@ -40,9 +33,7 @@
 }
 
 .welcomeBanner {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  justify-content: space-between !important;
   margin: 15px auto;
   max-width: 75vw;
 }

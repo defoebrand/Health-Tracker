@@ -17,13 +17,17 @@ const AppointmentCard = ({
         <Card.Header>
           <small className="text-muted">{`${appt.date} - ${timeString}`}</small>
         </Card.Header>
-        <Card.Body className="appointmentBody">
-          <Card.Img
-            variant="top"
-            src={appt.doctor.image}
-            className="appointmentImage"
-          />
-          <div className="appointmentText">
+        <Card.Body className="appointmentBody flex-wrap">
+          <div className="doctorCardImageContainer flex-center">
+            <div className="cardImageCrop">
+              <Card.Img
+                variant="top"
+                src={appt.doctor.image}
+                className="doctorCardImage"
+              />
+            </div>
+          </div>
+          <div className="appointmentText flex-down text-center">
             <Card.Title>{appt.doctor.name}</Card.Title>
             <Card.Text style={{ maxWidth: 250 }}>{appt.notes}</Card.Text>
           </div>

@@ -123,8 +123,8 @@ const Community = ({ dispatch, community, user }) => {
         <Tab eventKey="myCommunities" title="My Communities" />
         <Tab eventKey="communities" title="All Communities" />
       </Tabs>
-      <div className="viewContainer">
-        <span className="viewBox">
+      <div className="viewContainer flex-down">
+        <span className="viewBox flex-down">
           <h1>{community}</h1>
           <span>
             {members.some(member => member.name === user.name)

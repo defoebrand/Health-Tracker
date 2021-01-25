@@ -32,5 +32,42 @@ html {
   width: 80vw;
   margin: 15px auto;
   white-space: normal;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.flex-down {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.flex-wrap {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.text-center {
   text-align: center;
+}
+
+.top-p-5 {
+  padding: 5px 0;
+}
+
+.mar-L-10 {
+  margin-left: 10px;
+}
+
+.mar-L-15 {
+  margin-left: 15px;
 }

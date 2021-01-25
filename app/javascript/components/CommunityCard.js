@@ -22,13 +22,13 @@ const CommunityCard = ({ dispatch, community }) => {
           <small className="text-muted">{`Active Members: ${Math.round(Math.random() * 100)}`}</small>
         </Card.Header>
         <button type="button" onClick={handleClick} className="eraseButtonStyle">
-          <Card.Body className="communityCardBody">
+          <Card.Body className="communityCardBody flex-wrap">
             <Card.Img
               variant="top"
               src={community.image}
               className="communityCardImage"
             />
-            <div className="communityCardText">
+            <div className="communityCardText flex-down">
               <Card.Title>{community.name}</Card.Title>
               <Card.Text>{community.description}</Card.Text>
             </div>

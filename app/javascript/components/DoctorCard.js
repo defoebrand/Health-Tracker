@@ -19,15 +19,19 @@ const DoctorCard = ({
   };
 
   return (
-    <Card className="doctorCard">
-      <Card.Img
-        variant="top"
-        src={img}
-        className="doctorCardImage"
-      />
-      <Card.Body className="doctorCardBody">
+    <Card className="doctorCard flex-wrap">
+      <div className="doctorCardImageContainer flex-center">
+        <div className="cardImageCrop">
+          <Card.Img
+            variant="top"
+            src={img}
+            className="doctorCardImage"
+          />
+        </div>
+      </div>
+      <Card.Body className="doctorCardBody flex-down">
         <Card.Title>{`${name} - ${specialty}`}</Card.Title>
-        <Card.Text style={{ textAlign: 'center' }}>{text}</Card.Text>
+        <Card.Text className="text-center">{text}</Card.Text>
         {user.name && <Button style={{ width: 'max-content' }} variant="primary" onClick={handleClick}>Schedule a Consultation</Button>}
       </Card.Body>
     </Card>

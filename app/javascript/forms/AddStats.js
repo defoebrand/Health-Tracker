@@ -157,7 +157,7 @@ const AddStats = ({ user }) => {
         </Form.Group>
         <Form.Group controlId="formBasicBloodPressure">
           <Form.Label>Blood Pressure</Form.Label>
-          <div style={{ display: 'flex' }}>
+          <div className="flex">
             <Form.Control style={{ width: '50%' }} type="text" placeholder="Systolic" onChange={changeSystolic} />
             <Form.Control style={{ width: '50%' }} type="text" placeholder="Diastolic" onChange={changeDiastolic} />
           </div>

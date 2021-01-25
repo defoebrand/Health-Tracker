@@ -16,7 +16,7 @@ const User = ({ user }) => {
 
   return (
     <>
-      <div className="welcomeBanner">
+      <div className="welcomeBanner flex-center">
         <h1 style={{ whiteSpace: 'nowrap' }}>{`Hello ${user.name}!`}</h1>
         <img
           src="/images/blank-profile-pic.png"

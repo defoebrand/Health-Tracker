@@ -77,8 +77,8 @@ const Appointments = () => {
   return (
     <>
       <h3 className={failedMessage}>{error}</h3>
-      <div className="viewContainer">
-        <span className="viewBox">
+      <div className="viewContainer flex-down">
+        <span className="viewBox flex-down">
           { myAppointments.map(appt => (
             appt.user.name
               && <AppointmentCard key={appt.id} appt={appt} handleClick={cancelAppointment} />

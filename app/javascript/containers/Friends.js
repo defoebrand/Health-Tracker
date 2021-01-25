@@ -87,7 +87,7 @@ const Friends = ({
         id="noanim-tab-example"
       >
         <Tab eventKey="friends" title="My Friends">
-          <h2 className="placeHolderText">Chat with Friends! - coming soon - </h2>
+          <h2 className="placeHolderText text-center">Chat with Friends! - coming soon - </h2>
         </Tab>
         <Tab eventKey="myCommunities" title="My Communities">
           <CardGroup style={{ flexDirection: 'column' }}>

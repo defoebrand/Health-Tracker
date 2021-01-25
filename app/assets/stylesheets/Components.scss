@@ -1,6 +1,4 @@
 .signInBtn {
-  display: flex;
-  flex-wrap: wrap;
   flex-direction: row;
 
   div {
@@ -33,27 +31,12 @@
   padding: 10px;
 }
 
-.appointmentImage {
-  width: 250px;
-  height: auto;
-  max-height: 275px;
-  object-fit: contain;
-  margin: 10px auto;
-}
-
 .appointmentText {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
   padding: 10px;
   margin: 0 auto;
 }
 
 .appointmentBody {
-  display: flex;
-  flex-wrap: wrap;
   justify-content: center;
 }
 
@@ -69,8 +52,6 @@
 }
 
 .communityCardBody {
-  display: flex;
-  flex-wrap: wrap;
   justify-content: center;
 }
 
@@ -83,10 +64,6 @@
 }
 
 .communityCardText {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
   text-align: center;
   padding: 5px;
   width: 64%;
@@ -94,30 +71,35 @@
 }
 
 .doctorCard {
-  display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
+}
+
+.doctorCardImageContainer {
+  width: 34%;
+  margin: 0 auto;
+  min-width: 250px;
+}
+
+.cardImageCrop {
+  width: 80%;
+  max-width: 350px;
+  overflow-x: hidden;
 }
 
 .doctorCardImage {
-  width: 34%;
-  min-width: 250px;
+  width: 100%;
   height: auto;
   max-height: 275px;
-  object-fit: contain;
+  object-fit: cover;
+  object-position: top;
   margin: 10px auto;
 }
 
 .doctorCardBody {
   width: 64%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
 }
 
 .userName {
-  display: flex;
   justify-content: space-between;
 }
 

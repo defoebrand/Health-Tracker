@@ -80,7 +80,7 @@ const HeaderNav = ({ dispatch, user }) => {
     : (
       <div className="signInBtn flex-wrap">
         <Button variant="outline-success" className="userSignIn" id="signin" onClick={clickLink}>Sign In</Button>
-        <div className="flex'">
+        <div className="flex">
           <p style={{ margin: 0, alignSelf: 'center' }}>Not a member?</p>
           <Nav.Link className="mar-L-10" id="register" onClick={clickLink}>Register Now!</Nav.Link>
         </div>

@@ -46,9 +46,13 @@ const AddStats = ({ user }) => {
     setDiastolic(e.target.value);
   };
 
+  const token = localStorage.token === ''
+    ? sessionStorage.token
+    : localStorage.token;
+
   const submitRegister = e => {
     e.preventDefault();
-    const { token } = localStorage;
+
     const date = new Date();
     const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
     let time;

@@ -17,7 +17,7 @@ The project is a tracker app designed to display tracked results fetched from a 
 -   Inputted data can be corrected within the same clock hour
 -   Monitor data over time with line graphs of data points as compared to the ideal point for each graph
 -   Request appointments with a doctor of your choice
--   Join support group communities 
+-   Join support group communities
 -   Find health related resources
 -   Edit settings
 
@@ -27,8 +27,8 @@ The project is a tracker app designed to display tracked results fetched from a 
 -   Friend to Friend and Community chat
 -   Sick call feature for triage evaluation
 -   Enhanced API data filtering
--   Personalized color coding for chart lines 
--   Dark mode for app 
+-   Personalized color coding for chart lines
+-   Dark mode for app
 
 ## Built With
 -   Atom
@@ -81,17 +81,18 @@ MY ACCOUNT:
 
 
 ### To Use The API 
-Replace any words that begin as `:` with your search criteria. For example, to get all users who are 33 years old, use   
+To Gather Data:  
+Replace any words that begin as `:` with your search criteria. For example, to get all users who are 33 years old, use  
 `GET /age/33` 
   
-`- GET / ` will retrieve all users registered with this app  
+`- GET / ` Retrieve all Users.  
 
-`- GET /age/:age ` will retrieve all users that match the given age  
+`- GET /age/:age ` Retrieve all Users That Match Search Parameters.  
 
-`- GET /sex/:sex' `  will retrieve all users that match the given sex  
+`- GET /sex/:sex' `  Retrieve all Users That Match Search Parameters.  
 Sex options are `XX` or `XY`  
 
-`- GET /ethnicity/:ethnicity ` will retrieve all users that match the given ethnicity  
+`- GET /ethnicity/:ethnicity ` Retrieve all Users That Match Search Parameters.  
 Ethnicity options are as follows:  
 -   `European` 
 -   `Central & South Asian`
@@ -101,15 +102,49 @@ Ethnicity options are as follows:
 -   `Melanesian`  
 
 
-`- GET /height/:scale/:height ` will retrieve all users that match the given height.  
+`- GET /height/:scale/:height ` Retrieve all Users That Match Search Parameters.  
 Scale options are `Metric` or `Imperial`  
 Note: Measurements in Metric must be given in Centimeters, Imperial in Inches
 
-`- GET doctors `  will retrieve all doctors registered with this app  
+`- GET doctors `  Retrieve all Registered Doctors  
 
-`- GET communities `  will retrieve all communities available in this app  
+`- GET communities `  Retrieve all Available Communities 
 
 Searches by preferred gender, ranges for height, weight, and age, as well as high blood pressure and high blood sugar will become available with a future update
+
+To Use API for your project:  
+I strongly recommend looking at the code base in order to properly structure your body parameter data. 
+
+`- POST /user` 	Register a New User  
+body: { user: { name, email, password, dob, age, sex, gender, ethnicity, height, weight }}  
+**returns user data and token
+
+`- POST /user/login` 	User Login  
+body: { user: { email, password }}  
+**returns user data and token
+
+`- POST /user/doctor` Doctor Login  
+*Route currently unavailable
+
+`- PATCH /user/:id` Add Stats to User  
+body: { user: { temperature, weight, pulse, blood_sugar, systolic, diastolic }}  
+**requires token
+
+`- PATCH /user/settings` Change User Account Settings  
+body: { user: { id, name, email, password }}  
+**requires token
+
+`- POST /user/add_appointment` Schedule an Appointment  
+body: { user: { id }, appt: { doc_name, date, time, notes }}  
+**requires token
+
+`- GET /user_appointments` Retrieve all User Appointments  
+**requires token
+
+`- POST /user/cancel_appointment` Cancel an Appointment  
+body: { user: { id }, appt: { id }}  
+**requires token
+
 
 
 
@@ -139,9 +174,10 @@ Run `rails s` to begin the server.<br>
 Navigate to `http://localhost:3000/` in a browser of your choice to see the application running<br>
 
 ### Testing
-##### Back-End 
+##### Back-End
 This project uses Minitest for testing.
 > To run tests open a terminal inside the project's root directory and enter `rails test`
+
 ##### Front-End
 This project uses React Testing Library and Jest-Dom for testing.
 > To run tests open a terminal inside the project's root directory and enter `yarn test`

@@ -27,9 +27,11 @@ const Settings = ({ user, dispatch }) => {
   const changeName = e => {
     setNewUserName(e.target.value);
   };
+
   const changeEmail = e => {
     setnewEmail(e.target.value);
   };
+
   const changePassword = e => {
     setNewPassword(e.target.value);
   };
@@ -37,6 +39,11 @@ const Settings = ({ user, dispatch }) => {
   const confirmPassword = e => {
     setConfirm(e.target.value);
   };
+
+  const token = localStorage.token === ''
+    ? sessionStorage.token
+    : localStorage.token;
+
   const updateSettings = e => {
     if (newPassword !== confirm) {
       setError('Passwords Do Not Match');
@@ -56,6 +63,7 @@ const Settings = ({ user, dispatch }) => {
         }),
         headers: {
           'Content-type': 'application/json; charset=UTF-8',
+          Authorization: `Bearer ${token}`,
         },
       })
         .then(response => {

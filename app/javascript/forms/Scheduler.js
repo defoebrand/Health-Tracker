@@ -87,7 +87,7 @@ const Scheduler = ({ doctor, user }) => {
           <Form.Label>Questions and Concerns</Form.Label>
           <Form.Control as="textarea" onChange={addToNote} />
         </Form.Group>
-        <Button variant="primary" type="submit" onClick={requestAppointment}>
+        <Button variant="primary" type="button" onClick={requestAppointment}>
           Request Appointment
         </Button>
       </Form>

@@ -30,7 +30,7 @@ const Scheduler = ({ doctor, dispatch }) => {
     : localStorage.token;
 
   const requestAppointment = () => {
-    if (time === '') {
+    if (time === '' || date === '' || !/\S/.test(notes)) {
       setError('You Must Fill Out The Entire Form');
       setFailedMessage('displayMessage');
       setInstructionsStyle('redError');

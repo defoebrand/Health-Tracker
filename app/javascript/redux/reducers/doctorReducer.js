@@ -1,4 +1,4 @@
-import { ALLDOCTORS } from '../actions';
+import { ALLDOCTORS, VIEWDOCTAB } from '../actions';
 
 const doctorReducer = (state = [], action) => {
   switch (action.type) {
@@ -7,6 +7,10 @@ const doctorReducer = (state = [], action) => {
         doctors: action.input,
       };
 
+    case VIEWDOCTAB:
+      return {
+        tab: action.input,
+      };
     default:
       return state;
   }

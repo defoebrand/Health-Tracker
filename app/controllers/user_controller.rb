@@ -104,7 +104,7 @@ class UserController < ApplicationController
       time: appt_params[:time],
       notes: appt_params[:notes]
     )
-    # render json: @user.doctors.uniq
+    render json: @user.doctors.uniq
   end
 
   def cancel_appointment

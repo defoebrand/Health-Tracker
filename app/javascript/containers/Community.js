@@ -9,7 +9,7 @@ import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
 import Button from 'react-bootstrap/Button';
 
-import { viewTab } from '../redux/actions';
+import { viewFriendsTab } from '../redux/actions';
 
 const fetch = require('node-fetch');
 
@@ -106,7 +106,7 @@ const Community = ({ dispatch, community, user }) => {
   };
 
   const handleClick = event => {
-    dispatch(viewTab(event.target.dataset.rbEventKey));
+    dispatch(viewFriendsTab(event.target.dataset.rbEventKey));
     history.push('/friends');
   };
 

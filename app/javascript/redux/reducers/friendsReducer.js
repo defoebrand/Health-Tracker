@@ -1,4 +1,4 @@
-import { APPOINTMENT, VIEWTAB } from '../actions';
+import { APPOINTMENT, VIEWCOMMTAB } from '../actions';
 
 const friendsReducer = (state = '', action) => {
   switch (action.type) {
@@ -6,7 +6,7 @@ const friendsReducer = (state = '', action) => {
       return {
         doctor: action.input,
       };
-    case VIEWTAB:
+    case VIEWCOMMTAB:
       return {
         tab: action.input,
       };

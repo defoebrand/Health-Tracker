@@ -6,7 +6,11 @@ import { useHistory } from 'react-router-dom';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
-const Scheduler = ({ doctor, user }) => {
+import Tabs from 'react-bootstrap/Tabs';
+import Tab from 'react-bootstrap/Tab';
+import { viewDoctorsTab } from '../redux/actions';
+
+const Scheduler = ({ doctor, user, dispatch }) => {
   const list = 'list';
   const history = useHistory();
   const [date, setDate] = useState('');
@@ -15,6 +19,11 @@ const Scheduler = ({ doctor, user }) => {
   const [failedMessage, setFailedMessage] = useState('noMessage');
   const [error, setError] = useState('');
   const [instructionsStyle, setInstructionsStyle] = useState('formHeader');
+
+  const handleClick = event => {
+    dispatch(viewDoctorsTab(event.target.dataset.rbEventKey));
+    history.push(`/doctors/${list}`);
+  };
 
   const token = localStorage.token === ''
     ? sessionStorage.token
@@ -50,7 +59,10 @@ const Scheduler = ({ doctor, user }) => {
             return response.json();
           }
           throw new Error('Network Response Failed.');
-        }).then(history.replace(`/doctors/${list}`)).catch(err => {
+        }).then(() => {
+          dispatch(viewDoctorsTab('appointments'));
+          history.push(`/doctors/${list}`);
+        }).catch(err => {
           setError(err.message);
           setFailedMessage('displayMessage');
         });
@@ -71,6 +83,16 @@ const Scheduler = ({ doctor, user }) => {
 
   return (
     <>
+      <Tabs
+        defaultActiveKey=""
+        transition={false}
+        id="noanim-tab-example"
+        onClick={handleClick}
+      >
+        <Tab eventKey="personal" title="My Doctors" />
+        <Tab eventKey="all" title="All Doctors" />
+        <Tab eventKey="appointments" title="My Appointments" />
+      </Tabs>
       <h3 className={failedMessage}>{error}</h3>
       <h5 className={instructionsStyle}>All Fields Must Be Filled In</h5>
       <Form className="formBox">
@@ -98,6 +120,7 @@ const Scheduler = ({ doctor, user }) => {
 };
 
 Scheduler.propTypes = {
+  dispatch: PropTypes.func.isRequired,
   doctor: PropTypes.string,
   user: PropTypes.shape({
     id: PropTypes.number,

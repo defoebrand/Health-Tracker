@@ -2,7 +2,8 @@ export const UPDATE = 'UPDATE';
 export const VIEWCOMMUNITY = 'VIEWCOMMUNITY';
 export const ALLCOMMUNITIES = 'ALLCOMMUNITIES';
 export const ALLDOCTORS = 'ALLDOCTORS';
-export const VIEWTAB = 'VIEWTAB';
+export const VIEWCOMMTAB = 'VIEWCOMMTAB';
+export const VIEWDOCTAB = 'VIEWDOCTAB';
 export const APPOINTMENT = 'APPOINTMENT';
 export const SIGNOUT = 'SIGNOUT';
 
@@ -31,8 +32,13 @@ export const allDoctors = input => ({
   input,
 });
 
-export const viewTab = input => ({
-  type: VIEWTAB,
+export const viewFriendsTab = input => ({
+  type: VIEWCOMMTAB,
+  input,
+});
+
+export const viewDoctorsTab = input => ({
+  type: VIEWDOCTAB,
   input,
 });
 

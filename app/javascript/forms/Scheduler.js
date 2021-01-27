@@ -14,7 +14,7 @@ const Scheduler = ({ doctor, user }) => {
   const [notes, setNotes] = useState('');
   const [failedMessage, setFailedMessage] = useState('noMessage');
   const [error, setError] = useState('');
-  const [errorStyle, setErrorStyle] = useState({});
+  const [instructionsStyle, setInstructionsStyle] = useState('formHeader');
 
   const token = localStorage.token === ''
     ? sessionStorage.token
@@ -24,7 +24,7 @@ const Scheduler = ({ doctor, user }) => {
     if (time === '') {
       setError('You Must Fill Out The Entire Form');
       setFailedMessage('displayMessage');
-      setErrorStyle('redError');
+      setInstructionsStyle('redError');
     } else {
       const url = '/user/add_appointment';
       fetch(url, {
@@ -72,7 +72,7 @@ const Scheduler = ({ doctor, user }) => {
   return (
     <>
       <h3 className={failedMessage}>{error}</h3>
-      <h5 className="formHeader" style={errorStyle}>All Fields Must Be Filled In</h5>
+      <h5 className={instructionsStyle}>All Fields Must Be Filled In</h5>
       <Form className="formBox">
         <h1 className="text-center">{`Schedule an appointment with ${doctor}`}</h1>
         <Form.Group controlId="formBasicDate">

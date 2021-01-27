@@ -15,6 +15,7 @@ const SignIn = ({ dispatch }) => {
   const [status, setStatus] = useState(false);
   const [failedMessage, setFailedMessage] = useState('noMessage');
   const [error, setError] = useState('');
+  const [klaxonOn, setKlaxonOn] = useState(true);
 
   const history = useHistory();
 

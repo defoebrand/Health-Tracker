@@ -13,9 +13,11 @@ class AppointmentsController < ApplicationController
   end
 
   def destroy
+    puts @current_user
+    puts 'current user'
     @appt = Appointment.find(params[:id])
     @current_user.appointments.delete(@appt)
-    render json: @user.appointments
+    render json: @current_user.appointments
   end
 
   private

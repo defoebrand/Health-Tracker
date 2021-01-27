@@ -85,6 +85,7 @@ const SignIn = ({ dispatch }) => {
           id="custom-switch"
           label="I am a Doctor"
           onChange={changeStatus}
+          disabled
         />
         <br />
         <Form.Group controlId="formBasicEmail">

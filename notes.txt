@@ -1,12 +1,25 @@
-proper user authentication
-user tables
-responsive
-data charts
-api documentation
-user can join communities
-user can schedule appointments
-user can update account settings
-user can update measurements within the same hour
+
+simplify routing conventions using
+
+GET /users to show a collection of users
+POST /users to create a user
+GET /users/:id to show a particular user
+PUT (or PATCH) /users/:id to update a particular user
+DELETE /users/:id to delete a user.
+
+Change homepage controller to api controller
+
+make comment about why a many to many is clearly necessary since a user can have many communities and a community can have many users, neither of which are necessary on entry creation therefore eliminating the use for a belongs to relationship
+
+create controllers for each model + sessions
+
+disable doctor login button
+
+create validation errors for appointments
+
+separate reducers and combiner
+
+remove extra signin file
 
 
  UTILIZE THUNK TO PULL FETCH REQUESTS OUT TO SEPARATE FILES?

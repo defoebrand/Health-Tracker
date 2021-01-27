@@ -1,11 +1,3 @@
-GET    /user(.:format)                          user#index
- * GET    /api(.:format)                           homepage#all
- * GET    /api/age/:age(.:format)                  homepage#by_age
- * GET    /api/sex/:sex(.:format)                  homepage#by_sex
- * GET    /api/ethnicity/:ethnicity(.:format)      homepage#by_ethnicity
- * GET    /api/height/:scale/:height(.:format)     homepage#by_height
-POST   /user(.:format)                          user#create
-GET    /user/new(.:format)                      user#new
 GET    /user/:id/edit(.:format)                 user#edit
 PATCH  /user/:id(.:format)                      user#update
  * PATCH  /user/settings(.:format)                 user#settings

@@ -23,7 +23,9 @@ Rails.application.routes.draw do
     get '/', to: 'user#index'
     get '/age/:age/:range', to: 'user#index'
     get '/sex/:sex', to: 'user#index'
+    get '/gender/:gender', to: 'user#index'
     get '/ethnicity/:ethnicity', to: 'user#index'
     get '/height/:scale/:height', to: 'user#index'
+    get '/weight/:scale/:weight', to: 'user#index'
   end
 end

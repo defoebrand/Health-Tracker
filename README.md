@@ -107,6 +107,11 @@ Ethnicity options are as follows:
 Scale options are `Metric` or `Imperial`  
 Note: Measurements in Metric must be given in Centimeters, Imperial in Inches
 
+`- GET /weight/:scale/:weight ` Retrieve all Users That Match Search Parameters.  
+Scale options are `Metric` or `Imperial`  
+Note: Measurements in Metric must be given in Centimeters, Imperial in Inches
+Note: Only returns entries whose last weight measurement matches the given criteria
+
 `- GET doctors `  Retrieve all Registered Doctors  
 
 `- GET communities `  Retrieve all Available Communities 

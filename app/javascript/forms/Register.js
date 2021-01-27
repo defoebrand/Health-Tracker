@@ -92,7 +92,7 @@ const Register = ({ dispatch }) => {
   }, [feet, inches]);
 
   const changeGender = e => {
-    setGender(e.target.value);
+    setGender(e.target.value.downcase);
   };
 
   const changeDate = e => {

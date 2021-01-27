@@ -49,8 +49,10 @@ class ApplicationController < ActionController::Base
     @return_user = []
     user_array.each do |user|
       @user = {}
-      @user['id'] = user.id
+      @user['id'] = user_array.index(user)
       @user['age'] = user.age
+      @user['sex'] = user.sex
+      @user['gender'] = user.gender
       user.attributes.each do |param|
         @user[(param[0]).to_s] = JSON.parse(param[1] || '{}') if param_array.include?(param[0])
       end

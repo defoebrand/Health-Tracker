@@ -14,6 +14,13 @@ class UserController < ApplicationController
         height = (params[:height].to_f / 100) if params[:scale] == 'Metric'
         @returned_users << User.where('height = ?', "{\"height\":#{height},\"scale\":\"#{params[:scale]}\"}")
       end
+      if param[0] == 'weight'
+        @returned_users << User.where(
+          'weight LIKE ?',
+          '{"measurements":{"' + '%' + "\":#{params[:weight]}},\"scale\":\"Metric\"}"
+        )
+        puts @returned_users
+      end
       if param[0] == 'age'
         @returned_users << User.where(
           "#{param[0]} >= ? and #{param[0]} <= ?",

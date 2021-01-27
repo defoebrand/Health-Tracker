@@ -116,7 +116,7 @@ const AddStats = ({ user }) => {
       }
     }
 
-    const url = `/user/${user.id}`;
+    const url = `/users/${user.id}`;
     fetch(url, {
       method: 'PATCH',
       body: JSON.stringify({

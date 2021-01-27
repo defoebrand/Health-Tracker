@@ -18,7 +18,7 @@ const Footer = ({ doctors, dispatch }) => {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    const url = '/doctor';
+    const url = '/doctors';
     fetch(url, {
       headers: {
         'Content-type': 'application/json; charset=UTF-8',

@@ -93,6 +93,9 @@ Replace any words that begin as `:` with your search criteria. For example, to g
 `- GET /sex/:sex' `  Retrieve all Users That Match Search Parameters.  
 Sex options are `XX` or `XY`  
 
+`- GET /gender/:gender' `  Retrieve all Users That Match Search Parameters.  
+Note: Gender options are all lowercase
+
 `- GET /ethnicity/:ethnicity ` Retrieve all Users That Match Search Parameters.  
 Ethnicity options are as follows:  
 -   `European` 
@@ -112,9 +115,9 @@ Scale options are `Metric` or `Imperial`
 Note: Measurements in Metric must be given in Centimeters, Imperial in Inches
 Note: Only returns entries whose last weight measurement matches the given criteria
 
-`- GET doctors `  Retrieve all Registered Doctors  
+`- GET /doctor `  Retrieve all Registered Doctors  
 
-`- GET communities `  Retrieve all Available Communities 
+`- GET /community `  Retrieve all Available Communities 
 
 Searches by preferred gender, ranges for height, weight, and age, as well as high blood pressure and high blood sugar will become available with a future update
 

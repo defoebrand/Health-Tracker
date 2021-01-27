@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  protect_from_forgery with: :null_session
   before_action :authorized, only: %i[auth_header decoded_token logged_in_user logged_in?]
 
   private

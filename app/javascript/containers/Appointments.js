@@ -18,7 +18,7 @@ const Appointments = ({ user }) => {
     : localStorage.token;
 
   useEffect(() => {
-    const url = `/user/${user.id}`;
+    const url = `/users/${user.id}`;
     fetch(url, {
       headers: {
         'Content-type': 'application/json; charset=UTF-8',
@@ -43,17 +43,9 @@ const Appointments = ({ user }) => {
   }, []);
 
   const cancelAppointment = appt => {
-    const url = '/user/cancel_appointment';
+    const url = `/appointments/${appt.id}`;
     fetch(url, {
-      method: 'POST',
-      body: JSON.stringify({
-        user: {
-          id: appt.user.id,
-        },
-        appt: {
-          id: appt.id,
-        },
-      }),
+      method: 'DELETE',
       headers: {
         'Content-type': 'application/json; charset=UTF-8',
         Authorization: `Bearer ${token}`,

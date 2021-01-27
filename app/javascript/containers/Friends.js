@@ -26,7 +26,7 @@ const Friends = ({
     : localStorage.token;
 
   useEffect(() => {
-    const url = '/community';
+    const url = '/communities';
     fetch(url, {
       headers: {
         'Content-type': 'application/json; charset=UTF-8',
@@ -51,7 +51,7 @@ const Friends = ({
 
   useEffect(() => {
     if (user.name !== '') {
-      const url = `/user/${user.id}`;
+      const url = `/users/${user.id}`;
       fetch(url, {
         headers: {
           'Content-type': 'application/json; charset=UTF-8',

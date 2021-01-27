@@ -10,7 +10,7 @@ import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
 import { viewDoctorsTab } from '../redux/actions';
 
-const Scheduler = ({ doctor, user, dispatch }) => {
+const Scheduler = ({ doctor, dispatch }) => {
   const list = 'list';
   const history = useHistory();
   const [date, setDate] = useState('');
@@ -35,13 +35,10 @@ const Scheduler = ({ doctor, user, dispatch }) => {
       setFailedMessage('displayMessage');
       setInstructionsStyle('redError');
     } else {
-      const url = '/user/add_appointment';
+      const url = '/appointments';
       fetch(url, {
         method: 'POST',
         body: JSON.stringify({
-          user: {
-            id: user.id,
-          },
           appt: {
             doc_name: doctor,
             date,
@@ -122,18 +119,11 @@ const Scheduler = ({ doctor, user, dispatch }) => {
 Scheduler.propTypes = {
   dispatch: PropTypes.func.isRequired,
   doctor: PropTypes.string,
-  user: PropTypes.shape({
-    id: PropTypes.number,
-  }),
 };
 Scheduler.defaultProps = {
   doctor: '',
-  user: {
-    id: 0,
-  },
 };
 
 export default connect(state => ({
   doctor: state.friendsReducer.doctor,
-  user: state.userReducer.user,
 }))(Scheduler);

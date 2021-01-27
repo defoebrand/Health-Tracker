@@ -1,4 +1,4 @@
-class DoctorController < ApplicationController
+class DoctorsController < ApplicationController
   def index
     display_doctors(Doctor.all)
   end

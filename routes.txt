@@ -6,21 +6,6 @@ DELETE /user/:id(.:format)                      user#destroy
 
 
 
-POST   /appointments(.:format)                       appointments#create
-* POST   /user/add_appointment(.:format)          user#add_appointment
-DELETE /appointments/:id(.:format)                   appointments#destroy
-* POST   /user/cancel_appointment(.:format)       user#cancel_appointment
-
-
-PATCH  /community/:id(.:format)                 community#update
-* POST   /user/join_community(.:format)           user#join_community
-* POST   /user/leave_community(.:format)          user#leave_community
-PUT    /community/:id(.:format)                 community#update
-
-
-* POST   /user/join_community(.:format)           user#join_community
-* POST   /user/leave_community(.:format)          user#leave_community
-
 
 
 

@@ -18,8 +18,13 @@ const Community = ({ dispatch, community, user }) => {
   const [members, setMembers] = useState([]);
   const [failedMessage, setFailedMessage] = useState('noMessage');
   const [error, setError] = useState('');
+
+  const token = localStorage.token === ''
+    ? sessionStorage.token
+    : localStorage.token;
+
   useEffect(() => {
-    const url = `/community/${community.id}`;
+    const url = `/communities/${community.id}`;
     fetch(url, {
       headers: {
         'Content-type': 'application/json; charset=UTF-8',
@@ -42,16 +47,13 @@ const Community = ({ dispatch, community, user }) => {
       });
   }, []);
 
-  const addCommunity = () => {
-    const url = '/user/join_community';
+  const changeCommunityMembership = errorMessage => {
+    const url = `/communities/${community.id}`;
     fetch(url, {
-      method: 'POST',
-      body: JSON.stringify({
-        user: { id: user.id },
-        community: { name: community.name },
-      }),
+      method: 'PATCH',
       headers: {
         'Content-type': 'application/json; charset=UTF-8',
+        Authorization: `Bearer ${token}`,
       },
     })
       .then(response => {
@@ -63,7 +65,7 @@ const Community = ({ dispatch, community, user }) => {
         try {
           setMembers(data);
         } catch {
-          throw new Error('Failed to Join Community.');
+          throw new Error(errorMessage);
         }
       }).catch(err => {
         setError(err.message);
@@ -71,33 +73,12 @@ const Community = ({ dispatch, community, user }) => {
       });
   };
 
+  const addCommunity = () => {
+    changeCommunityMembership('Failed to Join Community.');
+  };
+
   const removeCommunity = () => {
-    const url = '/user/leave_community';
-    fetch(url, {
-      method: 'POST',
-      body: JSON.stringify({
-        user: { id: user.id },
-        community: { name: community.name },
-      }),
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8',
-      },
-    })
-      .then(response => {
-        if (response.ok) {
-          return response.json();
-        }
-        throw new Error('Network Response Failed.');
-      }).then(data => {
-        try {
-          setMembers(data);
-        } catch {
-          throw new Error('Failed to Leave Community.');
-        }
-      }).catch(err => {
-        setError(err.message);
-        setFailedMessage('displayMessage');
-      });
+    changeCommunityMembership('Failed to Leave Community.');
   };
 
   const handleClick = event => {

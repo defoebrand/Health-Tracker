@@ -21,6 +21,6 @@ class AppointmentsController < ApplicationController
   private
 
   def appt_params
-    params.require(:appt).permit(:id, :user_id, :doc_name, :date, :time, :notes)
+    params.require(:appt).permit(:doc_name, :date, :time, :notes)
   end
 end

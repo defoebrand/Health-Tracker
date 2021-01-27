@@ -1,5 +1,19 @@
 - = TO DO = - 
 
+make comment about why a many to many is clearly necessary since a user can have many communities and a community can have many users, neither of which are necessary on entry creation therefore eliminating the use for a belongs to relationship
+
+- = DONE = -
+
+disable doctor login button
+
+remove extra signin file
+
+create validation errors for appointments
+
+separate reducers and combine
+
+
+
 simplify routing conventions using
 
 GET /users to show a collection of users
@@ -13,18 +27,6 @@ Change homepage controller to api controller
 create controllers for each model + sessions
 
 
-
-- = DONE = -
-
-disable doctor login button
-
-remove extra signin file
-
-create validation errors for appointments
-
-separate reducers and combine
-
-make comment about why a many to many is clearly necessary since a user can have many communities and a community can have many users, neither of which are necessary on entry creation therefore eliminating the use for a belongs to relationship
 
 
 

@@ -1,8 +1,8 @@
-GET    /user/:id/edit(.:format)                 user#edit
-PATCH  /user/:id(.:format)                      user#update
- * PATCH  /user/settings(.:format)                 user#settings
-PUT    /user/:id(.:format)                      user#update
-DELETE /user/:id(.:format)                      user#destroy
+GET    /user/:id/edit(.:format)   user#edit
+PATCH  /user/:id(.:format)        user#update
+ * PATCH  /user/settings(.:format)  user#settings
+PUT    /user/:id(.:format)        user#update
+DELETE /user/:id(.:format)        user#destroy
 
 
 

@@ -14,40 +14,47 @@ const Scheduler = ({ doctor, user }) => {
   const [notes, setNotes] = useState('');
   const [failedMessage, setFailedMessage] = useState('noMessage');
   const [error, setError] = useState('');
+  const [errorStyle, setErrorStyle] = useState({});
 
   const token = localStorage.token === ''
     ? sessionStorage.token
     : localStorage.token;
 
   const requestAppointment = () => {
-    const url = '/user/add_appointment';
-    fetch(url, {
-      method: 'POST',
-      body: JSON.stringify({
-        user: {
-          id: user.id,
+    if (time === '') {
+      setError('You Must Fill Out The Entire Form');
+      setFailedMessage('displayMessage');
+      setErrorStyle('redError');
+    } else {
+      const url = '/user/add_appointment';
+      fetch(url, {
+        method: 'POST',
+        body: JSON.stringify({
+          user: {
+            id: user.id,
+          },
+          appt: {
+            doc_name: doctor,
+            date,
+            time,
+            notes,
+          },
+        }),
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+          Authorization: `Bearer ${token}`,
         },
-        appt: {
-          doc_name: doctor,
-          date,
-          time,
-          notes,
-        },
-      }),
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8',
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then(response => {
-        if (response.ok) {
-          return response.json();
-        }
-        throw new Error('Network Response Failed.');
-      }).then(history.replace(`/doctors/${list}`)).catch(err => {
-        setError(err.message);
-        setFailedMessage('displayMessage');
-      });
+      })
+        .then(response => {
+          if (response.ok) {
+            return response.json();
+          }
+          throw new Error('Network Response Failed.');
+        }).then(history.replace(`/doctors/${list}`)).catch(err => {
+          setError(err.message);
+          setFailedMessage('displayMessage');
+        });
+    }
   };
 
   const changeDate = e => {
@@ -65,7 +72,7 @@ const Scheduler = ({ doctor, user }) => {
   return (
     <>
       <h3 className={failedMessage}>{error}</h3>
-      <h5 className="formHeader">All Fields Must Be Filled In</h5>
+      <h5 className="formHeader" style={errorStyle}>All Fields Must Be Filled In</h5>
       <Form className="formBox">
         <h1 className="text-center">{`Schedule an appointment with ${doctor}`}</h1>
         <Form.Group controlId="formBasicDate">

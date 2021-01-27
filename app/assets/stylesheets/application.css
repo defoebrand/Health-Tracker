@@ -45,6 +45,13 @@ h5 {
   margin-top: 10px;
 }
 
+.redError {
+  color: #f00;
+  font-size: 50px;
+  text-align: center;
+  margin-top: 10px;
+}
+
 .placeHolderText {
   width: 80vw;
   margin: 15px auto;

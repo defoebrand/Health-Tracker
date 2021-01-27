@@ -87,6 +87,16 @@ class UserController < ApplicationController
 
   def add_appointment
     @doc = Doctor.find_by(name: appt_params[:doc_name])
+
+    #   ApplicationRecord.transaction do
+    #     appt_params.each do |param|
+    #       user.update!(param[0] => user_params[param[0]]) if user_params[param[0]] != '{}'
+    #     end
+    #     render json: @user.doctors.uniq
+    #   end
+    # rescue ActiveRecord::RecordInvalid
+    #   render json: { user: 'Invalid Input' }
+
     @appt = Appointment.create(
       doctor: @doc,
       user: @user,
@@ -94,7 +104,7 @@ class UserController < ApplicationController
       time: appt_params[:time],
       notes: appt_params[:notes]
     )
-    render json: @user.doctors.uniq
+    # render json: @user.doctors.uniq
   end
 
   def cancel_appointment

@@ -40,40 +40,45 @@ const SignIn = ({ dispatch }) => {
 
   const submitSignIn = e => {
     e.preventDefault();
-    const url = status === false ? '/user/login' : '/user/doctor';
-    fetch(url, {
-      method: 'POST',
-      body: JSON.stringify({
-        user: {
-          email,
-          password,
+    if (status === true) {
+      setError('You Are Not A Doctor');
+      setFailedMessage('redError');
+    } else {
+      const url = status === false ? '/user/login' : '/user/doctor';
+      fetch(url, {
+        method: 'POST',
+        body: JSON.stringify({
+          user: {
+            email,
+            password,
+          },
+        }),
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
         },
-      }),
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8',
-      },
-    })
-      .then(response => {
-        if (response.ok) {
-          return response.json();
-        }
-        throw new Error('Network Response Failed.');
-      }).then(({ token, user }) => {
-        if (memory === true) {
-          localStorage.token = token;
-        } else {
-          sessionStorage.token = token;
-        }
-        try {
-          dispatch(updateUser(user));
-        } catch {
-          throw new Error('Failed Login. Please Try Again');
-        }
-        history.replace('/');
-      }).catch(err => {
-        setError(err.message);
-        setFailedMessage('displayMessage');
-      });
+      })
+        .then(response => {
+          if (response.ok) {
+            return response.json();
+          }
+          throw new Error('Network Response Failed.');
+        }).then(({ token, user }) => {
+          if (memory === true) {
+            localStorage.token = token;
+          } else {
+            sessionStorage.token = token;
+          }
+          try {
+            dispatch(updateUser(user));
+          } catch {
+            throw new Error('Failed Login. Please Try Again');
+          }
+          history.replace('/');
+        }).catch(err => {
+          setError(err.message);
+          setFailedMessage('displayMessage');
+        });
+    }
   };
 
   return (
@@ -85,7 +90,6 @@ const SignIn = ({ dispatch }) => {
           id="custom-switch"
           label="I am a Doctor"
           onChange={changeStatus}
-          disabled
         />
         <br />
         <Form.Group controlId="formBasicEmail">

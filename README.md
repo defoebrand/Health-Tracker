@@ -29,6 +29,7 @@ The project is a tracker app designed to display tracked results fetched from a 
 -   Enhanced API data filtering
 -   Personalized color coding for chart lines
 -   Dark mode for app
+-   Login for Doctors
 
 ## Built With
 -   Atom

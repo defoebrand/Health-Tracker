@@ -1,33 +1,17 @@
 class UsersController < ApplicationController
+  include UserHelper
+
   before_action :authorized, only: %i[show update]
 
   def index
+    @returned_users = []
     if params.each.count < 3
       display_users(User.all)
     else
-      @returned_users = []
       params.each do |param|
         next if %w[controller action scale range].include?(param[0])
 
-        if param[0] == 'height'
-          height = (params[:height].to_f / 100) if params[:scale] == 'Metric'
-          @returned_users << User.where('height = ?', "{\"height\":#{height},\"scale\":\"#{params[:scale]}\"}")
-        end
-        if param[0] == 'weight'
-          @returned_users << User.where(
-            'weight LIKE ?',
-            '{"measurements":{"' + '%' + "\":#{params[:weight]}},\"scale\":\"Metric\"}"
-          )
-          puts @returned_users
-        end
-        if param[0] == 'age'
-          @returned_users << User.where(
-            "#{param[0]} >= ? and #{param[0]} <= ?",
-            (param[1].to_i - params[:range].to_i),
-            (param[1].to_i + params[:range].to_i)
-          )
-        end
-        @returned_users << User.where("#{param[0]} = ?", (param[1]).to_s)
+        query_switch(param, params)
       end
       display_users(@returned_users.flatten.uniq)
     end

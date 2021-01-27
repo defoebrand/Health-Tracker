@@ -9,11 +9,7 @@ Rails.application.routes.draw do
   
   resources :appointments, only: %i[create destroy]
 
-  resources :users do
-    collection do
-      patch 'settings'
-    end
-  end
+  resources :users, only: %i[index show create update]
 
   scope path: '/api' do
     get '/', to: 'users#index'

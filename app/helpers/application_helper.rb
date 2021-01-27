@@ -13,6 +13,7 @@ module ApplicationHelper
       @user['age'] = user.age
       @user['sex'] = user.sex
       @user['gender'] = user.gender
+      @user['ethnicity'] = user.ethnicity
       user.attributes.each do |param|
         @user[(param[0]).to_s] = JSON.parse(param[1] || '{}') if param_array.include?(param[0])
       end

@@ -34,7 +34,7 @@ const HeaderNav = ({ dispatch, user }) => {
   }, [user]);
 
   useEffect(() => {
-    const url = '/user';
+    const url = '/session';
     fetch(url, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -45,6 +45,7 @@ const HeaderNav = ({ dispatch, user }) => {
           ? response.json()
           : null
       )).then(data => {
+        console.log(data);
         dispatch(updateUser(data));
       }).catch(err => {
         if (err) {

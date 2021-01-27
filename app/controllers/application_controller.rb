@@ -1,6 +1,5 @@
 class ApplicationController < ActionController::Base
-  before_action :authorized, only: %i[encode_token
-                                      auth_header decoded_token logged_in_user logged_in?]
+  before_action :authorized, only: %i[auth_header decoded_token logged_in_user logged_in?]
 
   private
 
@@ -27,7 +26,7 @@ class ApplicationController < ActionController::Base
     return unless decoded_token
 
     user_id = decoded_token[0]['user_id']
-    @user = User.find_by(id: user_id)
+    @current_user = User.find_by(id: user_id)
   end
 
   def logged_in?

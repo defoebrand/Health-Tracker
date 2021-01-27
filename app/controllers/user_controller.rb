@@ -1,19 +1,10 @@
 class UserController < ApplicationController
   protect_from_forgery with: :null_session
-  before_action :authorized, only: %i[index settings user_doctors
+  before_action :authorized, only: %i[settings user_doctors
                                       user_communities user_appointments
                                       add_appointment cancel_appointment]
-  before_action :set_user_by_email, only: [:login]
   before_action :set_user_by_id, only: %i[join_community leave_community]
   before_action :set_community, only: %i[community_users join_community leave_community]
-
-  def index
-    if @user
-      render json: @user
-    else
-      render json: { error: 'Invalid username/password' }, status: :unauthorized
-    end
-  end
 
   def create
     @user = User.create(user_params)
@@ -23,15 +14,6 @@ class UserController < ApplicationController
       render json: { user: User.find(@user.id), token: token }
     else
       render json: { error: 'Incorrect Input Supplied' }
-    end
-  end
-
-  def login
-    if @user&.authenticate(user_params[:password])
-      token = encode_token({ user_id: @user.id })
-      render json: { user: @user, token: token }
-    else
-      render json: { error: 'Invalid Username or Password' }
     end
   end
 

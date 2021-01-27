@@ -44,15 +44,10 @@ const SignIn = ({ dispatch }) => {
       setError('You Are Not A Doctor');
       setFailedMessage('redError');
     } else {
-      const url = status === false ? '/user/login' : '/user/doctor';
+      const url = status === false ? '/session' : '/user/doctor';
       fetch(url, {
         method: 'POST',
-        body: JSON.stringify({
-          user: {
-            email,
-            password,
-          },
-        }),
+        body: JSON.stringify({ email, password }),
         headers: {
           'Content-type': 'application/json; charset=UTF-8',
         },

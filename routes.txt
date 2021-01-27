@@ -1,58 +1,65 @@
-root GET    /                                                                    homepage#index
+GET    /user(.:format)                          user#index
+ * GET    /api(.:format)                           homepage#all
+ * GET    /api/age/:age(.:format)                  homepage#by_age
+ * GET    /api/sex/:sex(.:format)                  homepage#by_sex
+ * GET    /api/ethnicity/:ethnicity(.:format)      homepage#by_ethnicity
+ * GET    /api/height/:scale/:height(.:format)     homepage#by_height
+POST   /user(.:format)                          user#create
+GET    /user/new(.:format)                      user#new
+GET    /user/:id/edit(.:format)                 user#edit
+GET    /user/:id(.:format)                      user#show
+ * POST   /user_communities(.:format)              user#user_communities
+ * POST   /user_doctors(.:format)                  user#user_doctors
+ * GET    /user_appointments(.:format)             user#user_appointments
+PATCH  /user/:id(.:format)                      user#update
+ * PATCH  /user/settings(.:format)                 user#settings
+PUT    /user/:id(.:format)                      user#update
+DELETE /user/:id(.:format)                      user#destroy
 
-POST   /user/login(.:format)                                                     user#login
-PATCH  /user/settings(.:format)                                                  user#settings
-POST   /user/join_community(.:format)                                            user#join_community
-POST   /user/leave_community(.:format)                                           user#leave_community
-POST   /user/user_communities(.:format)                                          user#user_communities
-POST   /user/add_appointment(.:format)                                           user#add_appointment
-POST   /user/community_users(.:format)                                           user#community_users
-POST   /user/cancel_appointment(.:format)                                        user#cancel_appointment
+GET    /community(.:format)                     community#index
+ * GET    /communities(.:format)                   homepage#communities
+ * POST   /user/community_users(.:format)          user#community_users
+POST   /community(.:format)                     community#create
+GET    /community/new(.:format)                 community#new
+GET    /community/:id/edit(.:format)            community#edit
+GET    /community/:id(.:format)                 community#show
+PATCH  /community/:id(.:format)                 community#update
+ * POST   /user/join_community(.:format)           user#join_community
+ * POST   /user/leave_community(.:format)          user#leave_community
+PUT    /community/:id(.:format)                 community#update
+DELETE /community/:id(.:format)                 community#destroy
 
-GET    /user(.:format)                                                           user#index
-POST   /user(.:format)                                                           user#create
-GET    /user/new(.:format)                                                       user#new
-GET    /user/:id/edit(.:format)                                                  user#edit
-GET    /user/:id(.:format)                                                       user#show
-PATCH  /user/:id(.:format)                                                       user#update
-PUT    /user/:id(.:format)                                                       user#update
-DELETE /user/:id(.:format)                                                       user#destroy
+GET    /doctor(.:format)                        doctor#index
+ * GET    /doctors(.:format)                       homepage#doctors
+POST   /doctor(.:format)                        doctor#create
+GET    /doctor/new(.:format)                    doctor#new
+GET    /doctor/:id/edit(.:format)               doctor#edit
+GET    /doctor/:id(.:format)                    doctor#show
+PATCH  /doctor/:id(.:format)                    doctor#update
+PUT    /doctor/:id(.:format)                    doctor#update
+DELETE /doctor/:id(.:format)                    doctor#destroy
 
-GET    /community(.:format)                                                      community#index
-POST   /community(.:format)                                                      community#create
-GET    /community/new(.:format)                                                  community#new
-GET    /community/:id/edit(.:format)                                             community#edit
-GET    /community/:id(.:format)                                                  community#show
-PATCH  /community/:id(.:format)                                                  community#update
-PUT    /community/:id(.:format)                                                  community#update
-DELETE /community/:id(.:format)                                                  community#destroy
+GET    /session(.:format)                       session#index
+ * GET    /user(.:format)                          user#index
+POST   /session(.:format)                       session#create
+ * POST   /user/login(.:format)                    user#login
+GET    /session/new(.:format)                   session#new
+GET    /session/:id/edit(.:format)              session#edit
+GET    /session/:id(.:format)                   session#show
+PATCH  /session/:id(.:format)                   session#update
+PUT    /session/:id(.:format)                   session#update
+DELETE /session/:id(.:format)                   session#destroy
 
-GET    /doctor(.:format)                                                         doctor#index
-POST   /doctor(.:format)                                                         doctor#create
-GET    /doctor/new(.:format)                                                     doctor#new
-GET    /doctor/:id/edit(.:format)                                                doctor#edit
-GET    /doctor/:id(.:format)                                                     doctor#show
-PATCH  /doctor/:id(.:format)                                                     doctor#update
-PUT    /doctor/:id(.:format)                                                     doctor#update
-DELETE /doctor/:id(.:format)                                                     doctor#destroy
 
-GET    /session(.:format)                                                        session#index
-POST   /session(.:format)                                                        session#create
-GET    /session/new(.:format)                                                    session#new
-GET    /session/:id/edit(.:format)                                               session#edit
-GET    /session/:id(.:format)                                                    session#show
-PATCH  /session/:id(.:format)                                                    session#update
-PUT    /session/:id(.:format)                                                    session#update
-DELETE /session/:id(.:format)                                                    session#destroy
 
-POST   /user_communities(.:format)                                               user#user_communities
-POST   /user_doctors(.:format)                                                   user#user_doctors
-POST   /add_appointment(.:format)                                                user#add_appointment
-GET    /user_appointments(.:format)                                              user#user_appointments
-GET    /api(.:format)                                                            homepage#all
-GET    /api/age/:age(.:format)                                                   homepage#by_age
-GET    /api/sex/:sex(.:format)                                                   homepage#by_sex
-GET    /api/ethnicity/:ethnicity(.:format)                                       homepage#by_ethnicity
-GET    /api/height/:scale/:height(.:format)                                      homepage#by_height
-GET    /doctors(.:format)                                                        homepage#doctors
-GET    /communities(.:format)                                                    homepage#communities
+POST   /appointments(.:format)                       appointments#create
+* POST   /user/add_appointment(.:format)          user#add_appointment
+DELETE /appointments/:id(.:format)                   appointments#destroy
+* POST   /user/cancel_appointment(.:format)       user#cancel_appointment
+
+
+
+
+
+
+

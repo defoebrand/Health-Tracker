@@ -1,7 +1,7 @@
 class HomepageController < ApplicationController
-  def doctors
-    display_doctors(Doctor.all)
-  end
+  # def doctors
+  #   display_doctors(Doctor.all)
+  # end
 
   def communities
     display_communities(Community.all)

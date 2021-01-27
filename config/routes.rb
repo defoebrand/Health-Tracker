@@ -1,9 +1,13 @@
 Rails.application.routes.draw do
-  root 'homepage#index'
-
+  root 'session#new'
+  
+  resources :session, only: %i[index new create]
+  
+  resources :doctor, only: %i[index]
+  
   resources :user do
     collection do
-      post 'login'
+      # post 'login'
       patch 'settings'
       post 'join_community'
       post 'leave_community'
@@ -27,6 +31,6 @@ Rails.application.routes.draw do
     get '/height/:scale/:height', to: 'homepage#by_height'
   end
 
-  get 'doctors', to: 'homepage#doctors'
+  # get 'doctors', to: 'homepage#doctors'
   get 'communities', to: 'homepage#communities'
 end

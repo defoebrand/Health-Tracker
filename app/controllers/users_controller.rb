@@ -1,6 +1,5 @@
 class UsersController < ApplicationController
   include UserHelper
-
   before_action :authorized, only: %i[show update]
 
   def index

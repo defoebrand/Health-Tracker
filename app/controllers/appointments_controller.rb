@@ -1,5 +1,6 @@
 class AppointmentsController < ApplicationController
   before_action :authorized, only: %i[create destroy]
+
   def create
     @doc = Doctor.find_by(name: appt_params[:doc_name])
     @appt = Appointment.create(
@@ -13,8 +14,6 @@ class AppointmentsController < ApplicationController
   end
 
   def destroy
-    puts @current_user
-    puts 'current user'
     @appt = Appointment.find(params[:id])
     @current_user.appointments.delete(@appt)
     render json: @current_user.appointments

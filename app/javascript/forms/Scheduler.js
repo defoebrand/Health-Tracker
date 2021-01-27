@@ -111,6 +111,6 @@ Scheduler.defaultProps = {
 };
 
 export default connect(state => ({
-  doctor: state.appointmentReducer.doctor,
+  doctor: state.friendsReducer.doctor,
   user: state.userReducer.user,
 }))(Scheduler);

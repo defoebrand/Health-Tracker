@@ -89,6 +89,6 @@ Footer.defaultProps = {
 };
 
 export default connect(state => ({
-  doctors: state.allDoctorsReducer.doctors,
+  doctors: state.doctorReducer.doctors,
   user: state.userReducer.user,
 }))(Footer);

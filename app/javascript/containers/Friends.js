@@ -139,7 +139,7 @@ Friends.defaultProps = {
 };
 
 export default connect(state => ({
-  tab: state.tabReducer.tab,
-  communities: state.allCommunitiesReducer.communities,
+  tab: state.friendsReducer.tab,
+  communities: state.communityReducer.communities,
   user: state.userReducer.user,
 }))(Friends);

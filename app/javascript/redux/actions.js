@@ -1,13 +1,13 @@
-export const SUBMIT = 'SUBMIT';
-export const COMMUNITY = 'COMMUNITY';
-export const COMMUNITIES = 'COMMUNITIES';
-export const TAB = 'TAB';
-export const DOCTORS = 'DOCTORS';
-export const DOCTOR = 'DOCTOR';
+export const UPDATE = 'UPDATE';
+export const VIEWCOMMUNITY = 'VIEWCOMMUNITY';
+export const ALLCOMMUNITIES = 'ALLCOMMUNITIES';
+export const ALLDOCTORS = 'ALLDOCTORS';
+export const VIEWTAB = 'VIEWTAB';
+export const APPOINTMENT = 'APPOINTMENT';
 export const SIGNOUT = 'SIGNOUT';
 
 export const updateUser = input => ({
-  type: SUBMIT,
+  type: UPDATE,
   input,
 });
 
@@ -17,26 +17,26 @@ export const signOutUser = input => ({
 });
 
 export const viewCommunity = input => ({
-  type: COMMUNITY,
+  type: VIEWCOMMUNITY,
   input,
 });
 
 export const allCommunities = input => ({
-  type: COMMUNITIES,
-  input,
-});
-
-export const viewTab = input => ({
-  type: TAB,
+  type: ALLCOMMUNITIES,
   input,
 });
 
 export const allDoctors = input => ({
-  type: DOCTORS,
+  type: ALLDOCTORS,
+  input,
+});
+
+export const viewTab = input => ({
+  type: VIEWTAB,
   input,
 });
 
 export const chooseDoctor = input => ({
-  type: DOCTOR,
+  type: APPOINTMENT,
   input,
 });

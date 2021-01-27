@@ -1,3 +1,4 @@
+- = TO DO = - 
 
 simplify routing conventions using
 
@@ -9,17 +10,23 @@ DELETE /users/:id to delete a user.
 
 Change homepage controller to api controller
 
-make comment about why a many to many is clearly necessary since a user can have many communities and a community can have many users, neither of which are necessary on entry creation therefore eliminating the use for a belongs to relationship
-
 create controllers for each model + sessions
+
+
+
+- = DONE = -
 
 disable doctor login button
 
+remove extra signin file
+
 create validation errors for appointments
 
-separate reducers and combiner
+separate reducers and combine
 
-remove extra signin file
+make comment about why a many to many is clearly necessary since a user can have many communities and a community can have many users, neither of which are necessary on entry creation therefore eliminating the use for a belongs to relationship
+
+
 
 
  UTILIZE THUNK TO PULL FETCH REQUESTS OUT TO SEPARATE FILES?

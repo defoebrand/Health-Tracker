@@ -11,8 +11,6 @@ class SessionController < ApplicationController
   end
 
   def create
-    puts 'create session'
-    puts session_params
     @current_user = User.find_by(email: session_params[:email])
     puts @current_user
     if @current_user&.authenticate(session_params[:password])

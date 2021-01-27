@@ -1,10 +1,38 @@
 class UserController < ApplicationController
   protect_from_forgery with: :null_session
-  before_action :authorized, only: %i[settings user_doctors
-                                      user_communities user_appointments
-                                      add_appointment cancel_appointment]
+  before_action :authorized, only: %i[show settings add_appointment cancel_appointment]
   before_action :set_user_by_id, only: %i[join_community leave_community]
   before_action :set_community, only: %i[community_users join_community leave_community]
+
+  def index
+    @returned_users = []
+    puts params
+    params.each do |param|
+      next if %w[controller action scale range].include?(param[0])
+
+      if param[0] == 'height'
+        height = (params[:height].to_f / 100) if params[:scale] == 'Metric'
+        @returned_users << User.where('height = ?', "{\"height\":#{height},\"scale\":\"#{params[:scale]}\"}")
+      end
+      if param[0] == 'age'
+        @returned_users << User.where(
+          "#{param[0]} >= ? and #{param[0]} <= ?",
+          (param[1].to_i - params[:range].to_i),
+          (param[1].to_i + params[:range].to_i)
+        )
+      end
+      @returned_users << User.where("#{param[0]} = ?", (param[1]).to_s)
+    end
+    display_users(@returned_users.flatten.uniq)
+  end
+
+  def show
+    render json: {
+      communities: @current_user.communities,
+      doctors: @current_user.doctors.uniq,
+      appointments: @current_user.appointments
+    }
+  end
 
   def create
     @user = User.create(user_params)
@@ -41,14 +69,6 @@ class UserController < ApplicationController
     render json: { user: 'Invalid Input' }
   end
 
-  def community_users
-    display_community_users(@community.users)
-  end
-
-  def user_communities
-    display_communities(@user.communities)
-  end
-
   def join_community
     @user.communities << @community
     display_community_users(@community.users)
@@ -57,14 +77,6 @@ class UserController < ApplicationController
   def leave_community
     @user.communities.delete(@community)
     display_community_users(@community.users)
-  end
-
-  def user_doctors
-    render json: @user.doctors.uniq
-  end
-
-  def user_appointments
-    render json: @user.appointments
   end
 
   def add_appointment
@@ -81,12 +93,12 @@ class UserController < ApplicationController
 
     @appt = Appointment.create(
       doctor: @doc,
-      user: @user,
+      user: @current_user,
       date: appt_params[:date],
       time: appt_params[:time],
       notes: appt_params[:notes]
     )
-    render json: @user.doctors.uniq
+    render json: @current_user.doctors.uniq
   end
 
   def cancel_appointment

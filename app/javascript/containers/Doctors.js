@@ -26,7 +26,7 @@ const Doctors = ({
     : localStorage.token;
 
   useEffect(() => {
-    const url = '/doctors';
+    const url = '/doctor';
     fetch(url, {
       headers: {
         'Content-type': 'application/json; charset=UTF-8',
@@ -51,10 +51,8 @@ const Doctors = ({
 
   useEffect(() => {
     if (user.name !== '') {
-      const url = '/user_doctors';
+      const url = `/user/${user.id}`;
       fetch(url, {
-        method: 'POST',
-        body: JSON.stringify({ user: { id: user.id } }),
         headers: {
           'Content-type': 'application/json; charset=UTF-8',
           Authorization: `Bearer ${token}`,
@@ -67,7 +65,7 @@ const Doctors = ({
           throw new Error('Network Response Failed.');
         }).then(data => {
           try {
-            setMyDoctors(data);
+            setMyDoctors(data.doctors);
           } catch {
             throw new Error('Failed to Retrieve Your Doctors.');
           }

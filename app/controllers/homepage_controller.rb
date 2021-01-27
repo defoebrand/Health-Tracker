@@ -1,18 +1,13 @@
 class HomepageController < ApplicationController
-  # def doctors
-  #   display_doctors(Doctor.all)
-  # end
-
-  def communities
-    display_communities(Community.all)
-  end
-
   def all
+    params.each do |param|
+      puts param
+    end
     display_users(User.all)
   end
 
   def by_age
-    display_users(User.where('age = ?', params[:age]))
+    display_users(User.where(age: params[:age]))
   end
 
   def by_sex

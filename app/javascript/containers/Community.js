@@ -18,14 +18,9 @@ const Community = ({ dispatch, community, user }) => {
   const [members, setMembers] = useState([]);
   const [failedMessage, setFailedMessage] = useState('noMessage');
   const [error, setError] = useState('');
-
   useEffect(() => {
-    const url = '/user/community_users';
+    const url = `/community/${community.id}`;
     fetch(url, {
-      method: 'POST',
-      body: JSON.stringify({
-        community: { name: community },
-      }),
       headers: {
         'Content-type': 'application/json; charset=UTF-8',
       },
@@ -53,7 +48,7 @@ const Community = ({ dispatch, community, user }) => {
       method: 'POST',
       body: JSON.stringify({
         user: { id: user.id },
-        community: { name: community },
+        community: { name: community.name },
       }),
       headers: {
         'Content-type': 'application/json; charset=UTF-8',
@@ -82,7 +77,7 @@ const Community = ({ dispatch, community, user }) => {
       method: 'POST',
       body: JSON.stringify({
         user: { id: user.id },
-        community: { name: community },
+        community: { name: community.name },
       }),
       headers: {
         'Content-type': 'application/json; charset=UTF-8',
@@ -125,7 +120,7 @@ const Community = ({ dispatch, community, user }) => {
       </Tabs>
       <div className="viewContainer flex-down">
         <span className="viewBox flex-down">
-          <h1>{community}</h1>
+          <h1>{community.name}</h1>
           <span>
             {members.some(member => member.name === user.name)
               ? <Button variant="info" onClick={removeCommunity}>Leave Community</Button>
@@ -146,7 +141,10 @@ const Community = ({ dispatch, community, user }) => {
 
 Community.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  community: PropTypes.string,
+  community: PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.string,
+  }),
   user: PropTypes.shape({
     id: PropTypes.number,
     name: PropTypes.string,
@@ -154,7 +152,10 @@ Community.propTypes = {
 };
 
 Community.defaultProps = {
-  community: '',
+  community: {
+    id: 0,
+    name: '',
+  },
   user: {
     id: 0,
     name: '',

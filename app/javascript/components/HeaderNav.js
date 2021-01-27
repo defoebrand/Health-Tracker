@@ -45,7 +45,6 @@ const HeaderNav = ({ dispatch, user }) => {
           ? response.json()
           : null
       )).then(data => {
-        console.log(data);
         dispatch(updateUser(data));
       }).catch(err => {
         if (err) {

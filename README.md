@@ -83,12 +83,12 @@ MY ACCOUNT:
 
 ### To Use The API 
 To Gather Data:  
-Replace any words that begin as `:` with your search criteria. For example, to get all users who are 33 years old, use  
-`GET /age/33` 
+Replace any words that begin as `:` with your search criteria. For example, to get all users between 28 and 32, use  
+`GET /age/30/2` 
   
 `- GET / ` Retrieve all Users.  
 
-`- GET /age/:age ` Retrieve all Users That Match Search Parameters.  
+`- GET /age/:age/:range ` Retrieve all Users That Match Search Parameters.  
 
 `- GET /sex/:sex' `  Retrieve all Users That Match Search Parameters.  
 Sex options are `XX` or `XY`  

@@ -1,36 +1,29 @@
 Rails.application.routes.draw do
   root 'session#new'
-  
+
   resources :session, only: %i[index new create]
-  
+
   resources :doctor, only: %i[index]
-  
+
+  resources :community, only: %i[index show]
+
   resources :user do
     collection do
-      # post 'login'
       patch 'settings'
       post 'join_community'
       post 'leave_community'
-      post 'user_communities'
       post 'add_appointment'
-      post 'community_users'
       post 'cancel_appointment'
     end
   end
 
-  post 'user_communities', to: 'user#user_communities'
-  post 'user_doctors', to: 'user#user_doctors'
   post 'add_appointment', to: 'user#add_appointment'
-  get 'user_appointments', to: 'user#user_appointments'
 
   scope path: '/api' do
-    get '/', to: 'homepage#all'
-    get '/age/:age', to: 'homepage#by_age'
-    get '/sex/:sex', to: 'homepage#by_sex'
-    get '/ethnicity/:ethnicity', to: 'homepage#by_ethnicity'
-    get '/height/:scale/:height', to: 'homepage#by_height'
+    get '/', to: 'user#index'
+    get '/age/:age/:range', to: 'user#index'
+    get '/sex/:sex', to: 'user#index'
+    get '/ethnicity/:ethnicity', to: 'user#index'
+    get '/height/:scale/:height', to: 'user#index'
   end
-
-  # get 'doctors', to: 'homepage#doctors'
-  get 'communities', to: 'homepage#communities'
 end

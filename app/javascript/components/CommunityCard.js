@@ -11,7 +11,7 @@ const CommunityCard = ({ dispatch, community }) => {
   const history = useHistory();
 
   const handleClick = () => {
-    dispatch(viewCommunity(community.name));
+    dispatch(viewCommunity(community));
     history.push(`/communities/${community.name}`);
   };
 

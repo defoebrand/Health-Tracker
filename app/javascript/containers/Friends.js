@@ -26,7 +26,7 @@ const Friends = ({
     : localStorage.token;
 
   useEffect(() => {
-    const url = '/communities';
+    const url = '/community';
     fetch(url, {
       headers: {
         'Content-type': 'application/json; charset=UTF-8',
@@ -51,10 +51,8 @@ const Friends = ({
 
   useEffect(() => {
     if (user.name !== '') {
-      const url = '/user_communities';
+      const url = `/user/${user.id}`;
       fetch(url, {
-        method: 'POST',
-        body: JSON.stringify({ user: { id: user.id } }),
         headers: {
           'Content-type': 'application/json; charset=UTF-8',
           Authorization: `Bearer ${token}`,
@@ -67,7 +65,7 @@ const Friends = ({
           throw new Error('Network Response Failed.');
         }).then(data => {
           try {
-            setCommunities(data);
+            setCommunities(data.communities);
           } catch {
             throw new Error('Failed to Retrieve Your Communities.');
           }

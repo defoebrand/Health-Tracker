@@ -65,4 +65,14 @@ module ApplicationHelper
     end
     render json: @return_communities
   end
+
+  def cleanse_user(user)
+    @return_user = {}
+    user.attributes.each do |attr|
+      next if attr[0] == 'password_digest'
+
+      @return_user[attr[0].to_s] = attr[1]
+    end
+    @return_user
+  end
 end

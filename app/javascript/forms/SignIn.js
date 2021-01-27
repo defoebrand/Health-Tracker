@@ -63,6 +63,7 @@ const SignIn = ({ dispatch }) => {
           } else {
             sessionStorage.token = token;
           }
+          console.log('sign in user', user);
           try {
             dispatch(updateUser(user));
           } catch {

@@ -3,6 +3,7 @@ import { UPDATE, SIGNOUT } from '../actions';
 const userReducer = (state = { name: '' }, action) => {
   switch (action.type) {
     case UPDATE:
+      console.log(action);
       return {
         user: {
           id: action.input.id,

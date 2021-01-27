@@ -1,4 +1,6 @@
 module UserHelper
+  private
+
   def query_switch(param, params)
     case param[0]
     when 'age'

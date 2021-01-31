@@ -15,7 +15,7 @@ import {
   updateUser, signOutUser,
 } from '../redux/actions';
 
-const fetch = require('node-fetch');
+import checkLogin from '../redux/thunks/checkLogin';
 
 const HeaderNav = ({ dispatch, user }) => {
   const doctor = 'list';
@@ -34,23 +34,13 @@ const HeaderNav = ({ dispatch, user }) => {
   }, [user]);
 
   useEffect(() => {
-    const url = '/sessions';
-    fetch(url, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then(response => (
-        response.ok
-          ? response.json()
-          : null
-      )).then(data => {
-        dispatch(updateUser(data));
-      }).catch(err => {
-        if (err) {
-          history.replace('/home');
-        }
-      });
+    dispatch(checkLogin(token)).then(data => {
+      dispatch(updateUser(data));
+    }).catch(err => {
+      if (err) {
+        history.replace('/home');
+      }
+    });
   }, [history]);
 
   const clickSignOut = () => {

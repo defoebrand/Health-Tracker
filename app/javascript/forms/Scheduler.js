@@ -8,6 +8,8 @@ import Button from 'react-bootstrap/Button';
 
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
+
+import scheduleAppointment from '../redux/thunks/scheduleAppointment';
 import { viewDoctorsTab } from '../redux/actions';
 
 const Scheduler = ({ doctor, dispatch }) => {
@@ -35,34 +37,13 @@ const Scheduler = ({ doctor, dispatch }) => {
       setFailedMessage('displayMessage');
       setInstructionsStyle('redError');
     } else {
-      const url = '/appointments';
-      fetch(url, {
-        method: 'POST',
-        body: JSON.stringify({
-          appt: {
-            doc_name: doctor,
-            date,
-            time,
-            notes,
-          },
-        }),
-        headers: {
-          'Content-type': 'application/json; charset=UTF-8',
-          Authorization: `Bearer ${token}`,
-        },
-      })
-        .then(response => {
-          if (response.ok) {
-            return response.json();
-          }
-          throw new Error('Network Response Failed.');
-        }).then(() => {
-          dispatch(viewDoctorsTab('appointments'));
-          history.push(`/doctors/${list}`);
-        }).catch(err => {
-          setError(err.message);
-          setFailedMessage('displayMessage');
-        });
+      dispatch(scheduleAppointment(token, doctor, date, time, notes)).then(() => {
+        dispatch(viewDoctorsTab('appointments'));
+        history.push(`/doctors/${list}`);
+      }).catch(err => {
+        setError(err.message);
+        setFailedMessage('displayMessage');
+      });
     }
   };
 

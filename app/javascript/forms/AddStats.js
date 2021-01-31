@@ -20,6 +20,9 @@ const AddStats = ({ user }) => {
   const [newWeight, setWeight] = useState('');
   const [failedMessage, setFailedMessage] = useState('noMessage');
   const [error, setError] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirm, setConfirm] = useState('');
+  const [pwError, setPwError] = useState({ border: '' });
 
   const changeTemp = e => {
     setTemp(e.target.value);
@@ -40,111 +43,128 @@ const AddStats = ({ user }) => {
     setDiastolic(e.target.value);
   };
 
+  const changePassword = e => {
+    setPassword(e.target.value);
+  };
+
+  const confirmPassword = e => {
+    setConfirm(e.target.value);
+  };
+
   const token = localStorage.token === ''
     ? sessionStorage.token
     : localStorage.token;
 
+  const compileUserStats = () => ({
+    password,
+    temperature: JSON.stringify(temperature),
+    weight: JSON.stringify(weight),
+    pulse: JSON.stringify(pulse),
+    blood_sugar: JSON.stringify(bloodSugar),
+    systolic: JSON.stringify(systolic),
+    diastolic: JSON.stringify(diastolic),
+  });
+
   const submitRegister = e => {
     e.preventDefault();
-
-    const date = new Date();
-    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-    let time;
-    if (date.getHours() > 12) {
-      time = `${date.getHours() - 12}p`;
+    if (password === '' || password !== confirm) {
+      setError('Input Password and Confirmation');
+      setFailedMessage('displayMessage');
+      setPwError({ border: '1px solid red' });
     } else {
-      time = `${date.getHours()}a`;
-    }
-    const dateTime = `${months[date.getMonth()]}${date.getDate()}-${time}`;
-
-    if (newPulse !== '') {
-      if (pulse[dateTime] !== undefined) {
-        pulse[dateTime] = { ...pulse[dateTime], [time]: Number(newPulse) };
+      const date = new Date();
+      const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+      let time;
+      if (date.getHours() > 12) {
+        time = `${date.getHours() - 12}p`;
       } else {
-        pulse[dateTime] = { [time]: Number(newPulse) };
+        time = `${date.getHours()}a`;
       }
-    }
+      const dateTime = `${months[date.getMonth()]}${date.getDate()}-${time}`;
 
-    if (newWeight !== '') {
-      if (weight.measurements !== undefined) {
-        weight.measurements = {
-          ...weight.measurements,
-          [dateTime]: Number(newWeight),
-        };
-      } else {
-        weight.measurements = { [dateTime]: Number(newWeight) };
-      }
-    }
-    if (newTemp !== '') {
-      if (temperature[dateTime] !== undefined) {
-        temperature[dateTime] = { ...temperature[dateTime], [time]: Number(newTemp) };
-      } else {
-        temperature[dateTime] = { [time]: Number(newTemp) };
-      }
-    }
-
-    if (newBloodSugar !== '') {
-      if (bloodSugar[dateTime] !== undefined) {
-        bloodSugar[dateTime] = {
-          ...bloodSugar[dateTime],
-          [time]: Number(newBloodSugar),
-        };
-      } else {
-        bloodSugar[dateTime] = { [time]: Number(newBloodSugar) };
-      }
-    }
-
-    if (newSystolic !== '') {
-      if (systolic[dateTime] !== undefined) {
-        systolic[dateTime] = {
-          ...systolic[dateTime],
-          [time]: Number(newSystolic),
-        };
-      } else {
-        systolic[dateTime] = { [time]: Number(newSystolic) };
-      }
-    }
-
-    if (newDiastolic !== '') {
-      if (diastolic[dateTime] !== undefined) {
-        diastolic[dateTime] = {
-          ...diastolic[dateTime],
-          [time]: Number(newDiastolic),
-        };
-      } else {
-        diastolic[dateTime] = { [time]: Number(newDiastolic) };
-      }
-    }
-
-    const url = `/users/${user.id}`;
-    fetch(url, {
-      method: 'PATCH',
-      body: JSON.stringify({
-        user: {
-          temperature: JSON.stringify(temperature),
-          weight: JSON.stringify(weight),
-          pulse: JSON.stringify(pulse),
-          blood_sugar: JSON.stringify(bloodSugar),
-          systolic: JSON.stringify(systolic),
-          diastolic: JSON.stringify(diastolic),
-        },
-      }),
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8',
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then(response => {
-        if (response.ok) {
-          return response.json();
+      if (newPulse !== '') {
+        if (pulse[dateTime] !== undefined) {
+          pulse[dateTime] = { ...pulse[dateTime], [time]: Number(newPulse) };
+        } else {
+          pulse[dateTime] = { [time]: Number(newPulse) };
         }
-        throw new Error('Network Response Failed.');
-      }).then(({ name }) => {
-        history.push(`/users/${name}`);
-      }).catch(err => {
-        setError(err.message);
-        setFailedMessage('displayMessage');
-      });
+      }
+
+      if (newWeight !== '') {
+        if (weight.measurements !== undefined) {
+          weight.measurements = {
+            ...weight.measurements,
+            [dateTime]: Number(newWeight),
+          };
+        } else {
+          weight.measurements = { [dateTime]: Number(newWeight) };
+        }
+      }
+      if (newTemp !== '') {
+        if (temperature[dateTime] !== undefined) {
+          temperature[dateTime] = { ...temperature[dateTime], [time]: Number(newTemp) };
+        } else {
+          temperature[dateTime] = { [time]: Number(newTemp) };
+        }
+      }
+
+      if (newBloodSugar !== '') {
+        if (bloodSugar[dateTime] !== undefined) {
+          bloodSugar[dateTime] = {
+            ...bloodSugar[dateTime],
+            [time]: Number(newBloodSugar),
+          };
+        } else {
+          bloodSugar[dateTime] = { [time]: Number(newBloodSugar) };
+        }
+      }
+
+      if (newSystolic !== '') {
+        if (systolic[dateTime] !== undefined) {
+          systolic[dateTime] = {
+            ...systolic[dateTime],
+            [time]: Number(newSystolic),
+          };
+        } else {
+          systolic[dateTime] = { [time]: Number(newSystolic) };
+        }
+      }
+
+      if (newDiastolic !== '') {
+        if (diastolic[dateTime] !== undefined) {
+          diastolic[dateTime] = {
+            ...diastolic[dateTime],
+            [time]: Number(newDiastolic),
+          };
+        } else {
+          diastolic[dateTime] = { [time]: Number(newDiastolic) };
+        }
+      }
+
+      const newUserStats = compileUserStats({});
+
+      const url = `/users/${user.id}`;
+      fetch(url, {
+        method: 'PATCH',
+        body: JSON.stringify({ user: newUserStats }),
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then(response => {
+          if (response.ok) {
+            return response.json();
+          }
+          setPwError({ border: '1px solid red' });
+          throw new Error('Incorrect Password');
+        }).then(({ name }) => {
+          history.push(`/users/${name}`);
+        }).catch(err => {
+          setError(err.message);
+          setFailedMessage('displayMessage');
+        });
+    }
   };
 
   return (
@@ -173,6 +193,17 @@ const AddStats = ({ user }) => {
         <Form.Group controlId="formBasicBloodSugar">
           <Form.Label>Blood Sugar</Form.Label>
           <Form.Control type="text" placeholder="BloodSugar" onChange={changeBloodSugar} />
+        </Form.Group>
+        <Form.Group controlId="formBasicPassword">
+          <Form.Label>Confirm Updates With Password or Update Password Now</Form.Label>
+        </Form.Group>
+        <Form.Group controlId="formBasicPassword">
+          <Form.Label>Password</Form.Label>
+          <Form.Control type="text" placeholder="Password" onChange={changePassword} style={pwError} />
+        </Form.Group>
+        <Form.Group controlId="formBasicConfirmPassword">
+          <Form.Label>Confirm Password</Form.Label>
+          <Form.Control type="text" placeholder="Confirm Password" onChange={confirmPassword} style={pwError} />
         </Form.Group>
         <Button variant="primary" type="submit" onClick={submitRegister}>
           Submit

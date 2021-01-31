@@ -11,7 +11,7 @@ import Button from 'react-bootstrap/Button';
 
 import { viewFriendsTab } from '../redux/actions';
 
-const fetch = require('node-fetch');
+import { getCommunityMembers, adjustMembership } from '../redux/thunks/communities';
 
 const Community = ({ dispatch, community, user }) => {
   const history = useHistory();
@@ -24,53 +24,29 @@ const Community = ({ dispatch, community, user }) => {
     : localStorage.token;
 
   useEffect(() => {
-    const url = `/communities/${community.id}`;
-    fetch(url, {
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8',
-      },
-    })
-      .then(response => {
-        if (response.ok) {
-          return response.json();
-        }
-        throw new Error('Network Response Failed.');
-      }).then(data => {
-        try {
-          setMembers(data);
-        } catch {
-          throw new Error('Failed to Retrieve Communities.');
-        }
-      }).catch(err => {
-        setError(err.message);
-        setFailedMessage('displayMessage');
-      });
+    dispatch(getCommunityMembers(community)).then(data => {
+      try {
+        setMembers(data);
+      } catch {
+        throw new Error('Failed to Retrieve Communities.');
+      }
+    }).catch(err => {
+      setError(err.message);
+      setFailedMessage('displayMessage');
+    });
   }, []);
 
   const changeCommunityMembership = errorMessage => {
-    const url = `/communities/${community.id}`;
-    fetch(url, {
-      method: 'PATCH',
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8',
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then(response => {
-        if (response.ok) {
-          return response.json();
-        }
-        throw new Error('Please Log In First.');
-      }).then(data => {
-        try {
-          setMembers(data);
-        } catch {
-          throw new Error(errorMessage);
-        }
-      }).catch(err => {
-        setError(err.message);
-        setFailedMessage('displayMessage');
-      });
+    dispatch(adjustMembership(community, token)).then(data => {
+      try {
+        setMembers(data);
+      } catch {
+        throw new Error(errorMessage);
+      }
+    }).catch(err => {
+      setError(err.message);
+      setFailedMessage('displayMessage');
+    });
   };
 
   const addCommunity = () => {

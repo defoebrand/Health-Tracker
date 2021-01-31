@@ -6,7 +6,8 @@ import PropTypes from 'prop-types';
 
 import AppointmentCard from '../components/AppointmentCard';
 
-import { getMyAppointments, cancelMyAppointment } from '../redux/thunks/appointments';
+import { cancelMyAppointment } from '../redux/thunks/appointments';
+import { getMyData } from '../redux/thunks/users';
 
 const Appointments = ({ user, dispatch }) => {
   const [failedMessage, setFailedMessage] = useState('noMessage');
@@ -19,7 +20,7 @@ const Appointments = ({ user, dispatch }) => {
 
   useEffect(() => {
     if (token !== undefined) {
-      dispatch(getMyAppointments(user, token)).then(data => {
+      dispatch(getMyData(user, token)).then(data => {
         try {
           setMyAppointments(data.appointments);
         } catch {

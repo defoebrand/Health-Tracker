@@ -10,6 +10,8 @@ class ApplicationController < ActionController::Base
   end
 
   def auth_header
+    puts 'hello'
+    puts request.headers['Authorization']
     request.headers['Authorization']
   end
 

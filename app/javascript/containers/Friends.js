@@ -12,7 +12,8 @@ import CommunityCard from '../components/CommunityCard';
 
 import { allCommunities } from '../redux/actions';
 
-import { getAllCommunities, getMyCommunities } from '../redux/thunks/communities';
+import { getAllCommunities } from '../redux/thunks/communities';
+import { getMyData } from '../redux/thunks/users';
 
 const Friends = ({
   tab, communities, user, dispatch,
@@ -40,7 +41,7 @@ const Friends = ({
 
   useEffect(() => {
     if (user.name !== '') {
-      dispatch(getMyCommunities(user, token)).then(data => {
+      dispatch(getMyData(user, token)).then(data => {
         try {
           setCommunities(data.communities);
         } catch {

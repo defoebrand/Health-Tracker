@@ -1,7 +1,7 @@
 const axios = require('axios');
 
 export const signInUser = (status, email, password) => {
-  const signIn = async () => {
+  const signIn = () => {
     const url = status === false ? '/sessions' : '/user/doctor';
     try {
       const response = axios.post(url, {
@@ -22,14 +22,12 @@ export const signInUser = (status, email, password) => {
 };
 
 export const checkLogin = token => {
-  const checkUserLogin = async () => {
+  const checkUserLogin = () => {
     const url = '/sessions';
-    const response = await fetch(url, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+    const response = axios.get(url, {
+      headers: { Authorization: `Bearer ${token}` },
     });
-    const data = await response.json();
+    const data = response.then(res => res.data);
     return data;
   };
   return checkUserLogin;

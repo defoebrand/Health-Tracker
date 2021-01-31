@@ -11,6 +11,7 @@ class CommunitiesController < ApplicationController
   end
 
   def update
+    puts @current_user
     if @current_user.communities.include?(@community)
       @current_user.communities.delete(@community)
     else

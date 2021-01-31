@@ -1,13 +1,15 @@
+const axios = require('axios');
+
 export const getAllCommunities = () => {
-  const allCommunitiesFunc = async () => {
+  const allCommunitiesFunc = () => {
     const url = '/communities';
     try {
-      const response = await fetch(url, {
+      const response = axios.get(url, {
         headers: {
           'Content-type': 'application/json; charset=UTF-8',
         },
       });
-      const data = response.json();
+      const data = response.then(res => res.data);
       return data;
     } catch {
       throw new Error('Failed to Retrieve Communities.');
@@ -16,35 +18,16 @@ export const getAllCommunities = () => {
   return allCommunitiesFunc;
 };
 
-export const getMyCommunities = (user, token) => {
-  const myCommunitiesFunc = async () => {
-    const url = `/users/${user.id}`;
-    try {
-      const response = await fetch(url, {
-        headers: {
-          'Content-type': 'application/json; charset=UTF-8',
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      const data = response.json();
-      return data;
-    } catch {
-      throw new Error('Network Response Failed.');
-    }
-  };
-  return myCommunitiesFunc;
-};
-
 export const getCommunityMembers = community => {
-  const communityMemmbersFunc = async () => {
+  const communityMemmbersFunc = () => {
     const url = `/communities/${community.id}`;
     try {
-      const response = await fetch(url, {
+      const response = axios.get(url, {
         headers: {
           'Content-type': 'application/json; charset=UTF-8',
         },
       });
-      const data = response.json();
+      const data = response.then(res => res.data);
       return data;
     } catch {
       throw new Error('Network Response Failed.');
@@ -54,17 +37,16 @@ export const getCommunityMembers = community => {
 };
 
 export const adjustMembership = (community, token) => {
-  const adjustMembershipFunc = async () => {
+  const adjustMembershipFunc = () => {
     const url = `/communities/${community.id}`;
     try {
-      const response = await fetch(url, {
-        method: 'PATCH',
+      const response = axios.patch(url, {}, {
         headers: {
           'Content-type': 'application/json; charset=UTF-8',
           Authorization: `Bearer ${token}`,
         },
       });
-      const data = response.json();
+      const data = response.then(res => res.data);
       return data;
     } catch {
       throw new Error('Please Log In First.');

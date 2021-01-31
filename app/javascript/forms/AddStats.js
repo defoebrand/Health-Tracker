@@ -186,11 +186,11 @@ const AddStats = ({ user, dispatch }) => {
         </Form.Group>
         <Form.Group controlId="formBasicPassword">
           <Form.Label>Password</Form.Label>
-          <Form.Control type="text" placeholder="Password" onChange={changePassword} style={pwError} />
+          <Form.Control type="password" placeholder="Password" onChange={changePassword} style={pwError} />
         </Form.Group>
         <Form.Group controlId="formBasicConfirmPassword">
           <Form.Label>Confirm Password</Form.Label>
-          <Form.Control type="text" placeholder="Confirm Password" onChange={confirmPassword} style={pwError} />
+          <Form.Control type="password" placeholder="Confirm Password" onChange={confirmPassword} style={pwError} />
         </Form.Group>
         <Button variant="primary" type="submit" onClick={submitRegister}>
           Submit

@@ -1,13 +1,15 @@
-export const getAllDoctors = () => {
-  const allDoctors = async () => {
+const axios = require('axios');
+
+const getAllDoctors = () => {
+  const allDoctors = () => {
     const url = '/doctors';
     try {
-      const response = await fetch(url, {
+      const response = axios.get(url, {
         headers: {
           'Content-type': 'application/json; charset=UTF-8',
         },
       });
-      const data = response.json();
+      const data = response.then(res => res.data);
       return data;
     } catch {
       throw new Error('Failed to Retrieve Doctors.');
@@ -16,21 +18,4 @@ export const getAllDoctors = () => {
   return allDoctors;
 };
 
-export const getMyDoctors = (user, token) => {
-  const myDoctors = async () => {
-    const url = `/users/${user.id}`;
-    try {
-      const response = await fetch(url, {
-        headers: {
-          'Content-type': 'application/json; charset=UTF-8',
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      const data = response.json();
-      return data;
-    } catch {
-      throw new Error('Network Response Failed.');
-    }
-  };
-  return myDoctors;
-};
+export default getAllDoctors;

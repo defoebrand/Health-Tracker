@@ -12,7 +12,8 @@ import Appointments from './Appointments';
 
 import { allDoctors } from '../redux/actions';
 
-import { getAllDoctors, getMyDoctors } from '../redux/thunks/doctors';
+import getAllDoctors from '../redux/thunks/doctors';
+import { getMyData } from '../redux/thunks/users';
 
 const Doctors = ({
   doctors, user, tab, dispatch,
@@ -40,7 +41,7 @@ const Doctors = ({
 
   useEffect(() => {
     if (user.name !== '') {
-      dispatch(getMyDoctors(user, token)).then(data => {
+      dispatch(getMyData(user, token)).then(data => {
         try {
           setMyDoctors(data.doctors);
         } catch {

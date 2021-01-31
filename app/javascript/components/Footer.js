@@ -9,7 +9,7 @@ import DoctorCard from './DoctorCard';
 
 import { allDoctors } from '../redux/actions';
 
-import { getAllDoctors } from '../redux/thunks/doctors';
+import getAllDoctors from '../redux/thunks/doctors';
 
 const featured = ['Dr. Kim', 'Dr. Smith'];
 

@@ -12,7 +12,7 @@ import CommunityCard from '../components/CommunityCard';
 
 import { allCommunities } from '../redux/actions';
 
-const fetch = require('node-fetch');
+import { getAllCommunities, getMyCommunities } from '../redux/thunks/communities';
 
 const Friends = ({
   tab, communities, user, dispatch,
@@ -26,53 +26,30 @@ const Friends = ({
     : localStorage.token;
 
   useEffect(() => {
-    const url = '/communities';
-    fetch(url, {
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8',
-      },
-    })
-      .then(response => {
-        if (response.ok) {
-          return response.json();
-        }
+    dispatch(getAllCommunities()).then(data => {
+      try {
+        dispatch(allCommunities(data));
+      } catch {
         throw new Error('Failed to Retrieve Communities.');
-      }).then(data => {
+      }
+    }).catch(err => {
+      setError(err.message);
+      setFailedMessage('displayMessage');
+    });
+  }, []);
+
+  useEffect(() => {
+    if (user.name !== '') {
+      dispatch(getMyCommunities(user, token)).then(data => {
         try {
-          dispatch(allCommunities(data));
+          setCommunities(data.communities);
         } catch {
-          throw new Error('Failed to Retrieve Communities.');
+          throw new Error('Failed to Retrieve Your Communities.');
         }
       }).catch(err => {
         setError(err.message);
         setFailedMessage('displayMessage');
       });
-  }, []);
-
-  useEffect(() => {
-    if (user.name !== '') {
-      const url = `/users/${user.id}`;
-      fetch(url, {
-        headers: {
-          'Content-type': 'application/json; charset=UTF-8',
-          Authorization: `Bearer ${token}`,
-        },
-      })
-        .then(response => {
-          if (response.ok) {
-            return response.json();
-          }
-          throw new Error('Network Response Failed.');
-        }).then(data => {
-          try {
-            setCommunities(data.communities);
-          } catch {
-            throw new Error('Failed to Retrieve Your Communities.');
-          }
-        }).catch(err => {
-          setError(err.message);
-          setFailedMessage('displayMessage');
-        });
     }
   }, []);
 

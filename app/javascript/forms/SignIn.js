@@ -8,6 +8,8 @@ import Button from 'react-bootstrap/Button';
 
 import { updateUser } from '../redux/actions';
 
+import signInUser from '../redux/thunks/signin';
+
 const SignIn = ({ dispatch }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -44,35 +46,7 @@ const SignIn = ({ dispatch }) => {
       setError('You Are Not A Doctor');
       setFailedMessage('redError');
     } else {
-      const url = status === false ? '/sessions' : '/user/doctor';
-      fetch(url, {
-        method: 'POST',
-        body: JSON.stringify({ email, password }),
-        headers: {
-          'Content-type': 'application/json; charset=UTF-8',
-        },
-      })
-        .then(response => {
-          if (response.ok) {
-            return response.json();
-          }
-          throw new Error('Network Response Failed.');
-        }).then(({ token, user }) => {
-          if (memory === true) {
-            localStorage.token = token;
-          } else {
-            sessionStorage.token = token;
-          }
-          try {
-            dispatch(updateUser(user));
-          } catch {
-            throw new Error('Failed Login. Please Try Again');
-          }
-          history.replace('/');
-        }).catch(err => {
-          setError(err.message);
-          setFailedMessage('displayMessage');
-        });
+      dispatch(signInUser(status, email, password, memory, updateUser, history));
     }
   };
 

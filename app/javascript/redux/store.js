@@ -1,4 +1,5 @@
-import { combineReducers, createStore } from 'redux';
+import { combineReducers, createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
 
 import userReducer from './reducers/userReducer';
 import communityReducer from './reducers/communityReducer';
@@ -12,4 +13,7 @@ const combinedReducers = combineReducers({
   friendsReducer,
 });
 
-export default createStore(combinedReducers);
+export default createStore(
+  combinedReducers,
+  applyMiddleware(thunk),
+);

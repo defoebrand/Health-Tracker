@@ -30,6 +30,7 @@
     "react-scripts": "^4.0.1",
     "recharts": "^2.0.3",
     "redux": "^4.0.5",
+    "redux-thunk": "^2.3.0",
     "regenerator-runtime": "^0.13.7",
     "stylelint-config-standard": "20.0.x",
     "stylelint-csstree-validator": "^1.9.0",

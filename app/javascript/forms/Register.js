@@ -6,6 +6,7 @@ import { useHistory } from 'react-router-dom';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
+import createUser from '../redux/thunks/createUser';
 import { updateUser } from '../redux/actions';
 
 const Register = ({ dispatch }) => {
@@ -129,48 +130,24 @@ const Register = ({ dispatch }) => {
       setFailedMessage('displayMessage');
     } else {
       e.preventDefault();
-      const url = '/users';
-      fetch(url, {
-        method: 'POST',
-        body: JSON.stringify({
-          user: {
-            name,
-            email,
-            password,
-            dob,
-            age,
-            sex,
-            gender,
-            ethnicity: ethnicity.toString(),
-            height: heightData,
-            weight: weightData,
-          },
-        }),
-        headers: {
-          'Content-type': 'application/json; charset=UTF-8',
-        },
-      })
-        .then(response => {
-          if (response.ok) {
-            return response.json();
-          }
-          throw new Error('Network Response Failed.');
-        }).then(({ token, user }) => {
-          if (memory === true) {
-            localStorage.token = token;
-          } else {
-            sessionStorage.token = token;
-          }
-          try {
-            dispatch(updateUser(user));
-          } catch {
-            throw new Error('Failed to Register. Please try again.');
-          }
-          history.replace('/');
-        }).catch(err => {
-          setError(err.message);
-          setFailedMessage('displayMessage');
-        });
+      dispatch(createUser(name, email, password,
+        dob, age, sex, gender,
+        ethnicity, heightData, weightData)).then(({ token, user }) => {
+        if (memory === true) {
+          localStorage.token = token;
+        } else {
+          sessionStorage.token = token;
+        }
+        try {
+          dispatch(updateUser(user));
+        } catch {
+          throw new Error('Failed to Register. Please try again.');
+        }
+        history.replace('/');
+      }).catch(err => {
+        setError(err.message);
+        setFailedMessage('displayMessage');
+      });
     }
   };
   return (

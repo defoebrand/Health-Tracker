@@ -19,20 +19,19 @@ const DoctorCard = ({
   };
 
   return (
-    <Card style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
-      <Card.Img
-        variant="top"
-        src={img}
-        style={{
-          width: '34%', minWidth: 250, height: 'auto', maxHeight: '275px', objectFit: 'contain', margin: '10px auto',
-        }}
-      />
-      <Card.Body style={{
-        width: '64%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center',
-      }}
-      >
+    <Card className="doctorCard flex-wrap">
+      <div className="doctorCardImageContainer flex-center">
+        <div className="cardImageCrop">
+          <Card.Img
+            variant="top"
+            src={img}
+            className="doctorCardImage"
+          />
+        </div>
+      </div>
+      <Card.Body className="doctorCardBody flex-down">
         <Card.Title>{`${name} - ${specialty}`}</Card.Title>
-        <Card.Text style={{ textAlign: 'center' }}>{text}</Card.Text>
+        <Card.Text className="text-center">{text}</Card.Text>
         {user.name && <Button style={{ width: 'max-content' }} variant="primary" onClick={handleClick}>Schedule a Consultation</Button>}
       </Card.Body>
     </Card>

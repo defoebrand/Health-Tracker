@@ -16,20 +16,28 @@ const User = ({ user }) => {
 
   return (
     <>
-      <div className="welcomeBanner">
+      <div className="welcomeBanner flex-center">
         <h1 style={{ whiteSpace: 'nowrap' }}>{`Hello ${user.name}!`}</h1>
-        <img src="http://www.messagescollection.com/wp-content/uploads/2015/04/cute-cat-profile-for-facebook.jpg" alt={`${user.name} profile pic`} style={{ borderRadius: '50%', width: '10vw', minWidth: 100 }} />
+        <img
+          src="/images/blank-profile-pic.png"
+          alt={`${user.name} profile pic`}
+          className="userImage"
+        />
         <Button
           variant="success"
-          style={{
-            whiteSpace: 'nowrap', height: 'auto', width: '20%', minWidth: 'max-content', padding: '10px',
-          }}
+          className="userButton"
           onClick={() => history.push({ pathname: '/new-stats', state: { user } })}
         >
           Add Stats
         </Button>
       </div>
-      {charts.map(chart => <StatsCard key={chart.title} title={chart.title} data={chart.data} />)}
+      {charts.map(chart => (
+        <StatsCard
+          key={chart.title}
+          title={chart.title}
+          data={chart.data}
+        />
+      ))}
 
     </>
   );

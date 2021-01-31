@@ -18,14 +18,8 @@ const AddStats = ({ user }) => {
   const [newSystolic, setSystolic] = useState('');
   const [newDiastolic, setDiastolic] = useState('');
   const [newWeight, setWeight] = useState('');
-  const [failedMessage, setFailedMessage] = useState({ display: 'none' });
+  const [failedMessage, setFailedMessage] = useState('noMessage');
   const [error, setError] = useState('');
-
-  const displayMessage = {
-    display: 'block',
-    textAlign: 'center',
-    marginTop: 10,
-  };
 
   const changeTemp = e => {
     setTemp(e.target.value);
@@ -46,9 +40,13 @@ const AddStats = ({ user }) => {
     setDiastolic(e.target.value);
   };
 
+  const token = localStorage.token === ''
+    ? sessionStorage.token
+    : localStorage.token;
+
   const submitRegister = e => {
     e.preventDefault();
-    const { token } = localStorage;
+
     const date = new Date();
     const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
     let time;
@@ -145,21 +143,21 @@ const AddStats = ({ user }) => {
         history.push(`/users/${name}`);
       }).catch(err => {
         setError(err.message);
-        setFailedMessage(displayMessage);
+        setFailedMessage('displayMessage');
       });
   };
 
   return (
     <>
-      <h3 style={failedMessage}>{error}</h3>
-      <Form className="SignInForm" style={{ width: '85vw', maxWidth: 500, margin: '25px auto' }}>
+      <h3 className={failedMessage}>{error}</h3>
+      <Form className="formBox">
         <Form.Group controlId="formBasicWeight">
           <Form.Label>Weight</Form.Label>
           <Form.Control type="text" placeholder="Weight" onChange={changeWeight} />
         </Form.Group>
         <Form.Group controlId="formBasicBloodPressure">
           <Form.Label>Blood Pressure</Form.Label>
-          <div style={{ display: 'flex' }}>
+          <div className="flex">
             <Form.Control style={{ width: '50%' }} type="text" placeholder="Systolic" onChange={changeSystolic} />
             <Form.Control style={{ width: '50%' }} type="text" placeholder="Diastolic" onChange={changeDiastolic} />
           </div>

@@ -12,14 +12,8 @@ const Scheduler = ({ doctor, user }) => {
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
   const [notes, setNotes] = useState('');
-  const [failedMessage, setFailedMessage] = useState({ display: 'none' });
+  const [failedMessage, setFailedMessage] = useState('noMessage');
   const [error, setError] = useState('');
-
-  const displayMessage = {
-    display: 'block',
-    textAlign: 'center',
-    marginTop: 10,
-  };
 
   const token = localStorage.token === ''
     ? sessionStorage.token
@@ -52,7 +46,7 @@ const Scheduler = ({ doctor, user }) => {
         throw new Error('Network Response Failed.');
       }).then(history.replace(`/doctors/${list}`)).catch(err => {
         setError(err.message);
-        setFailedMessage(displayMessage);
+        setFailedMessage('displayMessage');
       });
   };
 
@@ -70,9 +64,10 @@ const Scheduler = ({ doctor, user }) => {
 
   return (
     <>
-      <h3 style={failedMessage}>{error}</h3>
-      <Form className="SignInForm" style={{ width: '85vw', maxWidth: 500, margin: '25px auto' }}>
-        <h1 style={{ textAlign: 'center' }}>{`Schedule an appointment with ${doctor}`}</h1>
+      <h3 className={failedMessage}>{error}</h3>
+      <h5 className="formHeader">All Fields Must Be Filled In</h5>
+      <Form className="formBox">
+        <h1 className="text-center">{`Schedule an appointment with ${doctor}`}</h1>
         <Form.Group controlId="formBasicDate">
           <Form.Label>Date requested</Form.Label>
           <Form.Control type="date" onChange={changeDate} />
@@ -86,7 +81,7 @@ const Scheduler = ({ doctor, user }) => {
           <Form.Label>Questions and Concerns</Form.Label>
           <Form.Control as="textarea" onChange={addToNote} />
         </Form.Group>
-        <Button variant="primary" type="submit" onClick={requestAppointment}>
+        <Button variant="primary" type="button" onClick={requestAppointment}>
           Request Appointment
         </Button>
       </Form>

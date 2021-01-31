@@ -16,14 +16,8 @@ const fetch = require('node-fetch');
 const Community = ({ dispatch, community, user }) => {
   const history = useHistory();
   const [members, setMembers] = useState([]);
-  const [failedMessage, setFailedMessage] = useState({ display: 'none' });
+  const [failedMessage, setFailedMessage] = useState('noMessage');
   const [error, setError] = useState('');
-
-  const displayMessage = {
-    display: 'block',
-    textAlign: 'center',
-    marginTop: 10,
-  };
 
   useEffect(() => {
     const url = '/user/community_users';
@@ -49,7 +43,7 @@ const Community = ({ dispatch, community, user }) => {
         }
       }).catch(err => {
         setError(err.message);
-        setFailedMessage(displayMessage);
+        setFailedMessage('displayMessage');
       });
   }, []);
 
@@ -78,7 +72,7 @@ const Community = ({ dispatch, community, user }) => {
         }
       }).catch(err => {
         setError(err.message);
-        setFailedMessage(displayMessage);
+        setFailedMessage('displayMessage');
       });
   };
 
@@ -107,7 +101,7 @@ const Community = ({ dispatch, community, user }) => {
         }
       }).catch(err => {
         setError(err.message);
-        setFailedMessage(displayMessage);
+        setFailedMessage('displayMessage');
       });
   };
 
@@ -118,33 +112,24 @@ const Community = ({ dispatch, community, user }) => {
 
   return (
     <>
-      <h3 style={failedMessage}>{error}</h3>
+      <h3 className={failedMessage}>{error}</h3>
       <Tabs
         defaultActiveKey=""
         transition={false}
         id="noanim-tab-example"
-        style={{
-          display: 'flex', justifyContent: 'center', marginTop: 15, flexWrap: 'nowrap',
-        }}
         onClick={handleClick}
       >
         <Tab eventKey="friends" title="My Friends" />
         <Tab eventKey="myCommunities" title="My Communities" />
         <Tab eventKey="communities" title="All Communities" />
       </Tabs>
-      <div style={{
-        margin: '25px auto', width: '85vw', display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center',
-      }}
-      >
-        <span style={{
-          display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginBottom: 15,
-        }}
-        >
+      <div className="viewContainer flex-down">
+        <span className="viewBox flex-down">
           <h1>{community}</h1>
           <span>
             {members.some(member => member.name === user.name)
               ? <Button variant="info" onClick={removeCommunity}>Leave Community</Button>
-              : <Button variant="info" onClick={addCommunity} style={{ marginRight: 10 }}>Join Community</Button>}
+              : <Button variant="info" onClick={addCommunity}>Join Community</Button>}
           </span>
         </span>
         <div style={{ border: '1px solid black', padding: 25 }}>

@@ -1,0 +1,122 @@
+.signInBtn {
+  flex-direction: row !important;
+
+  div {
+    margin-left: 10px;
+  }
+}
+
+.signOutBtn {
+  padding-right: 5px;
+  color: var(--primary) !important;
+}
+
+.signOutBtn:hover {
+  color: #24a9e5 !important;
+}
+
+.bigScreenSignOutBtn {
+  display: none !important;
+}
+
+@media only screen and (min-width: 992px) {
+  .signOutBtn {
+    display: none !important;
+  }
+
+  .bigScreenSignOutBtn {
+    display: block !important;
+  }
+}
+
+.resourceImage {
+  height: 300px;
+  object-fit: contain;
+  padding: 10px;
+}
+
+.appointmentText {
+  padding: 10px;
+  margin: 0 auto;
+}
+
+.appointmentBody {
+  justify-content: center;
+}
+
+.appointmentButton {
+  width: max-content;
+  align-self: center;
+  margin-bottom: 15px;
+}
+
+.eraseButtonStyle {
+  border: none;
+  background-color: inherit;
+}
+
+.communityCardBody {
+  justify-content: center;
+  flex-direction: row !important;
+}
+
+.communityCardImage {
+  max-width: 250px;
+  height: auto;
+  max-height: 275px;
+  object-fit: contain;
+  margin: 10px auto;
+}
+
+.communityCardText {
+  text-align: center;
+  padding: 5px;
+  width: 64%;
+  margin: 0 auto;
+}
+
+.doctorCard {
+  flex-direction: row !important;
+}
+
+.doctorCardImageContainer {
+  width: 34%;
+  margin: 0 auto;
+  min-width: 250px;
+}
+
+.cardImageCrop {
+  width: 80%;
+  max-width: 350px;
+  overflow-x: hidden;
+}
+
+.doctorCardImage {
+  width: 100%;
+  height: auto;
+  max-height: 275px;
+  object-fit: cover;
+  object-position: top;
+  margin: 10px auto;
+}
+
+.doctorCardBody {
+  width: 64%;
+}
+
+.userName {
+  justify-content: space-between;
+}
+
+.userSignIn {
+  width: 75px;
+  white-space: nowrap;
+}
+
+.dropdownLinks {
+  display: flex;
+  justify-content: space-around;
+  min-width: 300px;
+  max-width: 85vw;
+  margin: 0 auto;
+}

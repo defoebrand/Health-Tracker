@@ -1,10 +1,7 @@
 import React from 'react';
 
 const SickCall = () => (
-  <h1 style={{
-    width: '80vw', margin: '0 auto', whiteSpace: 'wrap', textAlign: 'center',
-  }}
-  >
+  <h1 className="placeHolderText text-center">
     Triage Questionnaire coming soon!
   </h1>
 );

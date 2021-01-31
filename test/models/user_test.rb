@@ -13,7 +13,10 @@ class UserTest < ActiveSupport::TestCase
                     email: 'user@user.com',
                     password: 'user',
                     height: '{ "height": 166 }',
-                    weight: '{ "measurements": 85 }')
+                    weight: '{ "measurements": 85 }',
+                    ethnicity: 'Central & South Asian',
+                    sex: 'XX',
+                    gender: 'Female')
     assert_not user.valid?
   end
 

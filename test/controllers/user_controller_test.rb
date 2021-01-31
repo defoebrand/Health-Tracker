@@ -7,7 +7,11 @@ class UserControllerTest < ActionDispatch::IntegrationTest
       email: 'newuser@newuser.com',
       password: 'user',
       height: '{ "height": 166 }',
-      weight: '{ "measurements": 85 }'
+      weight: '{ "measurements": 85 }',
+      ethnicity: 'Central & South Asian',
+      sex: 'XX',
+      gender: 'Female',
+      age: 33
     }
   end
 
@@ -67,19 +71,19 @@ class UserControllerTest < ActionDispatch::IntegrationTest
 
   test 'with correct input, controller should create user and return JSON object with default value for age' do
     post user_index_url, params: { user: good_user }
-    assert_nil @response.parsed_body['user']['age']
+    assert_equal 33, @response.parsed_body['user']['age']
     assert_not_equal '{}', @response.parsed_body['user']['age']
   end
 
   test 'with correct input, controller should create user and return JSON object with default value for sex' do
     post user_index_url, params: { user: good_user }
-    assert_nil @response.parsed_body['user']['sex']
+    assert_equal 'XX', @response.parsed_body['user']['sex']
     assert_not_equal '{}', @response.parsed_body['user']['sex']
   end
 
   test 'with correct input, controller should create user and return JSON object with default value for ethnicity' do
     post user_index_url, params: { user: good_user }
-    assert_nil @response.parsed_body['user']['ethnicity']
+    assert_equal 'Central & South Asian', @response.parsed_body['user']['ethnicity']
     assert_not_equal '{}', @response.parsed_body['user']['ethnicity']
   end
 
@@ -91,7 +95,7 @@ class UserControllerTest < ActionDispatch::IntegrationTest
 
   test 'with correct input, controller should create user and return JSON object with default value for gender' do
     post user_index_url, params: { user: good_user }
-    assert_nil @response.parsed_body['user']['gender']
+    assert_equal 'Female', @response.parsed_body['user']['gender']
     assert_not_equal '{}', @response.parsed_body['user']['gender']
   end
 
@@ -105,7 +109,7 @@ class UserControllerTest < ActionDispatch::IntegrationTest
         weight: '{ "measurements": 85 }'
       }
     }
-    assert_equal '{"error":"Incorrect input supplied"}', @response.body
+    assert_equal '{"error":"Incorrect Input Supplied"}', @response.body
   end
 
   test 'if controller create action receives a missing weight parameter, it should return incorrect input' do
@@ -117,7 +121,7 @@ class UserControllerTest < ActionDispatch::IntegrationTest
         height: '{ "height": 166 }'
       }
     }
-    assert_equal '{"error":"Incorrect input supplied"}', @response.body
+    assert_equal '{"error":"Incorrect Input Supplied"}', @response.body
   end
 
   test 'if controller create action receives a missing height parameter, it should return incorrect input' do
@@ -129,7 +133,7 @@ class UserControllerTest < ActionDispatch::IntegrationTest
         weight: '{ "measurements": 85 }'
       }
     }
-    assert_equal '{"error":"Incorrect input supplied"}', @response.body
+    assert_equal '{"error":"Incorrect Input Supplied"}', @response.body
   end
 
   test 'if controller create action receives a missing password parameter, it should return incorrect input' do
@@ -141,6 +145,6 @@ class UserControllerTest < ActionDispatch::IntegrationTest
         height: '{ "height": 166 }'
       }
     }
-    assert_equal '{"error":"Incorrect input supplied"}', @response.body
+    assert_equal '{"error":"Incorrect Input Supplied"}', @response.body
   end
 end

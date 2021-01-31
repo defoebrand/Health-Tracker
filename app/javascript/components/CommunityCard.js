@@ -21,26 +21,14 @@ const CommunityCard = ({ dispatch, community }) => {
         <Card.Header>
           <small className="text-muted">{`Active Members: ${Math.round(Math.random() * 100)}`}</small>
         </Card.Header>
-        <button type="button" onClick={handleClick} style={{ border: 'none', backgroundColor: 'inherit' }}>
-          <Card.Body style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
+        <button type="button" onClick={handleClick} className="eraseButtonStyle">
+          <Card.Body className="communityCardBody flex-wrap">
             <Card.Img
               variant="top"
               src={community.image}
-              style={{
-                width: 250, height: 'auto', maxHeight: '275px', objectFit: 'contain', margin: '10px auto',
-              }}
+              className="communityCardImage"
             />
-            <div style={{
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center',
-              alignItems: 'center',
-              textAlign: 'center',
-              padding: 5,
-              width: '64%',
-              margin: '0 auto',
-            }}
-            >
+            <div className="communityCardText flex-down">
               <Card.Title>{community.name}</Card.Title>
               <Card.Text>{community.description}</Card.Text>
             </div>

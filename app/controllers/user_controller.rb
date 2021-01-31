@@ -1,10 +1,10 @@
 class UserController < ApplicationController
   protect_from_forgery with: :null_session
-  before_action :authorized, only: %i[index user_doctors user_communities user_appointments add_appointment]
+  before_action :authorized, only: %i[index settings user_doctors
+                                      user_communities user_appointments
+                                      add_appointment cancel_appointment]
   before_action :set_user_by_email, only: [:login]
-  before_action :set_user_by_id, only: %i[settings user_communities join_community
-                                          leave_community user_doctors user_appointments
-                                          add_appointment]
+  before_action :set_user_by_id, only: %i[join_community leave_community]
   before_action :set_community, only: %i[community_users join_community leave_community]
 
   def index
@@ -97,6 +97,12 @@ class UserController < ApplicationController
     render json: @user.doctors.uniq
   end
 
+  def cancel_appointment
+    @appt = Appointment.find(appt_params[:id])
+    @user.appointments.delete(@appt)
+    render json: @user.appointments
+  end
+
   private
 
   def set_user_by_email
@@ -126,6 +132,6 @@ class UserController < ApplicationController
   end
 
   def appt_params
-    params.require(:appt).permit(:user_id, :doc_name, :date, :time, :notes)
+    params.require(:appt).permit(:id, :user_id, :doc_name, :date, :time, :notes)
   end
 end

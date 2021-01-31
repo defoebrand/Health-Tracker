@@ -13,7 +13,7 @@ class SigninFlowTest < ActionDispatch::IntegrationTest
 
   test 'login should return an error if username is incorrect' do
     post login_user_index_url, params: { user: { email: 'asdfasd', password: 'asdfasd' } }
-    assert_equal '{"error":"Invalid username or password"}', @response.body
+    assert_equal '{"error":"Invalid Username or Password"}', @response.body
   end
 
   test 'login should return a token if username is correct' do

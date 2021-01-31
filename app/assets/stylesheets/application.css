@@ -17,3 +17,70 @@
 html {
   height: 100vh;
 }
+
+body {
+  font-family: HelveticaBold, sans-serif;
+  color: var(--dark);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: HelveticaLight, sans-serif;
+}
+
+.btn-primary {
+  color: var(--dark);
+}
+
+.noMessage {
+  display: none;
+}
+
+.displayMessage {
+  display: block;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.placeHolderText {
+  width: 80vw;
+  margin: 15px auto;
+  white-space: normal;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.flex-down {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.flex-wrap {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.mar-L-10 {
+  margin-left: 10px;
+}
+
+.mar-L-15 {
+  margin-left: 15px;
+}

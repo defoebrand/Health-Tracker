@@ -6,7 +6,9 @@ import { HashRouter } from 'react-router-dom';
 import store from '../redux/store';
 
 import App from '../containers/App';
-import 'bootstrap/dist/css/bootstrap.min.css';
+
+// import 'bootstrap/dist/css/bootstrap.min.css';
+import '../../assets/stylesheets/application.css';
 
 document.addEventListener('DOMContentLoaded', () => {
   ReactDOM.render(

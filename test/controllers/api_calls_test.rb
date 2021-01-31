@@ -6,17 +6,23 @@ class ApiCallsTest < ActionDispatch::IntegrationTest
     assert_equal 8, @response.parsed_body.count
   end
 
-  # test 'should return user data matching an age query' do
-  #   get '/age/32'
-  #   assert_equal 4, @response.parsed_body.count
-  # end
+  test 'should return user data matching an age query' do
+    get '/api/age/32'
+    assert_equal 4, @response.parsed_body.count
+  end
 
-  # test 'should return user data matching a height query' do
-  #   get '/height/3'
-  #   assert_equal 2, @response.parsed_body.count
-  # end
-  # test 'should return user data matching a weight query' do
-  #   get '/api?weight=4'
-  #   assert_equal 2, @response.parsed_body.count
-  # end
+  test 'should return user data matching a sex query' do
+    get '/api/sex/XX'
+    assert_equal 2, @response.parsed_body.count
+  end
+
+  test 'should return user data matching an ethnicity query' do
+    get '/api/ethnicity/European'
+    assert_equal 2, @response.parsed_body.count
+  end
+
+  test 'should return user data matching a height query' do
+    get '/api/height/Metric/166'
+    assert_equal 2, @response.parsed_body.count
+  end
 end

@@ -18,14 +18,9 @@ const Friends = ({
   tab, communities, user, dispatch,
 }) => {
   const [myCommunities, setCommunities] = useState([]);
-  const [failedMessage, setFailedMessage] = useState({ display: 'none' });
+  const [failedMessage, setFailedMessage] = useState('noMessage');
   const [error, setError] = useState('');
 
-  const displayMessage = {
-    display: 'block',
-    textAlign: 'center',
-    marginTop: 10,
-  };
   const token = localStorage.token === ''
     ? sessionStorage.token
     : localStorage.token;
@@ -50,7 +45,7 @@ const Friends = ({
         }
       }).catch(err => {
         setError(err.message);
-        setFailedMessage(displayMessage);
+        setFailedMessage('displayMessage');
       });
   }, []);
 
@@ -78,24 +73,21 @@ const Friends = ({
           }
         }).catch(err => {
           setError(err.message);
-          setFailedMessage(displayMessage);
+          setFailedMessage('displayMessage');
         });
     }
   }, []);
 
   return (
     <>
-      <h3 style={failedMessage}>{error}</h3>
+      <h3 className={failedMessage}>{error}</h3>
       <Tabs
         defaultActiveKey={user.name === '' ? 'communities' : tab}
         transition={false}
         id="noanim-tab-example"
-        style={{
-          display: 'flex', justifyContent: 'center', marginTop: 15, flexWrap: 'nowrap',
-        }}
       >
         <Tab eventKey="friends" title="My Friends">
-          <h2 style={{ margin: '15px auto', whiteSpace: 'wrap', textAlign: 'center' }}>Chat with Friends! - coming soon - </h2>
+          <h2 className="placeHolderText text-center">Chat with Friends! - coming soon - </h2>
         </Tab>
         <Tab eventKey="myCommunities" title="My Communities">
           <CardGroup style={{ flexDirection: 'column' }}>

@@ -11,9 +11,7 @@ const ResourceCard = ({
     <Card.Img
       variant="top"
       src={image}
-      style={{
-        height: 300, objectFit: 'contain', padding: 10,
-      }}
+      className="resourceImage"
     />
     <Card.Body>
       <Card.Title>{title}</Card.Title>

@@ -10,12 +10,14 @@ Rails.application.routes.draw do
       post 'user_communities'
       post 'add_appointment'
       post 'community_users'
+      post 'cancel_appointment'
     end
   end
 
   post 'user_communities', to: 'user#user_communities'
   post 'user_doctors', to: 'user#user_doctors'
   post 'add_appointment', to: 'user#add_appointment'
+  get 'user_appointments', to: 'user#user_appointments'
 
   scope path: '/api' do
     get '/', to: 'homepage#all'

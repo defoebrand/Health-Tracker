@@ -8,6 +8,7 @@ import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
 
 import DoctorCard from '../components/DoctorCard';
+import Appointments from './Appointments';
 
 const fetch = require('node-fetch');
 
@@ -15,14 +16,9 @@ const Doctor = ({
   doctors, user,
 }) => {
   const [myDoctors, setMyDoctors] = useState([]);
-  const [failedMessage, setFailedMessage] = useState({ display: 'none' });
+  const [failedMessage, setFailedMessage] = useState('noMessage');
   const [error, setError] = useState('');
 
-  const displayMessage = {
-    display: 'block',
-    textAlign: 'center',
-    marginTop: 10,
-  };
   const token = localStorage.token === ''
     ? sessionStorage.token
     : localStorage.token;
@@ -51,21 +47,18 @@ const Doctor = ({
           }
         }).catch(err => {
           setError(err.message);
-          setFailedMessage(displayMessage);
+          setFailedMessage('displayMessage');
         });
     }
   }, [user]);
 
   return (
     <>
-      <h3 style={failedMessage}>{error}</h3>
+      <h3 className={failedMessage}>{error}</h3>
       <Tabs
         defaultActiveKey={user.name === '' ? 'all' : 'personal'}
         transition={false}
         id="noanim-tab-example"
-        style={{
-          display: 'flex', justifyContent: 'center', marginTop: 15,
-        }}
       >
         <Tab eventKey="personal" title="My Doctors">
           {doctors.filter(doctor => (
@@ -90,6 +83,9 @@ const Doctor = ({
               text={doctor.quote}
             />
           ))}
+        </Tab>
+        <Tab eventKey="apointments" title="My Appointments">
+          <Appointments />
         </Tab>
       </Tabs>
 

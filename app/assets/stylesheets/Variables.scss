@@ -1,0 +1,17 @@
+@font-face {
+  font-family: HelveticaLight;
+  src: url(/fonts/HelveticaNeueLt.ttf);
+}
+
+@font-face {
+  font-family: HelveticaBold;
+  src: url(/fonts/HelveticaNeueBd.ttf);
+}
+
+$primary: #68c4ed;
+$success: #97e493;
+$info: #d5f4d4;
+$danger: #8c3232;
+$dark: #314853;
+
+@import 'bootstrap/scss/bootstrap.scss';

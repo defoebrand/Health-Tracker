@@ -35,12 +35,14 @@ const ResourceAccordion = ({ resource }) => (
 ResourceAccordion.propTypes = {
   resource: PropTypes.shape({
     Heading: PropTypes.string,
-    Info: PropTypes.arrayOf({
-      image: PropTypes.string,
-      title: PropTypes.string,
-      text: PropTypes.string,
-      link: PropTypes.string,
-    }),
+    Info: PropTypes.arrayOf(
+      PropTypes.shape({
+        image: PropTypes.string,
+        title: PropTypes.string,
+        text: PropTypes.string,
+        link: PropTypes.string,
+      }),
+    ),
   }),
 };
 

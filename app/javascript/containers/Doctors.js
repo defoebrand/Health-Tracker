@@ -12,7 +12,9 @@ import Appointments from './Appointments';
 
 import { allDoctors } from '../redux/actions';
 
-const fetch = require('node-fetch');
+import getDoctors from '../redux/thunks/getDoctors';
+
+import getMyDoctors from '../redux/thunks/getMyDoctors';
 
 const Doctors = ({
   doctors, user, tab, dispatch,
@@ -26,53 +28,30 @@ const Doctors = ({
     : localStorage.token;
 
   useEffect(() => {
-    const url = '/doctors';
-    fetch(url, {
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8',
-      },
-    })
-      .then(response => {
-        if (response.ok) {
-          return response.json();
-        }
+    dispatch(getDoctors()).then(data => {
+      try {
+        dispatch(allDoctors(data));
+      } catch {
         throw new Error('Failed to Retrieve Doctors.');
-      }).then(data => {
+      }
+    }).catch(err => {
+      setError(err.message);
+      setFailedMessage('displayMessage');
+    });
+  }, []);
+
+  useEffect(() => {
+    if (user.name !== '') {
+      dispatch(getMyDoctors(user, token)).then(data => {
         try {
-          dispatch(allDoctors(data));
+          setMyDoctors(data.doctors);
         } catch {
-          throw new Error('Failed to Retrieve Doctors.');
+          throw new Error('Failed to Retrieve Your Doctors.');
         }
       }).catch(err => {
         setError(err.message);
         setFailedMessage('displayMessage');
       });
-  }, []);
-
-  useEffect(() => {
-    if (user.name !== '') {
-      const url = `/users/${user.id}`;
-      fetch(url, {
-        headers: {
-          'Content-type': 'application/json; charset=UTF-8',
-          Authorization: `Bearer ${token}`,
-        },
-      })
-        .then(response => {
-          if (response.ok) {
-            return response.json();
-          }
-          throw new Error('Network Response Failed.');
-        }).then(data => {
-          try {
-            setMyDoctors(data.doctors);
-          } catch {
-            throw new Error('Failed to Retrieve Your Doctors.');
-          }
-        }).catch(err => {
-          setError(err.message);
-          setFailedMessage('displayMessage');
-        });
     }
   }, []);
 

@@ -11,13 +11,5 @@ Rails.application.routes.draw do
 
   resources :users, only: %i[index show create update]
 
-  scope path: '/api' do
-    get '/', to: 'users#index'
-    get '/age/:age/:range', to: 'users#index'
-    get '/sex/:sex', to: 'users#index'
-    get '/gender/:gender', to: 'users#index'
-    get '/ethnicity/:ethnicity', to: 'users#index'
-    get '/height/:scale/:height', to: 'users#index'
-    get '/weight/:scale/:weight', to: 'users#index'
-  end
+  get '/api', to: 'users#index'
 end

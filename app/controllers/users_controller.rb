@@ -1,19 +1,8 @@
 class UsersController < ApplicationController
-  include UserHelper
   before_action :authorized, only: %i[show update]
 
   def index
-    @returned_users = []
-    if params.each.count < 3
-      display_users(User.all)
-    else
-      params.each do |param|
-        next if %w[controller action scale range].include?(param[0])
-
-        query_switch(param, params)
-      end
-      display_users(@returned_users.flatten.uniq)
-    end
+    display_users(User.all)
   end
 
   def show
@@ -36,20 +25,11 @@ class UsersController < ApplicationController
   end
 
   def update
-    ApplicationRecord.transaction do
-      if %w[name email password].include?(user_params)
-        user_params.each do |param|
-          @current_user.update!(param[0] => user_params[param[0]]) if @current_user[param[0]] != user_params[param[0]]
-        end
-      else
-        user_params.each do |param|
-          @current_user.update!(param[0] => user_params[param[0]]) if user_params[param[0]] != '{}'
-        end
-      end
-      render json: { user: @current_user }
+    if @current_user.update!(user_params)
+      render json: { user: cleanse_user(@current_user) }
+    else
+      render json: { user: 'Invalid Input' }
     end
-  rescue ActiveRecord::RecordInvalid
-    render json: { user: 'Invalid Input' }
   end
 
   private

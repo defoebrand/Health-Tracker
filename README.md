@@ -1,6 +1,7 @@
 > This project is a React and Rails based app built as the Final capstone project for the Microverse coursework. It is meant to track health data, allow users to schedule doctor appointments, and connect to others in community groups.
 
 # Health Tracker
+
 ## Project Description
 
 The project is a tracker app designed to display tracked results fetched from a back-end API. It fetches user data such as health information and appointment times. Additionally it allows a user to schedule appointments and reach out for community support

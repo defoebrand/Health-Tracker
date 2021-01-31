@@ -17,6 +17,7 @@ const Settings = ({ user, dispatch }) => {
   const [confirm, setConfirm] = useState('');
   const [failedMessage, setFailedMessage] = useState('noMessage');
   const [error, setError] = useState('Failed');
+  const [pwError, setPwError] = useState({ border: '' });
 
   const changeName = e => {
     setNewUserName(e.target.value);
@@ -38,23 +39,34 @@ const Settings = ({ user, dispatch }) => {
     ? sessionStorage.token
     : localStorage.token;
 
+  const compileUserData = () => {
+    const newData = {};
+    if (newUserName !== user.name) {
+      newData.name = newUserName;
+    }
+    if (newEmail !== user.email) {
+      newData.email = newEmail;
+    }
+    if (newPassword !== '') {
+      if (newPassword === confirm) {
+        newData.password = newPassword;
+      }
+    }
+    return newData;
+  };
+
   const updateSettings = e => {
-    if (newPassword !== confirm) {
-      setError('Passwords Do Not Match');
+    e.preventDefault();
+    const newUserData = compileUserData({});
+    if (newPassword === '' || newPassword !== confirm) {
+      setError('Input Password and Confirmation');
       setFailedMessage('displayMessage');
+      setPwError({ border: '1px solid red' });
     } else {
-      e.preventDefault();
       const url = `/users/${user.id}`;
       fetch(url, {
         method: 'PATCH',
-        body: JSON.stringify({
-          user: {
-            id: user.id,
-            name: newUserName,
-            email: newEmail,
-            password: newPassword,
-          },
-        }),
+        body: JSON.stringify({ user: newUserData }),
         headers: {
           'Content-type': 'application/json; charset=UTF-8',
           Authorization: `Bearer ${token}`,
@@ -93,11 +105,11 @@ const Settings = ({ user, dispatch }) => {
         </Form.Group>
         <Form.Group controlId="formBasicPassword">
           <Form.Label>Password</Form.Label>
-          <Form.Control type="text" placeholder="Password" onChange={changePassword} />
+          <Form.Control type="text" placeholder="Password" onChange={changePassword} style={pwError} />
         </Form.Group>
         <Form.Group controlId="formBasicConfirmPassword">
           <Form.Label>Confirm Password</Form.Label>
-          <Form.Control type="text" placeholder="Confirm Password" onChange={confirmPassword} />
+          <Form.Control type="text" placeholder="Confirm Password" onChange={confirmPassword} style={pwError} />
         </Form.Group>
         <Button variant="primary" type="submit" onClick={updateSettings}>
           Update Settings

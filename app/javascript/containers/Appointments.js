@@ -1,12 +1,14 @@
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import AppointmentCard from '../components/AppointmentCard';
 
 const fetch = require('node-fetch');
 
-const Appointments = () => {
+const Appointments = ({ user }) => {
   const [failedMessage, setFailedMessage] = useState('noMessage');
   const [error, setError] = useState('');
   const [myAppointments, setMyAppointments] = useState([]);
@@ -16,7 +18,7 @@ const Appointments = () => {
     : localStorage.token;
 
   useEffect(() => {
-    const url = '/user_appointments';
+    const url = `/users/${user.id}`;
     fetch(url, {
       headers: {
         'Content-type': 'application/json; charset=UTF-8',
@@ -30,7 +32,7 @@ const Appointments = () => {
         throw new Error('');
       }).then(data => {
         try {
-          setMyAppointments(data);
+          setMyAppointments(data.appointments);
         } catch {
           throw new Error('Failed to Retrieve Your Appointments.');
         }
@@ -41,17 +43,9 @@ const Appointments = () => {
   }, []);
 
   const cancelAppointment = appt => {
-    const url = '/user/cancel_appointment';
+    const url = `/appointments/${appt.id}`;
     fetch(url, {
-      method: 'POST',
-      body: JSON.stringify({
-        user: {
-          id: appt.user.id,
-        },
-        appt: {
-          id: appt.id,
-        },
-      }),
+      method: 'DELETE',
       headers: {
         'Content-type': 'application/json; charset=UTF-8',
         Authorization: `Bearer ${token}`,
@@ -89,4 +83,20 @@ const Appointments = () => {
   );
 };
 
-export default Appointments;
+Appointments.propTypes = {
+  user: PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.string,
+  }),
+};
+
+Appointments.defaultProps = {
+  user: {
+    id: 0,
+    name: '',
+  },
+};
+
+export default connect(state => ({
+  user: state.userReducer.user,
+}))(Appointments);

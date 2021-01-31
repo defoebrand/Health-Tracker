@@ -34,7 +34,7 @@ const HeaderNav = ({ dispatch, user }) => {
   }, [user]);
 
   useEffect(() => {
-    const url = '/user';
+    const url = '/sessions';
     fetch(url, {
       headers: {
         Authorization: `Bearer ${token}`,

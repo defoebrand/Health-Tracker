@@ -29,6 +29,7 @@ The project is a tracker app designed to display tracked results fetched from a 
 -   Enhanced API data filtering
 -   Personalized color coding for chart lines
 -   Dark mode for app
+-   Login for Doctors
 
 ## Built With
 -   Atom
@@ -82,15 +83,18 @@ MY ACCOUNT:
 
 ### To Use The API 
 To Gather Data:  
-Replace any words that begin as `:` with your search criteria. For example, to get all users who are 33 years old, use  
-`GET /age/33` 
+Replace any words that begin as `:` with your search criteria. For example, to get all users between 28 and 32, use  
+`GET /age/30/2` 
   
 `- GET / ` Retrieve all Users.  
 
-`- GET /age/:age ` Retrieve all Users That Match Search Parameters.  
+`- GET /age/:age/:range ` Retrieve all Users That Match Search Parameters.  
 
 `- GET /sex/:sex' `  Retrieve all Users That Match Search Parameters.  
 Sex options are `XX` or `XY`  
+
+`- GET /gender/:gender' `  Retrieve all Users That Match Search Parameters.  
+Note: Gender options are all lowercase
 
 `- GET /ethnicity/:ethnicity ` Retrieve all Users That Match Search Parameters.  
 Ethnicity options are as follows:  
@@ -106,43 +110,48 @@ Ethnicity options are as follows:
 Scale options are `Metric` or `Imperial`  
 Note: Measurements in Metric must be given in Centimeters, Imperial in Inches
 
-`- GET doctors `  Retrieve all Registered Doctors  
+`- GET /weight/:scale/:weight ` Retrieve all Users That Match Search Parameters.  
+Scale options are `Metric` or `Imperial`  
+Note: Measurements in Metric must be given in Centimeters, Imperial in Inches
+Note: Only returns entries whose last weight measurement matches the given criteria
 
-`- GET communities `  Retrieve all Available Communities 
+`- GET /doctors `  Retrieve all Registered Doctors  
+
+`- GET /communities `  Retrieve all Available Communities 
 
 Searches by preferred gender, ranges for height, weight, and age, as well as high blood pressure and high blood sugar will become available with a future update
 
 To Use API for your project:  
 I strongly recommend looking at the code base in order to properly structure your body parameter data. 
 
-`- POST /user` 	Register a New User  
+`- POST /users` 	Register a New User  
 body: { user: { name, email, password, dob, age, sex, gender, ethnicity, height, weight }}  
 **returns user data and token
 
-`- POST /user/login` 	User Login  
-body: { user: { email, password }}  
+`- POST /sessions` 	User Login  
+body: { session: { email, password }}  
 **returns user data and token
 
-`- POST /user/doctor` Doctor Login  
+`- POST /users/doctors` Doctor Login  
 *Route currently unavailable
 
-`- PATCH /user/:id` Add Stats to User  
+`- PATCH /users/:id` Add Stats to User  
 body: { user: { temperature, weight, pulse, blood_sugar, systolic, diastolic }}  
 **requires token
 
-`- PATCH /user/settings` Change User Account Settings  
+`- PATCH /users/:id` Change User Account Settings  
 body: { user: { id, name, email, password }}  
 **requires token
 
-`- POST /user/add_appointment` Schedule an Appointment  
-body: { user: { id }, appt: { doc_name, date, time, notes }}  
+`- POST /appointments` Schedule an Appointment  
+body: { appt: { doc_name, date, time, notes }}  
 **requires token
 
-`- GET /user_appointments` Retrieve all User Appointments  
+`- GET /users/:id` Retrieve all User Appointments  
 **requires token
 
-`- POST /user/cancel_appointment` Cancel an Appointment  
-body: { user: { id }, appt: { id }}  
+`- DELETE /appointments/:id` Cancel an Appointment  
+body: { appt: { id }}  
 **requires token
 
 

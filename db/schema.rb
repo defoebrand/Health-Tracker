@@ -18,13 +18,13 @@ ActiveRecord::Schema.define(version: 2021_01_22_223603) do
   create_table "appointments", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "doctor_id"
-    t.string "doctor"
-    t.string "user"
     t.date "date"
     t.time "time"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "notes"
+    t.string "user"
+    t.string "doctor"
     t.index ["doctor_id"], name: "index_appointments_on_doctor_id"
     t.index ["user_id"], name: "index_appointments_on_user_id"
   end

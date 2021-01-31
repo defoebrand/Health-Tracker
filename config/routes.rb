@@ -1,32 +1,23 @@
 Rails.application.routes.draw do
-  root 'homepage#index'
+  root 'sessions#new'
 
-  resources :user do
-    collection do
-      post 'login'
-      patch 'settings'
-      post 'join_community'
-      post 'leave_community'
-      post 'user_communities'
-      post 'add_appointment'
-      post 'community_users'
-      post 'cancel_appointment'
-    end
-  end
+  resources :sessions, only: %i[index new create]
 
-  post 'user_communities', to: 'user#user_communities'
-  post 'user_doctors', to: 'user#user_doctors'
-  post 'add_appointment', to: 'user#add_appointment'
-  get 'user_appointments', to: 'user#user_appointments'
+  resources :doctors, only: %i[index]
+
+  resources :communities, only: %i[index show update]
+  
+  resources :appointments, only: %i[create destroy]
+
+  resources :users, only: %i[index show create update]
 
   scope path: '/api' do
-    get '/', to: 'homepage#all'
-    get '/age/:age', to: 'homepage#by_age'
-    get '/sex/:sex', to: 'homepage#by_sex'
-    get '/ethnicity/:ethnicity', to: 'homepage#by_ethnicity'
-    get '/height/:scale/:height', to: 'homepage#by_height'
+    get '/', to: 'users#index'
+    get '/age/:age/:range', to: 'users#index'
+    get '/sex/:sex', to: 'users#index'
+    get '/gender/:gender', to: 'users#index'
+    get '/ethnicity/:ethnicity', to: 'users#index'
+    get '/height/:scale/:height', to: 'users#index'
+    get '/weight/:scale/:weight', to: 'users#index'
   end
-
-  get 'doctors', to: 'homepage#doctors'
-  get 'communities', to: 'homepage#communities'
 end

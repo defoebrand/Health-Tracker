@@ -51,10 +51,8 @@ const Friends = ({
 
   useEffect(() => {
     if (user.name !== '') {
-      const url = '/user_communities';
+      const url = `/users/${user.id}`;
       fetch(url, {
-        method: 'POST',
-        body: JSON.stringify({ user: { id: user.id } }),
         headers: {
           'Content-type': 'application/json; charset=UTF-8',
           Authorization: `Bearer ${token}`,
@@ -67,7 +65,7 @@ const Friends = ({
           throw new Error('Network Response Failed.');
         }).then(data => {
           try {
-            setCommunities(data);
+            setCommunities(data.communities);
           } catch {
             throw new Error('Failed to Retrieve Your Communities.');
           }
@@ -139,7 +137,7 @@ Friends.defaultProps = {
 };
 
 export default connect(state => ({
-  tab: state.tabReducer.tab,
-  communities: state.allCommunitiesReducer.communities,
+  tab: state.friendsReducer.tab,
+  communities: state.communityReducer.communities,
   user: state.userReducer.user,
 }))(Friends);

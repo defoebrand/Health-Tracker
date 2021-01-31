@@ -10,10 +10,12 @@ import Tab from 'react-bootstrap/Tab';
 import DoctorCard from '../components/DoctorCard';
 import Appointments from './Appointments';
 
+import { allDoctors } from '../redux/actions';
+
 const fetch = require('node-fetch');
 
-const Doctor = ({
-  doctors, user,
+const Doctors = ({
+  doctors, user, tab, dispatch,
 }) => {
   const [myDoctors, setMyDoctors] = useState([]);
   const [failedMessage, setFailedMessage] = useState('noMessage');
@@ -24,11 +26,33 @@ const Doctor = ({
     : localStorage.token;
 
   useEffect(() => {
+    const url = '/doctors';
+    fetch(url, {
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+      },
+    })
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        }
+        throw new Error('Failed to Retrieve Doctors.');
+      }).then(data => {
+        try {
+          dispatch(allDoctors(data));
+        } catch {
+          throw new Error('Failed to Retrieve Doctors.');
+        }
+      }).catch(err => {
+        setError(err.message);
+        setFailedMessage('displayMessage');
+      });
+  }, []);
+
+  useEffect(() => {
     if (user.name !== '') {
-      const url = '/user_doctors';
+      const url = `/users/${user.id}`;
       fetch(url, {
-        method: 'POST',
-        body: JSON.stringify({ user: { id: user.id } }),
         headers: {
           'Content-type': 'application/json; charset=UTF-8',
           Authorization: `Bearer ${token}`,
@@ -41,7 +65,7 @@ const Doctor = ({
           throw new Error('Network Response Failed.');
         }).then(data => {
           try {
-            setMyDoctors(data);
+            setMyDoctors(data.doctors);
           } catch {
             throw new Error('Failed to Retrieve Your Doctors.');
           }
@@ -50,13 +74,13 @@ const Doctor = ({
           setFailedMessage('displayMessage');
         });
     }
-  }, [user]);
+  }, []);
 
   return (
     <>
       <h3 className={failedMessage}>{error}</h3>
       <Tabs
-        defaultActiveKey={user.name === '' ? 'all' : 'personal'}
+        defaultActiveKey={user.name === '' ? 'all' : tab}
         transition={false}
         id="noanim-tab-example"
       >
@@ -84,7 +108,7 @@ const Doctor = ({
             />
           ))}
         </Tab>
-        <Tab eventKey="apointments" title="My Appointments">
+        <Tab eventKey="appointments" title="My Appointments">
           <Appointments />
         </Tab>
       </Tabs>
@@ -93,7 +117,9 @@ const Doctor = ({
   );
 };
 
-Doctor.propTypes = {
+Doctors.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  tab: PropTypes.string,
   doctors: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string,
@@ -108,7 +134,8 @@ Doctor.propTypes = {
   }),
 };
 
-Doctor.defaultProps = {
+Doctors.defaultProps = {
+  tab: 'personal',
   doctors: [{
     name: '',
     image: '',
@@ -122,6 +149,7 @@ Doctor.defaultProps = {
 };
 
 export default connect(state => ({
-  doctors: state.allDoctorsReducer.doctors,
+  tab: state.doctorReducer.tab,
+  doctors: state.doctorReducer.doctors,
   user: state.userReducer.user,
-}))(Doctor);
+}))(Doctors);

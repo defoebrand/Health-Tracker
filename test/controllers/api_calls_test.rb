@@ -7,7 +7,7 @@ class ApiCallsTest < ActionDispatch::IntegrationTest
   end
 
   test 'should return user data matching an age query' do
-    get '/api/age/32'
+    get '/api/age/32/0'
     assert_equal 4, @response.parsed_body.count
   end
 

@@ -92,7 +92,7 @@ const Register = ({ dispatch }) => {
   }, [feet, inches]);
 
   const changeGender = e => {
-    setGender(e.target.value);
+    setGender(e.target.value.toLowerCase());
   };
 
   const changeDate = e => {
@@ -129,7 +129,7 @@ const Register = ({ dispatch }) => {
       setFailedMessage('displayMessage');
     } else {
       e.preventDefault();
-      const url = '/user';
+      const url = '/users';
       fetch(url, {
         method: 'POST',
         body: JSON.stringify({

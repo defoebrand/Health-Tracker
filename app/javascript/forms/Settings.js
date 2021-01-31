@@ -44,7 +44,7 @@ const Settings = ({ user, dispatch }) => {
       setFailedMessage('displayMessage');
     } else {
       e.preventDefault();
-      const url = '/user/settings/';
+      const url = `/users/${user.id}`;
       fetch(url, {
         method: 'PATCH',
         body: JSON.stringify({

@@ -6,7 +6,11 @@ import { useHistory } from 'react-router-dom';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
-const Scheduler = ({ doctor, user }) => {
+import Tabs from 'react-bootstrap/Tabs';
+import Tab from 'react-bootstrap/Tab';
+import { viewDoctorsTab } from '../redux/actions';
+
+const Scheduler = ({ doctor, dispatch }) => {
   const list = 'list';
   const history = useHistory();
   const [date, setDate] = useState('');
@@ -14,40 +18,52 @@ const Scheduler = ({ doctor, user }) => {
   const [notes, setNotes] = useState('');
   const [failedMessage, setFailedMessage] = useState('noMessage');
   const [error, setError] = useState('');
+  const [instructionsStyle, setInstructionsStyle] = useState('formHeader');
+
+  const handleClick = event => {
+    dispatch(viewDoctorsTab(event.target.dataset.rbEventKey));
+    history.push(`/doctors/${list}`);
+  };
 
   const token = localStorage.token === ''
     ? sessionStorage.token
     : localStorage.token;
 
   const requestAppointment = () => {
-    const url = '/user/add_appointment';
-    fetch(url, {
-      method: 'POST',
-      body: JSON.stringify({
-        user: {
-          id: user.id,
+    if (time === '' || date === '' || !/\S/.test(notes)) {
+      setError('You Must Fill Out The Entire Form');
+      setFailedMessage('displayMessage');
+      setInstructionsStyle('redError');
+    } else {
+      const url = '/appointments';
+      fetch(url, {
+        method: 'POST',
+        body: JSON.stringify({
+          appt: {
+            doc_name: doctor,
+            date,
+            time,
+            notes,
+          },
+        }),
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+          Authorization: `Bearer ${token}`,
         },
-        appt: {
-          doc_name: doctor,
-          date,
-          time,
-          notes,
-        },
-      }),
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8',
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then(response => {
-        if (response.ok) {
-          return response.json();
-        }
-        throw new Error('Network Response Failed.');
-      }).then(history.replace(`/doctors/${list}`)).catch(err => {
-        setError(err.message);
-        setFailedMessage('displayMessage');
-      });
+      })
+        .then(response => {
+          if (response.ok) {
+            return response.json();
+          }
+          throw new Error('Network Response Failed.');
+        }).then(() => {
+          dispatch(viewDoctorsTab('appointments'));
+          history.push(`/doctors/${list}`);
+        }).catch(err => {
+          setError(err.message);
+          setFailedMessage('displayMessage');
+        });
+    }
   };
 
   const changeDate = e => {
@@ -64,8 +80,18 @@ const Scheduler = ({ doctor, user }) => {
 
   return (
     <>
+      <Tabs
+        defaultActiveKey=""
+        transition={false}
+        id="noanim-tab-example"
+        onClick={handleClick}
+      >
+        <Tab eventKey="personal" title="My Doctors" />
+        <Tab eventKey="all" title="All Doctors" />
+        <Tab eventKey="appointments" title="My Appointments" />
+      </Tabs>
       <h3 className={failedMessage}>{error}</h3>
-      <h5 className="formHeader">All Fields Must Be Filled In</h5>
+      <h5 className={instructionsStyle}>All Fields Must Be Filled In</h5>
       <Form className="formBox">
         <h1 className="text-center">{`Schedule an appointment with ${doctor}`}</h1>
         <Form.Group controlId="formBasicDate">
@@ -91,19 +117,13 @@ const Scheduler = ({ doctor, user }) => {
 };
 
 Scheduler.propTypes = {
+  dispatch: PropTypes.func.isRequired,
   doctor: PropTypes.string,
-  user: PropTypes.shape({
-    id: PropTypes.number,
-  }),
 };
 Scheduler.defaultProps = {
   doctor: '',
-  user: {
-    id: 0,
-  },
 };
 
 export default connect(state => ({
-  doctor: state.appointmentReducer.doctor,
-  user: state.userReducer.user,
+  doctor: state.friendsReducer.doctor,
 }))(Scheduler);

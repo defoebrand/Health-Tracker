@@ -4,7 +4,7 @@ import { Route } from 'react-router-dom';
 import HeaderNav from '../components/HeaderNav';
 
 import Community from './Community';
-import Doctor from './Doctor';
+import Doctors from './Doctors';
 import Friends from './Friends';
 import HomePage from './HomePage';
 import Resources from './Resources';
@@ -25,7 +25,7 @@ const App = () => (
     <Route path="/register" component={Register} />
     <Route path="/users/:user" component={User} />
     <Route path="/new-stats" component={AddStats} />
-    <Route path="/doctors/:doctor" component={Doctor} />
+    <Route path="/doctors/:doctor" component={Doctors} />
     <Route path="/resources" component={Resources} />
     <Route path="/friends" component={Friends} />
     <Route path="/settings" component={Settings} />

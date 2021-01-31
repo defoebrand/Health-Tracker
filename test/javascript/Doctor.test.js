@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 
 import store from '../../app/javascript/redux/store';
 
-import Doctor from '../../app/javascript/containers/Doctor';
+import Doctor from '../../app/javascript/containers/Doctors';
 
 describe('rendered App', () => {
   let renderedComponent;

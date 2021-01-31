@@ -9,36 +9,25 @@ import DoctorCard from './DoctorCard';
 
 import { allDoctors } from '../redux/actions';
 
-const featured = ['Dr. Kim', 'Dr. Smith'];
+import getDoctors from '../redux/thunks/getDoctors';
 
-const fetch = require('node-fetch');
+const featured = ['Dr. Kim', 'Dr. Smith'];
 
 const Footer = ({ doctors, dispatch }) => {
   const [failedMessage, setFailedMessage] = useState('noMessage');
   const [error, setError] = useState('');
 
   useEffect(() => {
-    const url = '/doctors';
-    fetch(url, {
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8',
-      },
-    })
-      .then(response => {
-        if (response.ok) {
-          return response.json();
-        }
+    dispatch(getDoctors()).then(data => {
+      try {
+        dispatch(allDoctors(data));
+      } catch {
         throw new Error('Failed to Retrieve Doctors.');
-      }).then(data => {
-        try {
-          dispatch(allDoctors(data));
-        } catch {
-          throw new Error('Failed to Retrieve Doctors.');
-        }
-      }).catch(err => {
-        setError(err.message);
-        setFailedMessage('displayMessage');
-      });
+      }
+    }).catch(err => {
+      setError(err.message);
+      setFailedMessage('displayMessage');
+    });
   }, []);
 
   return (

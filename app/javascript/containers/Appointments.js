@@ -6,9 +6,9 @@ import PropTypes from 'prop-types';
 
 import AppointmentCard from '../components/AppointmentCard';
 
-const fetch = require('node-fetch');
+import { getMyAppointments, cancelMyAppointment } from '../redux/thunks/appointments';
 
-const Appointments = ({ user }) => {
+const Appointments = ({ user, dispatch }) => {
   const [failedMessage, setFailedMessage] = useState('noMessage');
   const [error, setError] = useState('');
   const [myAppointments, setMyAppointments] = useState([]);
@@ -18,54 +18,29 @@ const Appointments = ({ user }) => {
     : localStorage.token;
 
   useEffect(() => {
-    const url = `/users/${user.id}`;
-    fetch(url, {
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8',
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then(response => {
-        if (response.ok) {
-          return response.json();
-        }
-        throw new Error('');
-      }).then(data => {
-        try {
-          setMyAppointments(data.appointments);
-        } catch {
-          throw new Error('Failed to Retrieve Your Appointments.');
-        }
-      }).catch(err => {
-        setError(err.message);
-        setFailedMessage('displayMessage');
-      });
+    dispatch(getMyAppointments(user, token)).then(data => {
+      try {
+        setMyAppointments(data.appointments);
+      } catch {
+        throw new Error('Failed to Retrieve Your Appointments.');
+      }
+    }).catch(err => {
+      setError(err.message);
+      setFailedMessage('displayMessage');
+    });
   }, []);
 
   const cancelAppointment = appt => {
-    const url = `/appointments/${appt.id}`;
-    fetch(url, {
-      method: 'DELETE',
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8',
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then(response => {
-        if (response.ok) {
-          return response.json();
-        }
-        throw new Error('Failed to Cancel Appointment.');
-      }).then(data => {
-        try {
-          setMyAppointments(data);
-        } catch {
-          throw new Error('Failed to Retrieve Your Appointments.');
-        }
-      }).catch(err => {
-        setError(err.message);
-        setFailedMessage('displayMessage');
-      });
+    dispatch(cancelMyAppointment(appt, token)).then(data => {
+      try {
+        setMyAppointments(data);
+      } catch {
+        throw new Error('Failed to Retrieve Your Appointments.');
+      }
+    }).catch(err => {
+      setError(err.message);
+      setFailedMessage('displayMessage');
+    });
   };
 
   return (
@@ -84,6 +59,7 @@ const Appointments = ({ user }) => {
 };
 
 Appointments.propTypes = {
+  dispatch: PropTypes.func.isRequired,
   user: PropTypes.shape({
     id: PropTypes.number,
     name: PropTypes.string,

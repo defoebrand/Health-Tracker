@@ -65,7 +65,7 @@ const Settings = ({ user, dispatch }) => {
       setFailedMessage('displayMessage');
       setPwError({ border: '1px solid red' });
     } else {
-      dispatch(updateUserData(user, token, newUserData)).then(({ user }) => {
+      dispatch(updateUserData(user, token, newUserData, setPwError)).then(({ user }) => {
         try {
           dispatch(updateUser(user));
         } catch {

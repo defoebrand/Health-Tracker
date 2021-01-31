@@ -1,5 +1,24 @@
 const axios = require('axios');
 
+export const getMyData = (user, token) => {
+  const getData = () => {
+    const url = `/users/${user.id}`;
+    try {
+      const response = axios.get(url, {
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const data = response.then(res => res.data);
+      return data;
+    } catch {
+      throw new Error('Network Response Failed.');
+    }
+  };
+  return getData;
+};
+
 export const createUser = (name, email, password,
   dob, age, sex, gender,
   ethnicity, heightData, weightData) => {
@@ -33,53 +52,12 @@ export const createUser = (name, email, password,
   return registerUser;
 };
 
-export const getMyData = (user, token) => {
-  const getData = () => {
-    const url = `/users/${user.id}`;
-    try {
-      const response = axios.get(url, {
-        headers: {
-          'Content-type': 'application/json; charset=UTF-8',
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      const data = response.then(res => res.data);
-      return data;
-    } catch {
-      throw new Error('Network Response Failed.');
-    }
-  };
-  return getData;
-};
-
-export const updateUserData = (user, token, newUserData) => {
+export const updateUserData = (user, token, newUserData, setPwError) => {
   const updateData = () => {
     const url = `/users/${user.id}`;
     try {
-      const response = axios.patch(url, {
-        user: newUserData,
-      },
-      {
-        headers: {
-          'Content-type': 'application/json; charset=UTF-8',
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      const data = response.then(res => res.data);
-      return data;
-    } catch {
-      throw new Error('Network Response Failed.');
-    }
-  };
-  return updateData;
-};
-
-export const addUserStats = (user, newUserStats, token, setPwError) => {
-  const addStats = () => {
-    const url = `/users/${user.id}`;
-    try {
       const response = axios.patch(url,
-        { user: newUserStats },
+        { user: newUserData },
         {
           headers: {
             'Content-type': 'application/json; charset=UTF-8',
@@ -90,8 +68,8 @@ export const addUserStats = (user, newUserStats, token, setPwError) => {
       return data;
     } catch {
       setPwError({ border: '1px solid red' });
-      throw new Error('Incorrect Password');
+      throw new Error('Network Response Failed.');
     }
   };
-  return addStats;
+  return updateData;
 };

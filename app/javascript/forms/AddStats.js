@@ -6,7 +6,7 @@ import { useHistory } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
-import { addUserStats } from '../redux/thunks/users';
+import { updateUserData } from '../redux/thunks/users';
 
 const AddStats = ({ user, dispatch }) => {
   const {
@@ -145,7 +145,7 @@ const AddStats = ({ user, dispatch }) => {
 
       const newUserStats = compileUserStats({});
 
-      dispatch(addUserStats(user, newUserStats, token, setPwError)).then(({ name }) => {
+      dispatch(updateUserData(user, token, newUserStats, setPwError)).then(({ name }) => {
         history.push(`/users/${name}`);
       }).catch(err => {
         setError(err.message);

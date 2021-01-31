@@ -1,16 +1,19 @@
+const axios = require('axios');
+
 export const signInUser = (status, email, password) => {
   const signIn = async () => {
     const url = status === false ? '/sessions' : '/user/doctor';
     try {
-      const response = await fetch(url, {
-        method: 'POST',
-        body: JSON.stringify({ email, password }),
+      const response = axios.post(url, {
+        email,
+        password,
+      }, {
         headers: {
           'Content-type': 'application/json; charset=UTF-8',
         },
       });
-      const data = await response.json();
-      return data;
+      const dataJson = response.then(res => res.data);
+      return dataJson;
     } catch {
       throw new Error('Network Response Failed.');
     }

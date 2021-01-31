@@ -6,7 +6,9 @@ import { useHistory } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
-const AddStats = ({ user }) => {
+import addUserStats from '../redux/thunks/addUserStats';
+
+const AddStats = ({ user, dispatch }) => {
   const {
     pulse, temperature, bloodSugar, systolic, diastolic, weight,
   } = user;
@@ -143,27 +145,12 @@ const AddStats = ({ user }) => {
 
       const newUserStats = compileUserStats({});
 
-      const url = `/users/${user.id}`;
-      fetch(url, {
-        method: 'PATCH',
-        body: JSON.stringify({ user: newUserStats }),
-        headers: {
-          'Content-type': 'application/json; charset=UTF-8',
-          Authorization: `Bearer ${token}`,
-        },
-      })
-        .then(response => {
-          if (response.ok) {
-            return response.json();
-          }
-          setPwError({ border: '1px solid red' });
-          throw new Error('Incorrect Password');
-        }).then(({ name }) => {
-          history.push(`/users/${name}`);
-        }).catch(err => {
-          setError(err.message);
-          setFailedMessage('displayMessage');
-        });
+      dispatch(addUserStats(user, newUserStats, token, setPwError)).then(({ name }) => {
+        history.push(`/users/${name}`);
+      }).catch(err => {
+        setError(err.message);
+        setFailedMessage('displayMessage');
+      });
     }
   };
 
@@ -214,6 +201,7 @@ const AddStats = ({ user }) => {
 };
 
 AddStats.propTypes = {
+  dispatch: PropTypes.func.isRequired,
   user: PropTypes.shape({
     name: PropTypes.string,
     id: PropTypes.number,

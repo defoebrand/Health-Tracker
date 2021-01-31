@@ -36,7 +36,15 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test 'if email is unique, and password, height, and weight are present, database should create a new user' do
-    user = @current_user
+    user = User.new(name: 'TestUser',
+                    email: 'testuser@testuser.com',
+                    password: 'user',
+                    age: 23,
+                    height: '{ "height": 166 }',
+                    weight: '{ "measurements": 85 }',
+                    ethnicity: 'Central & South Asian',
+                    sex: 'XX',
+                    gender: 'Female')
     assert user.valid?
   end
 end

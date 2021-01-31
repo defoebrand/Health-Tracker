@@ -83,43 +83,12 @@ MY ACCOUNT:
 
 ### To Use The API 
 To Gather Data:  
-Replace any words that begin as `:` with your search criteria. For example, to get all users between 28 and 32, use  
-`GET /age/30/2` 
   
-`- GET / ` Retrieve all Users.  
-
-`- GET /age/:age/:range ` Retrieve all Users That Match Search Parameters.  
-
-`- GET /sex/:sex' `  Retrieve all Users That Match Search Parameters.  
-Sex options are `XX` or `XY`  
-
-`- GET /gender/:gender' `  Retrieve all Users That Match Search Parameters.  
-Note: Gender options are all lowercase
-
-`- GET /ethnicity/:ethnicity ` Retrieve all Users That Match Search Parameters.  
-Ethnicity options are as follows:  
--   `European` 
--   `Central & South Asian`
--   `East Asian & Native American` 
--   `Sub-Saharan African` 
--   `Western Asian & North African` 
--   `Melanesian`  
-
-
-`- GET /height/:scale/:height ` Retrieve all Users That Match Search Parameters.  
-Scale options are `Metric` or `Imperial`  
-Note: Measurements in Metric must be given in Centimeters, Imperial in Inches
-
-`- GET /weight/:scale/:weight ` Retrieve all Users That Match Search Parameters.  
-Scale options are `Metric` or `Imperial`  
-Note: Measurements in Metric must be given in Centimeters, Imperial in Inches
-Note: Only returns entries whose last weight measurement matches the given criteria
+`- GET /users ` Retrieve all Users.  
 
 `- GET /doctors `  Retrieve all Registered Doctors  
 
 `- GET /communities `  Retrieve all Available Communities 
-
-Searches by preferred gender, ranges for height, weight, and age, as well as high blood pressure and high blood sugar will become available with a future update
 
 To Use API for your project:  
 I strongly recommend looking at the code base in order to properly structure your body parameter data. 

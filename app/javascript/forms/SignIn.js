@@ -46,7 +46,22 @@ const SignIn = ({ dispatch }) => {
       setError('You Are Not A Doctor');
       setFailedMessage('redError');
     } else {
-      dispatch(signInUser(status, email, password, memory, updateUser, history));
+      dispatch(signInUser(status, email, password, memory, history)).then(({ token, user }) => {
+        if (memory === true) {
+          localStorage.token = token;
+        } else {
+          sessionStorage.token = token;
+        }
+        try {
+          dispatch(updateUser(user));
+        } catch {
+          throw new Error('Failed Login. Please Try Again');
+        }
+        history.replace('/');
+      }).catch(err => {
+        setError(err.message);
+        setFailedMessage('displayMessage');
+      });
     }
   };
 

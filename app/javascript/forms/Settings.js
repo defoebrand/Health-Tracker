@@ -8,6 +8,8 @@ import Button from 'react-bootstrap/Button';
 
 import { updateUser } from '../redux/actions';
 
+import updateUserData from '../redux/thunks/updateSettings';
+
 const Settings = ({ user, dispatch }) => {
   const { name, email } = user;
   const history = useHistory();
@@ -63,31 +65,17 @@ const Settings = ({ user, dispatch }) => {
       setFailedMessage('displayMessage');
       setPwError({ border: '1px solid red' });
     } else {
-      const url = `/users/${user.id}`;
-      fetch(url, {
-        method: 'PATCH',
-        body: JSON.stringify({ user: newUserData }),
-        headers: {
-          'Content-type': 'application/json; charset=UTF-8',
-          Authorization: `Bearer ${token}`,
-        },
-      })
-        .then(response => {
-          if (response.ok) {
-            return response.json();
-          }
-          throw new Error('Network Response Failed.');
-        }).then(({ user }) => {
-          try {
-            dispatch(updateUser(user));
-          } catch {
-            throw new Error('Failed to update settings. Please try again.');
-          }
-          history.push('/');
-        }).catch(err => {
-          setError(err.message);
-          setFailedMessage('displayMessage');
-        });
+      dispatch(updateUserData(user, token, newUserData)).then(({ user }) => {
+        try {
+          dispatch(updateUser(user));
+        } catch {
+          throw new Error('Failed to update settings. Please try again.');
+        }
+        history.push('/');
+      }).catch(err => {
+        setError(err.message);
+        setFailedMessage('displayMessage');
+      });
     }
   };
   return (

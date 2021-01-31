@@ -6,7 +6,7 @@ import { useHistory } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
-import addUserStats from '../redux/thunks/addUserStats';
+import { addUserStats } from '../redux/thunks/users';
 
 const AddStats = ({ user, dispatch }) => {
   const {

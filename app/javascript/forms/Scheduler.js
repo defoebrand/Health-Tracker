@@ -9,7 +9,7 @@ import Button from 'react-bootstrap/Button';
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
 
-import scheduleAppointment from '../redux/thunks/scheduleAppointment';
+import { setNewAppointment } from '../redux/thunks/appointments';
 import { viewDoctorsTab } from '../redux/actions';
 
 const Scheduler = ({ doctor, dispatch }) => {
@@ -37,7 +37,7 @@ const Scheduler = ({ doctor, dispatch }) => {
       setFailedMessage('displayMessage');
       setInstructionsStyle('redError');
     } else {
-      dispatch(scheduleAppointment(token, doctor, date, time, notes)).then(() => {
+      dispatch(setNewAppointment(token, doctor, date, time, notes)).then(() => {
         dispatch(viewDoctorsTab('appointments'));
         history.push(`/doctors/${list}`);
       }).catch(err => {

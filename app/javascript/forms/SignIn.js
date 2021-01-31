@@ -8,7 +8,7 @@ import Button from 'react-bootstrap/Button';
 
 import { updateUser } from '../redux/actions';
 
-import signInUser from '../redux/thunks/signin';
+import { signInUser } from '../redux/thunks/sessions';
 
 const SignIn = ({ dispatch }) => {
   const [email, setEmail] = useState('');

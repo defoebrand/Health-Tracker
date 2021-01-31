@@ -8,7 +8,7 @@ import Button from 'react-bootstrap/Button';
 
 import { updateUser } from '../redux/actions';
 
-import updateUserData from '../redux/thunks/updateSettings';
+import { updateUserData } from '../redux/thunks/users';
 
 const Settings = ({ user, dispatch }) => {
   const { name, email } = user;

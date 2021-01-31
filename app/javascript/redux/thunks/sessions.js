@@ -1,5 +1,5 @@
-const signInThunk = (status, email, password) => {
-  const signInUser = async () => {
+export const signInUser = (status, email, password) => {
+  const signIn = async () => {
     const url = status === false ? '/sessions' : '/user/doctor';
     try {
       const response = await fetch(url, {
@@ -15,7 +15,19 @@ const signInThunk = (status, email, password) => {
       throw new Error('Network Response Failed.');
     }
   };
-  return signInUser;
+  return signIn;
 };
 
-export default signInThunk;
+export const checkLogin = token => {
+  const checkUserLogin = async () => {
+    const url = '/sessions';
+    const response = await fetch(url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const data = await response.json();
+    return data;
+  };
+  return checkUserLogin;
+};

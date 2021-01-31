@@ -9,7 +9,7 @@ import DoctorCard from './DoctorCard';
 
 import { allDoctors } from '../redux/actions';
 
-import getDoctors from '../redux/thunks/getDoctors';
+import { getAllDoctors } from '../redux/thunks/doctors';
 
 const featured = ['Dr. Kim', 'Dr. Smith'];
 
@@ -18,7 +18,7 @@ const Footer = ({ doctors, dispatch }) => {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    dispatch(getDoctors()).then(data => {
+    dispatch(getAllDoctors()).then(data => {
       try {
         dispatch(allDoctors(data));
       } catch {

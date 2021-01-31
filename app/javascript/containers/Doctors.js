@@ -12,9 +12,7 @@ import Appointments from './Appointments';
 
 import { allDoctors } from '../redux/actions';
 
-import getDoctors from '../redux/thunks/getDoctors';
-
-import getMyDoctors from '../redux/thunks/getMyDoctors';
+import { getAllDoctors, getMyDoctors } from '../redux/thunks/doctors';
 
 const Doctors = ({
   doctors, user, tab, dispatch,
@@ -28,7 +26,7 @@ const Doctors = ({
     : localStorage.token;
 
   useEffect(() => {
-    dispatch(getDoctors()).then(data => {
+    dispatch(getAllDoctors()).then(data => {
       try {
         dispatch(allDoctors(data));
       } catch {

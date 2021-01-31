@@ -15,7 +15,7 @@ import {
   updateUser, signOutUser,
 } from '../redux/actions';
 
-import checkLogin from '../redux/thunks/checkLogin';
+import { checkLogin } from '../redux/thunks/sessions';
 
 const HeaderNav = ({ dispatch, user }) => {
   const doctor = 'list';

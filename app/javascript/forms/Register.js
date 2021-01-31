@@ -6,7 +6,8 @@ import { useHistory } from 'react-router-dom';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
-import createUser from '../redux/thunks/createUser';
+import { createUser } from '../redux/thunks/users';
+
 import { updateUser } from '../redux/actions';
 
 const Register = ({ dispatch }) => {

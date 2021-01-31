@@ -69,7 +69,7 @@ ActiveRecord::Schema.define(version: 2021_01_31_160955) do
     t.string "gender"
     t.index ["email"], name: "index_users_on_email", unique: true
   end
-
+   # Communities can not belong to one single user, as they are their own entities and can themselves have many users. 
   create_table "users_communities", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "community_id"

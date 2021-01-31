@@ -18,16 +18,18 @@ const Appointments = ({ user, dispatch }) => {
     : localStorage.token;
 
   useEffect(() => {
-    dispatch(getMyAppointments(user, token)).then(data => {
-      try {
-        setMyAppointments(data.appointments);
-      } catch {
-        throw new Error('Failed to Retrieve Your Appointments.');
-      }
-    }).catch(err => {
-      setError(err.message);
-      setFailedMessage('displayMessage');
-    });
+    if (token !== undefined) {
+      dispatch(getMyAppointments(user, token)).then(data => {
+        try {
+          setMyAppointments(data.appointments);
+        } catch {
+          throw new Error('Failed to Retrieve Your Appointments.');
+        }
+      }).catch(err => {
+        setError(err.message);
+        setFailedMessage('displayMessage');
+      });
+    }
   }, []);
 
   const cancelAppointment = appt => {

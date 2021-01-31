@@ -62,6 +62,12 @@ const Community = ({ dispatch, community, user }) => {
     history.push('/friends');
   };
 
+  const joinButton = name => (
+    name !== ''
+      ? <Button variant="info" onClick={addCommunity}>Join Community</Button>
+      : null
+  );
+
   return (
     <>
       <h3 className={failedMessage}>{error}</h3>
@@ -81,7 +87,7 @@ const Community = ({ dispatch, community, user }) => {
           <span>
             {members.some(member => member.name === user.name)
               ? <Button variant="info" onClick={removeCommunity}>Leave Community</Button>
-              : <Button variant="info" onClick={addCommunity}>Join Community</Button>}
+              : joinButton(user.name)}
           </span>
         </span>
         <div style={{ border: '1px solid black', padding: 25 }}>

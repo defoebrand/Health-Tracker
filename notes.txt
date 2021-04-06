@@ -1,6 +1,8 @@
 - = TO DO = - 
 
-make comment about why a many to many is clearly necessary since a user can have many communities and a community can have many users, neither of which are necessary on entry creation therefore eliminating the use for a belongs to relationship
+change axios requests to reflect full website url
+
+consider breaking app into front and back end projects
 
 - = DONE = -
 

@@ -54,7 +54,7 @@ export const createUser = (name, email, password,
 
 export const updateUserData = (user, token, newUserData, setPwError) => {
   const updateData = () => {
-    const url = `/users/${user.id}`;
+    const url = `https://defoebrand-health-tracker.herokuapp.com/users/${user.id}`;
     try {
       const response = axios.patch(url,
         { user: newUserData },

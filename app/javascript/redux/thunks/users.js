@@ -53,11 +53,11 @@ export const createUser = (name, email, password,
 };
 
 export const createDoctor = (name, email, password) => {
-  const registerUser = () => {
-    const url = 'https://defoebrand-health-tracker.herokuapp.com/doctors';
+  const registerDoctor = () => {
+    const url = '/doctors';
     try {
       const response = axios.post(url, {
-        user: {
+        doctor: {
           name,
           email,
           password,
@@ -73,7 +73,7 @@ export const createDoctor = (name, email, password) => {
       throw new Error('Network Response Failed.');
     }
   };
-  return registerUser;
+  return registerDoctor;
 };
 
 export const updateUserData = (user, token, newUserData, setPwError) => {

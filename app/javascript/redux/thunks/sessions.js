@@ -13,13 +13,15 @@ export const checkLogin = token => {
 };
 
 export const signInUser = (status, email, password) => {
+  const userType = status === true ? 'user' : 'doctor';
   const signIn = () => {
-    const checkStatus = status === false ? '/sessions' : '/user/doctor';
-    const url = `https://defoebrand-health-tracker.herokuapp.com${checkStatus}`;
+    // const checkStatus = status === false ? '/sessions' : '/user/doctor';
+    const url = 'https://defoebrand-health-tracker.herokuapp.com/sessions';
     try {
       const response = axios.post(url, {
         email,
         password,
+        user_type: userType,
       }, {
         headers: {
           'Content-type': 'application/json; charset=UTF-8',

@@ -7,7 +7,11 @@ class SessionsController < ApplicationController
   end
 
   def create
-    @current_user = User.find_by(email: session_params[:email])
+    @current_user = if session_params[:user_type] == 'user'
+                      User.find_by(email: session_params[:email])
+                    else
+                      Doctor.find_by(email: session_params[:email])
+                    end
     if @current_user&.authenticate(session_params[:password])
       token = encode_token({ user_id: @current_user.id })
       @return_user = cleanse_user(@current_user)
@@ -20,6 +24,6 @@ class SessionsController < ApplicationController
   private
 
   def session_params
-    params.require(:session).permit(:email, :password)
+    params.require(:session).permit(:email, :password, :user_type)
   end
 end

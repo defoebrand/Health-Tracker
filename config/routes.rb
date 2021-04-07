@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   resources :sessions, only: %i[index new create]
 
-  resources :doctors, only: %i[index]
+  resources :doctors, only: %i[index create]
 
   resources :communities, only: %i[index show update]
   

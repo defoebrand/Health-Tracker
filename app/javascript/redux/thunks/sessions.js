@@ -13,7 +13,7 @@ export const checkLogin = token => {
 };
 
 export const signInUser = (status, email, password) => {
-  const userType = status === true ? 'user' : 'doctor';
+  const userType = status === false ? 'user' : 'doctor';
   const signIn = () => {
     // const checkStatus = status === false ? '/sessions' : '/user/doctor';
     const url = 'https://defoebrand-health-tracker.herokuapp.com/sessions';

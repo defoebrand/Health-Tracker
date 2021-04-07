@@ -66,5 +66,5 @@ User.defaultProps = {
 
 export default connect(state => ({
   user: state.userReducer.user,
-  doctor: state.doctorReducer.doctor,
+  doctor: state.doctorReducer.user,
 }))(User);

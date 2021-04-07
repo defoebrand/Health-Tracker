@@ -14,7 +14,7 @@ const doctorReducer = (state = [], action) => {
 
     case UPDATEDOC:
       return {
-        doctor: {
+        user: {
           id: action.input.id,
           name: action.input.name,
           email: action.input.email,

@@ -25,7 +25,7 @@ gem 'jwt'
 gem 'rack-cors'
 
 # Use gem for organizing console queries
-gem 'hirb'
+gem 'hirb', '~> 0.7.3'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'

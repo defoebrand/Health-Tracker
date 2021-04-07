@@ -13,6 +13,7 @@ import User from './User';
 
 import AddStats from '../forms/AddStats';
 import Register from '../forms/Register';
+import DrRegister from '../forms/DrRegister';
 import Scheduler from '../forms/Scheduler';
 import Settings from '../forms/Settings';
 import SignIn from '../forms/SignIn';
@@ -23,6 +24,7 @@ const App = () => (
     <Route path="/home" component={HomePage} />
     <Route path="/signin" component={SignIn} />
     <Route path="/register" component={Register} />
+    <Route path="/doctor_registration" component={DrRegister} />
     <Route path="/users/:user" component={User} />
     <Route path="/new-stats" component={AddStats} />
     <Route path="/doctors/:doctor" component={Doctors} />

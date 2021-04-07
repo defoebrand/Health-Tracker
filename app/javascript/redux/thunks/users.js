@@ -52,6 +52,30 @@ export const createUser = (name, email, password,
   return registerUser;
 };
 
+export const createDoctor = (name, email, password) => {
+  const registerUser = () => {
+    const url = 'https://defoebrand-health-tracker.herokuapp.com/doctors';
+    try {
+      const response = axios.post(url, {
+        user: {
+          name,
+          email,
+          password,
+        },
+      }, {
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+        },
+      });
+      const data = response.then(res => res.data);
+      return data;
+    } catch {
+      throw new Error('Network Response Failed.');
+    }
+  };
+  return registerUser;
+};
+
 export const updateUserData = (user, token, newUserData, setPwError) => {
   const updateData = () => {
     const url = `https://defoebrand-health-tracker.herokuapp.com/users/${user.id}`;

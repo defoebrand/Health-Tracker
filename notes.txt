@@ -1,5 +1,7 @@
 - = TO DO = - 
 
+FIND OUT WHY REFRESH BRINGS 'USER' INFO AFTER DOCTOR LOGON
+
 change axios requests to reflect full website url
 
 consider breaking app into front and back end projects

@@ -16,41 +16,54 @@ const User = ({ user }) => {
 
   return (
     <>
-      <div className="welcomeBanner flex-center">
-        <h1 style={{ whiteSpace: 'nowrap' }}>{`Hello ${user.name}!`}</h1>
-        <img
-          src="/images/blank-profile-pic.png"
-          alt={`${user.name} profile pic`}
-          className="userImage"
-        />
-        <Button
-          variant="success"
-          className="userButton"
-          onClick={() => history.push({ pathname: '/new-stats', state: { user } })}
-        >
-          Add Stats
-        </Button>
-      </div>
-      {charts.map(chart => (
-        <StatsCard
-          key={chart.title}
-          title={chart.title}
-          data={chart.data}
-        />
-      ))}
-
+      {user === {} ? (
+        <>
+          {' '}
+          <h1 style={{ marginTop: '25vh' }}>Hello</h1>
+          {' '}
+        </>
+      ) : (
+        <>
+          {' '}
+          <div className="welcomeBanner flex-center">
+            <h1 style={{ whiteSpace: 'nowrap' }}>{`Hello ${user.name}!`}</h1>
+            <img
+              src="/images/blank-profile-pic.png"
+              alt={`${user.name} profile pic`}
+              className="userImage"
+            />
+            <Button
+              variant="success"
+              className="userButton"
+              onClick={() => history.push({ pathname: '/new-stats', state: { user } })}
+            >
+              Add Stats
+            </Button>
+          </div>
+          {charts.map(chart => (
+            <StatsCard
+              key={chart.title}
+              title={chart.title}
+              data={chart.data}
+            />
+          ))}
+        </>
+      )}
     </>
   );
 };
 
 User.propTypes = {
   user: PropTypes.shape(),
+  doctor: PropTypes.shape(),
 };
 
 User.defaultProps = {
   user: {},
+  doctor: {},
 };
 
 export default connect(state => ({
   user: state.userReducer.user,
+  doctor: state.doctorReducer.doctor,
 }))(User);

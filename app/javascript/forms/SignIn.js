@@ -6,7 +6,7 @@ import { useHistory } from 'react-router-dom';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
-import { updateUser } from '../redux/actions';
+import { updateUser, userDoctor } from '../redux/actions';
 
 import { signInUser } from '../redux/thunks/sessions';
 
@@ -48,12 +48,11 @@ const SignIn = ({ dispatch }) => {
       } else {
         sessionStorage.token = token;
       }
-      console.log(user);
-      // try {
-      //   dispatch(updateUser(user));
-      // } catch {
-      //   throw new Error('Failed Login. Please Try Again');
-      // }
+      try {
+        dispatch(status === false ? updateUser(user) : userDoctor(user));
+      } catch {
+        throw new Error('Failed Login. Please Try Again');
+      }
       history.replace('/');
     }).catch(err => {
       setError(err.message);

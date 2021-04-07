@@ -1,4 +1,4 @@
-import { ALLDOCTORS, VIEWDOCTAB } from '../actions';
+import { ALLDOCTORS, VIEWDOCTAB, UPDATEDOC } from '../actions';
 
 const doctorReducer = (state = [], action) => {
   switch (action.type) {
@@ -10,6 +10,18 @@ const doctorReducer = (state = [], action) => {
     case VIEWDOCTAB:
       return {
         tab: action.input,
+      };
+
+    case UPDATEDOC:
+      return {
+        doctor: {
+          id: action.input.id,
+          name: action.input.name,
+          email: action.input.email,
+          specialty: action.input.specialty,
+          quote: action.input.quote,
+          image: action.input.image,
+        },
       };
     default:
       return state;

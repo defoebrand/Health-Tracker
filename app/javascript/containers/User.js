@@ -16,6 +16,7 @@ const User = ({ user }) => {
 
   return (
     <>
+      {console.log(user)}
       {user === {} ? (
         <>
           {' '}

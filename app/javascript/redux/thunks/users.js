@@ -54,7 +54,7 @@ export const createUser = (name, email, password,
 
 export const createDoctor = (name, email, password) => {
   const registerDoctor = () => {
-    const url = '/doctors';
+    const url = 'https://defoebrand-health-tracker.herokuapp.com/doctors';
     try {
       const response = axios.post(url, {
         doctor: {

@@ -24,6 +24,9 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'jwt'
 gem 'rack-cors'
 
+# Use gem for organizing console queries
+gem 'hirb'
+
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 

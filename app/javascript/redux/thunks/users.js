@@ -2,7 +2,7 @@ const axios = require('axios');
 
 export const getMyData = (user, token) => {
   const getData = () => {
-    const url = `/users/${user.id}`;
+    const url = `https://defoebrand-health-tracker.herokuapp.com/users/${user.id}`;
     try {
       const response = axios.get(url, {
         headers: {
@@ -23,7 +23,7 @@ export const createUser = (name, email, password,
   dob, age, sex, gender,
   ethnicity, heightData, weightData) => {
   const registerUser = () => {
-    const url = '/users';
+    const url = 'https://defoebrand-health-tracker.herokuapp.com/users';
     try {
       const response = axios.post(url, {
         user: {

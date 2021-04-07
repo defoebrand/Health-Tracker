@@ -2,7 +2,7 @@ const axios = require('axios');
 
 const getAllDoctors = () => {
   const allDoctors = () => {
-    const url = '/doctors';
+    const url = 'https://defoebrand-health-tracker.herokuapp.com/doctors';
     try {
       const response = axios.get(url, {
         headers: {

@@ -2,7 +2,7 @@ const axios = require('axios');
 
 export const getAllCommunities = () => {
   const allCommunitiesFunc = () => {
-    const url = '/communities';
+    const url = 'https://defoebrand-health-tracker.herokuapp.com/communities';
     try {
       const response = axios.get(url, {
         headers: {
@@ -20,7 +20,7 @@ export const getAllCommunities = () => {
 
 export const getCommunityMembers = community => {
   const communityMemmbersFunc = () => {
-    const url = `/communities/${community.id}`;
+    const url = `https://defoebrand-health-tracker.herokuapp.com/communities/${community.id}`;
     try {
       const response = axios.get(url, {
         headers: {
@@ -38,7 +38,7 @@ export const getCommunityMembers = community => {
 
 export const adjustMembership = (community, token) => {
   const adjustMembershipFunc = () => {
-    const url = `/communities/${community.id}`;
+    const url = `https://defoebrand-health-tracker.herokuapp.com/communities/${community.id}`;
     try {
       const response = axios.patch(url, {}, {
         headers: {

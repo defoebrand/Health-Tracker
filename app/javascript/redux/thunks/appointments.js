@@ -2,7 +2,7 @@ const axios = require('axios');
 
 export const setNewAppointment = (token, doctor, date, time, notes) => {
   const scheduleAppointment = () => {
-    const url = '/appointments';
+    const url = 'https://defoebrand-health-tracker.herokuapp.com/appointments';
     try {
       const response = axios.post(url, {
         appt: {
@@ -28,7 +28,7 @@ export const setNewAppointment = (token, doctor, date, time, notes) => {
 
 export const cancelMyAppointment = (appt, token) => {
   const cancelAppointment = () => {
-    const url = `/appointments/${appt.id}`;
+    const url = `https://defoebrand-health-tracker.herokuapp.com/appointments/${appt.id}`;
     try {
       const response = axios.delete(url, {
         headers: {

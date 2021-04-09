@@ -2,6 +2,7 @@ import React from 'react';
 import { Route } from 'react-router-dom';
 
 import HeaderNav from '../components/HeaderNav';
+import PatientData from '../components/PatientData';
 
 import Community from './Community';
 import Doctors from './Doctors';
@@ -28,6 +29,7 @@ const App = () => (
     <Route path="/users/:user" component={User} />
     <Route path="/new-stats" component={AddStats} />
     <Route path="/doctors/:doctor" component={Doctors} />
+    <Route path="/patient-data" component={PatientData} />
     <Route path="/resources" component={Resources} />
     <Route path="/friends" component={Friends} />
     <Route path="/settings" component={Settings} />

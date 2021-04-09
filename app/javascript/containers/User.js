@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 import Button from 'react-bootstrap/Button';
 
@@ -27,7 +27,11 @@ const User = ({ user }) => {
           </div>
           <div style={{ width: '85vw', margin: 'auto' }}>
             {user.appointments.map(appt => (
-              <p key={appt.id} style={{ margin: '10px 0' }}>{`Appointment with ${appt.user.name} at ${appt.time.split('T')[1].split('.')[0]} | ${appt.notes}`}</p>
+              <p key={appt.id} style={{ margin: '10px 0' }}>
+                {'Appointment with '}
+                <Link to={{ pathname: '/patient-data', state: appt.user }}>{appt.user.name}</Link>
+                {` at ${appt.time.split('T')[1].split('.')[0]} | ${appt.notes}`}
+              </p>
             ))}
           </div>
         </>

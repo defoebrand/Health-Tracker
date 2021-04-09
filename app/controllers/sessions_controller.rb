@@ -1,11 +1,10 @@
 class SessionsController < ApplicationController
   before_action :authorized, only: %i[index]
-  # skip_before_action :verify_authenticity_token
+  skip_before_action :verify_authenticity_token
 
   def index
-    puts @current_user
     @return_user = cleanse_user(@current_user)
-    render json: @return_user
+    render json: { user: @return_user, appointments: @current_user.appointments }
   end
 
   def create

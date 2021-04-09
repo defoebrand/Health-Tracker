@@ -13,18 +13,21 @@ const User = ({ user }) => {
   const history = useHistory();
 
   const charts = Object.keys(user).length !== 0 ? loadUserData(user) : [];
-
+  console.log(user);
   return (
     <>
       {Object.keys(user).includes('specialty') ? (
-        <div className="welcomeBanner flex-center">
-          <h1 style={{ whiteSpace: 'nowrap' }}>{`Hello ${user.name}!`}</h1>
-          <img
-            src="/images/blank-profile-pic.png"
-            alt={`${user.name} profile pic`}
-            className="userImage"
-          />
-        </div>
+        <>
+          <div className="welcomeBanner flex-center">
+            <h1 style={{ whiteSpace: 'nowrap' }}>{`Hello ${user.name}!`}</h1>
+            <img
+              src="/images/blank-profile-pic.png"
+              alt={`${user.name} profile pic`}
+              className="userImage"
+            />
+          </div>
+          {user.appointments.forEach(appt => (<p key={appt}>{appt}</p>))}
+        </>
       ) : (
         <>
           <div className="welcomeBanner flex-center">
@@ -57,15 +60,12 @@ const User = ({ user }) => {
 
 User.propTypes = {
   user: PropTypes.shape(),
-  doctor: PropTypes.shape(),
 };
 
 User.defaultProps = {
   user: {},
-  doctor: {},
 };
 
 export default connect(state => ({
   user: state.userReducer.user,
-  doctor: state.doctorReducer.user,
 }))(User);

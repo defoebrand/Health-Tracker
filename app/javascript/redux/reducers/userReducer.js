@@ -3,30 +3,31 @@ import { UPDATE, SIGNOUT } from '../actions';
 const userReducer = (state = { name: '' }, action) => {
   switch (action.type) {
     case UPDATE:
-      if (action.input.specialty) {
+      if (action.input.user.specialty) {
         return {
           user: {
-            id: action.input.id,
-            name: action.input.name,
-            email: action.input.email,
-            specialty: action.input.specialty,
+            id: action.input.user.id,
+            name: action.input.user.name,
+            email: action.input.user.email,
+            specialty: action.input.user.specialty,
+            appointments: action.input.appointments,
           },
         };
       }
       return {
         user: {
-          id: action.input.id,
-          name: action.input.name,
-          email: action.input.email,
-          age: action.input.age,
-          dob: action.input.dob,
-          bloodSugar: JSON.parse(action.input.blood_sugar),
-          diastolic: JSON.parse(action.input.diastolic),
-          height: JSON.parse(action.input.height),
-          pulse: JSON.parse(action.input.pulse),
-          systolic: JSON.parse(action.input.systolic),
-          temperature: JSON.parse(action.input.temperature),
-          weight: JSON.parse(action.input.weight),
+          id: action.input.user.id,
+          name: action.input.user.name,
+          email: action.input.user.email,
+          age: action.input.user.age,
+          dob: action.input.user.dob,
+          bloodSugar: JSON.parse(action.input.user.blood_sugar),
+          diastolic: JSON.parse(action.input.user.diastolic),
+          height: JSON.parse(action.input.user.height),
+          pulse: JSON.parse(action.input.user.pulse),
+          systolic: JSON.parse(action.input.user.systolic),
+          temperature: JSON.parse(action.input.user.temperature),
+          weight: JSON.parse(action.input.user.weight),
         },
       };
     case SIGNOUT:

@@ -2,7 +2,9 @@ const axios = require('axios');
 
 export const checkLogin = token => {
   const checkUserLogin = () => {
-    const url = 'https://defoebrand-health-tracker.herokuapp.com/sessions';
+    const url = '/sessions';
+
+    // const url = 'https://defoebrand-health-tracker.herokuapp.com/sessions';
     const response = axios.get(url, {
       headers: { Authorization: `Bearer ${token}` },
     });
@@ -15,7 +17,8 @@ export const checkLogin = token => {
 export const signInUser = (status, email, password) => {
   const userType = status === false ? 'user' : 'doctor';
   const signIn = () => {
-    const url = 'https://defoebrand-health-tracker.herokuapp.com/sessions';
+    const url = '/sessions';
+    // const url = 'https://defoebrand-health-tracker.herokuapp.com/sessions';
     try {
       const response = axios.post(url, {
         email,

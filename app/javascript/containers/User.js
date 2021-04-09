@@ -13,7 +13,6 @@ const User = ({ user }) => {
   const history = useHistory();
 
   const charts = Object.keys(user).length !== 0 ? loadUserData(user) : [];
-  console.log(user);
   return (
     <>
       {Object.keys(user).includes('specialty') ? (
@@ -25,9 +24,10 @@ const User = ({ user }) => {
               alt={`${user.name} profile pic`}
               className="userImage"
             />
-            {console.log(user.appointments)}
+          </div>
+          <div style={{ width: '85vw', margin: 'auto' }}>
             {user.appointments.map(appt => (
-              <p key={appt.id}>{appt.user.name}</p>
+              <p key={appt.id} style={{ margin: '10px 0' }}>{`Appointment with ${appt.user.name} at ${appt.time.split('T')[1].split('.')[0]} | ${appt.notes}`}</p>
             ))}
           </div>
         </>

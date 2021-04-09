@@ -49,7 +49,6 @@ const SignIn = ({ dispatch }) => {
         sessionStorage.token = token;
       }
       try {
-        console.log(user);
         dispatch(status === false ? updateUser(user) : userDoctor(user));
       } catch {
         throw new Error('Failed Login. Please Try Again');

@@ -1,8 +1,9 @@
-import { UPDATE, SIGNOUT } from '../actions';
+import { UPDATE, SIGNOUT, UPDATEDATA } from '../actions';
 
 const userReducer = (state = { name: '' }, action) => {
   switch (action.type) {
     case UPDATE:
+      console.log(action);
       if (action.input.user.specialty) {
         return {
           user: {
@@ -45,6 +46,24 @@ const userReducer = (state = { name: '' }, action) => {
           systolic: {},
           temperature: {},
           weight: { measurements: '' },
+        },
+      };
+    case UPDATEDATA:
+      console.log(action);
+      return {
+        user: {
+          id: action.input.user.id,
+          name: action.input.user.name,
+          email: action.input.user.email,
+          age: action.input.user.age,
+          dob: action.input.user.dob,
+          bloodSugar: JSON.parse(action.input.user.blood_sugar),
+          diastolic: JSON.parse(action.input.user.diastolic),
+          height: JSON.parse(action.input.user.height),
+          pulse: JSON.parse(action.input.user.pulse),
+          systolic: JSON.parse(action.input.user.systolic),
+          temperature: JSON.parse(action.input.user.temperature),
+          weight: JSON.parse(action.input.user.weight),
         },
       };
     default:

@@ -1,19 +1,20 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+
 import { useLocation } from 'react-router-dom';
+
 import StatsCard from './StatsCard';
 
 import loadUserData from '../helpers/loadUserData';
 
-// import PropTypes from 'prop-types';
+import {
+  updateUser,
+} from '../redux/actions';
 
-// import Accordion from 'react-bootstrap/Accordion';
-// import Card from 'react-bootstrap/Card';
-//
-// import LineRechartComponent from '../charts/line.rechart';
-
-const PatientData = () => {
+const PatientData = ({ dispatch }) => {
   const location = useLocation();
-  console.log(location.state);
+  dispatch(updateUser({ user: location.state }));
   const charts = loadUserData({
     id: location.state.id,
     name: location.state.name,
@@ -31,7 +32,7 @@ const PatientData = () => {
   return (
     <>
 
-      <h1>{location.state.name}</h1>
+      <h1 style={{ paddingLeft: 20 }}>{location.state.name}</h1>
       {charts.map(chart => (
         <StatsCard
           key={chart.title}
@@ -42,14 +43,22 @@ const PatientData = () => {
     </>
   );
 };
-// PatientData.propTypes = {
-//   title: PropTypes.string,
-//   data: PropTypes.arrayOf(PropTypes.shape()),
-// };
-//
-// PatientData.defaultProps = {
-//   title: '',
-//   data: [{}],
-// };
 
-export default PatientData;
+PatientData.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  user: PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.string,
+  }),
+};
+
+PatientData.defaultProps = {
+  user: {
+    id: 0,
+    name: '',
+  },
+};
+
+export default connect(state => ({
+  user: state.userReducer.user,
+}))(PatientData);

@@ -1,5 +1,6 @@
 export const UPDATE = 'UPDATE';
 export const UPDATEDOC = 'UPDATEDOC';
+export const UPDATEDATA = 'UPDATEDATA';
 export const VIEWCOMMUNITY = 'VIEWCOMMUNITY';
 export const ALLCOMMUNITIES = 'ALLCOMMUNITIES';
 export const ALLDOCTORS = 'ALLDOCTORS';
@@ -10,6 +11,11 @@ export const SIGNOUT = 'SIGNOUT';
 
 export const updateUser = input => ({
   type: UPDATE,
+  input,
+});
+
+export const userData = input => ({
+  type: UPDATEDATA,
   input,
 });
 

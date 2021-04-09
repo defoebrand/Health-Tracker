@@ -4,6 +4,7 @@ class JsonWebToken
   # Encodes and signs the payload (e.g. the user email) using our app's secret key
   # The result also includes the expiration date.
   def self.encode(payload)
+    puts self
     payload.reverse_merge!(meta)
     JWT.encode(payload, Rails.application.secrets.secret_key_base)
   end

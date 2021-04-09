@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-// import PropTypes from 'prop-types';
-// import { useHistory } from 'react-router-dom';
 
 import Form from 'react-bootstrap/Form';
 
@@ -32,9 +30,5 @@ const Register = () => {
     </>
   );
 };
-
-// UserRegister.propTypes = {
-//   dispatch: PropTypes.func.isRequired,
-// };
 
 export default connect(null)(Register);

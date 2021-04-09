@@ -3,6 +3,14 @@ import {
 } from './baseData';
 
 const loadUserData = user => {
+  if (user.specialty) {
+    const {
+      id, specialty, name, email,
+    } = user;
+    return {
+      id, specialty, name, email,
+    };
+  }
   const {
     temperature, pulse, bloodSugar, systolic, diastolic, weight, height,
   } = user;

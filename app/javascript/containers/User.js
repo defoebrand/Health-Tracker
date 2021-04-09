@@ -16,16 +16,17 @@ const User = ({ user }) => {
 
   return (
     <>
-      {console.log(user)}
-      {user === {} ? (
-        <>
-          {' '}
-          <h1 style={{ marginTop: '25vh' }}>Hello</h1>
-          {' '}
-        </>
+      {Object.keys(user).includes('specialty') ? (
+        <div className="welcomeBanner flex-center">
+          <h1 style={{ whiteSpace: 'nowrap' }}>{`Hello ${user.name}!`}</h1>
+          <img
+            src="/images/blank-profile-pic.png"
+            alt={`${user.name} profile pic`}
+            className="userImage"
+          />
+        </div>
       ) : (
         <>
-          {' '}
           <div className="welcomeBanner flex-center">
             <h1 style={{ whiteSpace: 'nowrap' }}>{`Hello ${user.name}!`}</h1>
             <img

@@ -7,7 +7,7 @@ class DoctorsController < ApplicationController
     @doctor = Doctor.create(doctor_params)
 
     if @doctor.valid?
-      token = encode_token({ user_id: @doctor.id })
+      token = encode_token({ doctor_id: @doctor.id })
       render json: { user: cleanse_user(@doctor), token: token }
     else
       render json: { error: 'Incorrect Input Supplied' }

@@ -27,8 +27,13 @@ class ApplicationController < ActionController::Base
   def logged_in_user
     return unless decoded_token
 
-    user_id = decoded_token[0]['user_id']
-    @current_user = User.find_by(id: user_id)
+    if decoded_token[0]['user_id']
+      user_id = decoded_token[0]['user_id']
+      @current_user = User.find_by(id: user_id)
+    else
+      user_id = decoded_token[0]['doctor_id']
+      @current_user = Doctor.find_by(id: user_id)
+    end
   end
 
   def logged_in?

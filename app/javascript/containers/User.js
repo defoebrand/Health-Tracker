@@ -25,8 +25,11 @@ const User = ({ user }) => {
               alt={`${user.name} profile pic`}
               className="userImage"
             />
+            {console.log(user.appointments)}
+            {user.appointments.map(appt => (
+              <p key={appt.id}>{appt.user.name}</p>
+            ))}
           </div>
-          {user.appointments.forEach(appt => (<p key={appt.id}>{appt.user.name}</p>))}
         </>
       ) : (
         <>

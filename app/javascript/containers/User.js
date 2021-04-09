@@ -26,7 +26,7 @@ const User = ({ user }) => {
               className="userImage"
             />
           </div>
-          {user.appointments.forEach(appt => (<p key={appt}>{appt}</p>))}
+          {user.appointments.forEach(appt => (<p key={appt.id}>{appt.user.name}</p>))}
         </>
       ) : (
         <>

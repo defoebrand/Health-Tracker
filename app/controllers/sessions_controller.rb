@@ -2,6 +2,7 @@ class SessionsController < ApplicationController
   before_action :authorized, only: %i[index]
 
   def index
+    puts @current_user
     @return_user = cleanse_user(@current_user)
     render json: @return_user
   end

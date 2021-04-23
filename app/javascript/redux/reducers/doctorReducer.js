@@ -13,6 +13,8 @@ const doctorReducer = (state = [], action) => {
       };
 
     case UPDATEDOC:
+      console.log('doctor action');
+      console.log(action);
       return {
         user: {
           id: action.input.id,

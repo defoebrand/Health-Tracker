@@ -17,7 +17,7 @@ import {
 
 import { checkLogin } from '../redux/thunks/sessions';
 
-const HeaderNav = ({ dispatch, user }) => {
+const HeaderNav = ({ dispatch, user, doctorUser }) => {
   const doctor = 'list';
   const history = useHistory();
 
@@ -26,12 +26,22 @@ const HeaderNav = ({ dispatch, user }) => {
     : localStorage.token;
 
   useEffect(() => {
-    if (user.name === '') {
+    console.log('heere');
+    let name;
+    if (user.name) {
+      name = user.name;
+    } else {
+      name = doctorUser.name;
+    }
+    if (name === '') {
       history.push('/home');
     } else {
-      history.push(`/users/${user.name}`);
+      console.log(name);
+      // window.location.reload();
+
+      history.push(`/users/${name}`);
     }
-  }, [user]);
+  }, [user, doctorUser]);
 
   useEffect(() => {
     dispatch(checkLogin(token)).then(data => {
@@ -110,6 +120,10 @@ HeaderNav.propTypes = {
     id: PropTypes.number,
     name: PropTypes.string,
   }),
+  doctorUser: PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.string,
+  }),
 };
 
 HeaderNav.defaultProps = {
@@ -117,8 +131,13 @@ HeaderNav.defaultProps = {
     id: 0,
     name: '',
   },
+  doctorUser: {
+    id: 0,
+    name: '',
+  },
 };
 
 export default connect(state => ({
   user: state.userReducer.user,
+  doctorUser: state.doctorReducer.user,
 }))(HeaderNav);
